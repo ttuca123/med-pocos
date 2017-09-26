@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+			integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+			crossorigin="anonymous" />
+	
+		<title>Med-Poços - Página Inicial</title>
+	</h:head>
+<div class="container">
+	<h:body>
+		<center>
+			<p:panel header="Login" style="width:50%">
+
+				<h:panelGrid columns="2" columnClasses="column" cellpadding="5">
+					<p:inplace id="txtLogin">
+						<p:inputText value="Usuário" />
+					</p:inplace>
+					<br />
+
+					<p:password id="inlineFeedback" value=""
+						promptLabel="Digite uma senha contendo letras e digitos"
+						feedback="true" inline="true" placeholder="Senha" />
+					<br />
+					<p:button value="Logar" />
+
+
+				</h:panelGrid>
+			</p:panel>
+		</center>	
+		
+	</h:body>
+</div>
+</html>
