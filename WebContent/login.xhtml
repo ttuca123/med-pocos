@@ -13,28 +13,29 @@
 	
 		<title>Med-Poços - Página Inicial</title>
 	</h:head>
-<div class="container">
-	<h:body>
-		<center>
-			<p:panel header="Login" style="width:50%">
-
-				<h:panelGrid columns="2" columnClasses="column" cellpadding="5">
-					<p:inplace id="txtLogin">
-						<p:inputText value="Usuário" />
-					</p:inplace>
-					<br />
-
-					<p:password id="inlineFeedback" value=""
-						promptLabel="Digite uma senha contendo letras e digitos"
-						feedback="true" inline="true" placeholder="Senha" />
-					<br />
-					<p:button value="Logar" />
-
-
-				</h:panelGrid>
-			</p:panel>
-		</center>	
+		<div class="card">
+  			<div class="card-body">
+			<h:body>
+				<form>
+		  <div class="form-group" >
+		    <label for="exampleInputEmail1">Email address</label>
+		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+		    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+		  </div>
+		  <div class="form-group">
+		    <label for="exampleInputPassword1">Password</label>
+		    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+		  </div>
+		  <div class="form-check">
+		    <label class="form-check-label">
+		      <input type="checkbox" class="form-check-input" />
+		      Check me out
+		    </label>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
 		
 	</h:body>
+	</div>
 </div>
 </html>
