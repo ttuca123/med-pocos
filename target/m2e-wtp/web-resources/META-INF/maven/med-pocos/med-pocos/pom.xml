@@ -122,7 +122,7 @@
 					<skip>false</skip>
 					<force>true</force>
 					<hostname>35.199.64.45</hostname>
-					<port>8090</port>
+					<port>9990</port>
 					<username>manager</username>
 					<password>Fb5kR9f1g9q7</password>
 				</configuration>
