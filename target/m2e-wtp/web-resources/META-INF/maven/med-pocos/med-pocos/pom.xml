@@ -121,10 +121,10 @@
 				<configuration>
 					<skip>false</skip>
 					<force>true</force>
-					<hostname>127.0.0.1</hostname>
+					<hostname>35.188.218.215</hostname>
 					<port>9990</port>
 					<username>manager</username>
-					<password>9I8sYmxsJc9W</password>
+					<password>EFd57mC6ZJ5U</password>
 				</configuration>
 			</plugin>
  
