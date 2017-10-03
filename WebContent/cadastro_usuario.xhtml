@@ -17,7 +17,24 @@
 </h:head>
 <h:body styleClass="w3-row-padding">
 	
-	<ui:include src="/menu/menu-principal.xhtml"></ui:include>
+	<h:form>
+		<h:outputLabel value="Cadastro de Usuários do Sistema"></h:outputLabel>
+		<br/></br>
+		<h:outputLabel value="Nome"></h:outputLabel>
+		<h:inputText id="nome" value="#{usuarioBean.usuario.nome}"></h:inputText>
+		<br></br>
+		<h:outputLabel value="Sobrenome"></h:outputLabel>
+		<h:inputText id="sobrenome" value="#{usuarioBean.usuario.sobrenome}"></h:inputText>
+		<br></br>
+		<h:outputLabel value="Email"></h:outputLabel>
+		<h:inputText id="email" value=#{usuarioBean.usuario.email}></h:inputText>
+		<br></br>
+		<h:outputLabel value="Telefone"></h:outputLabel>
+		<h:inputText id="telefone" value=#{usuarioBean.usuario.telefone}></h:inputText>
+		<br></br>
+		
+		<h:commandButton value="Cadastrar" action="#{usuarioBean.usuario.novo}"></h:commandButton>	
+	</h:form>
 	
 	
 	
