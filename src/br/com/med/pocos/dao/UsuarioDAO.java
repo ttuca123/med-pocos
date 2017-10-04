@@ -13,13 +13,6 @@ public class UsuarioDAO extends GenericDAO {
 	@PersistenceContext(unitName = "med-pocos")
 	public EntityManager em;
 
-	@Inject
-	UsuarioDAO(EntityManager entityManager){
-		this.em = em;
-	}
-	
-	
-
 	public <T> void save(T objeto) {
 
 		try {
