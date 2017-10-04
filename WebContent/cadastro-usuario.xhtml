@@ -4,22 +4,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"	
-	>
-	
+	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="/css/estilo.css" />	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-	<title>Med-Poços</title>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Montserrat" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/estilo.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+		<title>Cadastro de Usuários</title>
 </h:head>
 <h:body styleClass="w3-row-padding">
-	
+
 	<h:form>
 		<h:outputLabel value="Cadastro de Usuários do Sistema"></h:outputLabel>
-		<br/></br>
+		<br />
+		<br />
 		<h:outputLabel value="Nome"></h:outputLabel>
 		<h:inputText id="nome" value="#{usuarioBean.usuario.nome}"></h:inputText>
 		<br></br>
@@ -27,16 +32,17 @@
 		<h:inputText id="sobrenome" value="#{usuarioBean.usuario.sobrenome}"></h:inputText>
 		<br></br>
 		<h:outputLabel value="Email"></h:outputLabel>
-		<h:inputText id="email" value=#{usuarioBean.usuario.email}></h:inputText>
+		<h:inputText id="email" value="#{usuarioBean.usuario.email}"></h:inputText>
 		<br></br>
 		<h:outputLabel value="Telefone"></h:outputLabel>
-		<h:inputText id="telefone" value=#{usuarioBean.usuario.telefone}></h:inputText>
+		<h:inputText id="telefone" value="#{usuarioBean.usuario.telefone}" />
 		<br></br>
-		
-		<h:commandButton value="Cadastrar" action="#{usuarioBean.usuario.novo}"></h:commandButton>	
+
+		<h:commandButton value="Cadastrar"
+			action="#{usuarioBean.salvar}" />
+			
 	</h:form>
-	
-	
-	
+
+
 </h:body>
 </html>

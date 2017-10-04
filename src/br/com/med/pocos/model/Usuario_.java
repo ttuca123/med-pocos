@@ -1,11 +1,11 @@
-package br.com.med.pocos.bean;
+package br.com.med.pocos.model;
 
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2017-10-02T23:22:50.310-0300")
+@Generated(value="Dali", date="2017-10-03T20:23:09.558-0300")
 @StaticMetamodel(Usuario.class)
 public class Usuario_ {
 	public static volatile SingularAttribute<Usuario, Long> seqUsuario;

@@ -5,19 +5,23 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/**
+ * Classe responsável por gerenciar os métodos DAO
+ * 
+ * @author Artur
+ *
+ */
+
 public abstract class GenericDAO {
 
-	@PersistenceContext(name = "pocos")
-	protected EntityManager em;
+	
+	
+	public abstract <T> void save(T objeto);
 
-	public <T> void salvar(T objeto) {
+	public abstract List<?> list(String tabela);
 
-		em.persist(objeto);
-	}
+	public abstract Object getObject(Class<?> entityClass, Long seqId);
 
-	public List<?> listar(String tabela) {
+	public abstract <T> void remove(T objeto);
 
-		return em.createQuery("SELECT * FROM " + tabela + " US WHERE US.HAS_ATIVO=1").getResultList();
-
-	}
 }

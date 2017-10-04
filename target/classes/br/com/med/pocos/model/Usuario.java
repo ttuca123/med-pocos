@@ -1,4 +1,4 @@
-package br.com.med.pocos.bean;
+package br.com.med.pocos.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 
 /**
  * Entidade responsável pela manutenção dos usuários do sistema
+ * 
  * @author Artur
  *
  */
@@ -22,13 +23,20 @@ import javax.persistence.TemporalType;
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
 
-	/**
-	 * 
-	 */
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setSeqUsuario(Long seqUsuario) {
+		this.seqUsuario = seqUsuario;
+	}
+
 	private static final long serialVersionUID = -6364430259474459733L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name="seq_usuario")
 	private Long seqUsuario;
 
 	@Column(name = "nome")
@@ -50,7 +58,6 @@ public class Usuario implements Serializable {
 	@Column(name = "has_ativo")
 	private Boolean isAtivo;
 
-	
 	public Boolean getIsAtivo() {
 		return isAtivo;
 	}

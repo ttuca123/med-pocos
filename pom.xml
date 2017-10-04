@@ -1,11 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>med-pocos</groupId>
-  <artifactId>med-pocos</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>med-pocos</groupId>
+	<artifactId>med-pocos</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>2.4.1.Final</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.mashape.unirest</groupId>
@@ -17,6 +25,7 @@
 			<groupId>javax.ejb</groupId>
 			<artifactId>ejb-api</artifactId>
 			<version>3.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -44,13 +53,14 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.5.Final</version>
+			 <scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.3.5.Final</version>
-
+ 			<scope>provided</scope>
 		</dependency>
 
 
@@ -58,6 +68,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-jmx</artifactId>
 			<version>3.5.6-Final</version>
+			 <scope>provided</scope>
 		</dependency>
 
 
@@ -65,6 +76,7 @@
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
 			<version>5.0.0.Final</version>
+			 <scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -100,8 +112,8 @@
 		</dependency>
 
 	</dependencies>
-  
-  <build>
+
+	<build>
 		<finalName>med-pocos</finalName>
 		<sourceDirectory>src</sourceDirectory>
 
@@ -114,7 +126,7 @@
 
 		<plugins>
 
-			 <plugin>
+			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>1.1.0.Final</version>
@@ -127,7 +139,7 @@
 					<password>EFd57mC6ZJ5U</password>
 				</configuration>
 			</plugin>
- 
+
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
@@ -152,8 +164,8 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build> 
-  
-  
-  
+	</build>
+
+
+
 </project>

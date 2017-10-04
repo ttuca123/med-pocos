@@ -2,16 +2,49 @@ package br.com.med.pocos.services;
 
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import br.com.med.pocos.bean.Usuario;
+import br.com.med.pocos.dao.UsuarioDAO;
+import br.com.med.pocos.model.Usuario;
 
-@Remote
-public interface UsuarioService extends GenericService {
+@Named
+public class UsuarioService {
 
-	public List<Usuario> getUsuarios();
-	
-	
+	@Inject
+	UsuarioDAO usuarioDAO;
 
-	
+	public UsuarioService() {
+
+	}
+
+	private String TABELA = "USUARIOS";
+
+	public void salvar(Object usuario) {
+
+		usuarioDAO.save(usuario);
+
+	}
+
+	public Object getUsuario(Long seqId) {
+
+		return usuarioDAO.getObject(Usuario.class, seqId);
+
+	}
+
+	public void deletar(Long seqId) {
+
+		Usuario usuario = (Usuario) usuarioDAO.getObject(Usuario.class, seqId);
+		usuarioDAO.remove(usuario);
+
+	}
+
+	public List<Usuario> getUsuarios() {
+
+		List<Usuario> usuarios = (List<Usuario>) usuarioDAO.list(TABELA);
+
+		return usuarios;
+
+	}
+
 }
