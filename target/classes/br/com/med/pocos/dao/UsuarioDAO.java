@@ -5,52 +5,89 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
+import br.com.med.pocos.model.Usuario;
+import br.com.med.pocos.services.UsuarioService;
+import br.com.med.pocos.util.EntityManagerProducer;
+import br.com.med.pocos.util.Transactional;
 
 @Named
-public class UsuarioDAO extends GenericDAO {
+public class UsuarioDAO implements GenericDAO {
 
-	@PersistenceContext(unitName = "med-pocos")
-	public EntityManager em;
+	EntityManagerProducer producer;
 
-	public <T> void save(T objeto) {
+	EntityManager emP;
 
+	@Inject
+	UsuarioService usuarioService;
+
+	@Inject
+	public UsuarioDAO(EntityManager em, EntityManagerProducer producer) {
+		this.producer = producer;
+
+		emP = em;
+	}
+
+	public void save(Usuario objeto) {
+		EntityManager em = null;
+		
 		try {
+
+			em = producer.criaEntityManager();
 
 			em.getTransaction().begin();
 
 			em.persist(objeto);
-
 			em.getTransaction().commit();
+			// emP.persist(objeto);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			em.getTransaction().rollback();
 		}
 
 	}
 
 	public List<?> list(String tabela) {
 
-		return em.createQuery("SELECT * FROM " + tabela + " US WHERE US.HAS_ATIVO=1").getResultList();
+		return emP.createQuery("SELECT * FROM " + tabela + " US WHERE US.HAS_ATIVO=1").getResultList();
 
 	}
 
 	public Object getObject(Class<?> entityClass, Long seqId) {
 
-		return em.find(entityClass, seqId);
+		return emP.find(entityClass, seqId);
 	}
 
+	@Transactional
 	public <T> void remove(T objeto) {
 
+		EntityManager em = null;
+		
 		try {
+
+			em = producer.criaEntityManager();
+
 			em.getTransaction().begin();
 
 			em.remove(objeto);
-
 			em.getTransaction().commit();
+			// emP.persist(objeto);
+
+		} catch (Exception e) {
+
+			em.getTransaction().rollback();
+		}
+		
+		
+		try {
+
+			emP.remove(objeto);
+
+			emP.getTransaction().commit();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			em.getTransaction().rollback();
+			emP.getTransaction().rollback();
 		}
 
 	}

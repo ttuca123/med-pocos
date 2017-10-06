@@ -1,42 +1,27 @@
 package br.com.med.pocos.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
- * Entidade responsável pela manutenção dos usuários do sistema
- * 
- * @author Artur
+ * Entity implementation class for Entity: Usuario
  *
  */
-
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
-
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public void setSeqUsuario(Long seqUsuario) {
-		this.seqUsuario = seqUsuario;
-	}
-
-	private static final long serialVersionUID = -6364430259474459733L;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name="seq_usuario")
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
+	@SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence")
+	@Column(name = "seq_usuario", columnDefinition = "serial not null")
 	private Long seqUsuario;
 
 	@Column(name = "nome")
@@ -51,23 +36,26 @@ public class Usuario implements Serializable {
 	@Column(name = "telefone")
 	private String telefone;
 
-	@Column(name = "dt_cadastro")
-	@Temporal(value = TemporalType.TIMESTAMP)
-	private Date dtCadastro;
+	private static final long serialVersionUID = 1L;
 
-	@Column(name = "has_ativo")
-	private Boolean isAtivo;
-
-	public Boolean getIsAtivo() {
-		return isAtivo;
+	public Usuario() {
+		super();
 	}
 
-	public void setIsAtivo(Boolean isAtivo) {
-		this.isAtivo = isAtivo;
+	public Usuario(Long id) {
+		this.setSeqUsuario(id);
+	}
+
+	public Long getSeqUsuario() {
+		return this.seqUsuario;
+	}
+
+	public void setSeqUsuario(Long seqUsuario) {
+		this.seqUsuario = seqUsuario;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -75,7 +63,7 @@ public class Usuario implements Serializable {
 	}
 
 	public String getSobrenome() {
-		return sobrenome;
+		return this.sobrenome;
 	}
 
 	public void setSobrenome(String sobrenome) {
@@ -83,7 +71,7 @@ public class Usuario implements Serializable {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -91,23 +79,11 @@ public class Usuario implements Serializable {
 	}
 
 	public String getTelefone() {
-		return telefone;
+		return this.telefone;
 	}
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	public Date getDtCadastro() {
-		return dtCadastro;
-	}
-
-	public void setDtCadastro(Date dtCadastro) {
-		this.dtCadastro = dtCadastro;
-	}
-
-	public Long getSeqUsuario() {
-		return seqUsuario;
 	}
 
 }

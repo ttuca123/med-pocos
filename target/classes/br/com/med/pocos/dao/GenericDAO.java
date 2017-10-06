@@ -2,8 +2,7 @@ package br.com.med.pocos.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import br.com.med.pocos.model.Usuario;
 
 /**
  * Classe responsável por gerenciar os métodos DAO
@@ -12,11 +11,9 @@ import javax.persistence.PersistenceContext;
  *
  */
 
-public abstract class GenericDAO {
+public interface GenericDAO {
 
-	
-	
-	public abstract <T> void save(T objeto);
+	public abstract void save(Usuario usuario);
 
 	public abstract List<?> list(String tabela);
 

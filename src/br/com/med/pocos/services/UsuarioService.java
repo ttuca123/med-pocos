@@ -2,17 +2,33 @@ package br.com.med.pocos.services;
 
 import java.util.List;
 
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import br.com.med.pocos.dao.UsuarioDAO;
 import br.com.med.pocos.model.Usuario;
+import br.com.med.pocos.util.EntityManagerProducer;
 
 @Named
 public class UsuarioService {
 
+	EntityManagerProducer producer;
+
+//	@Produces
+//	@PersistenceContext(unitName = "PostgresDS")
+//	public EntityManager entityManager;
+
 	@Inject
-	UsuarioDAO usuarioDAO;
+	public UsuarioService(EntityManagerProducer producer) {
+		this.producer = producer;
+
+	}
+
+	// @Inject
+	private UsuarioDAO usuarioDAO;
 
 	public UsuarioService() {
 
@@ -20,7 +36,7 @@ public class UsuarioService {
 
 	private String TABELA = "USUARIOS";
 
-	public void salvar(Object usuario) {
+	public void salvar(Usuario usuario) {
 
 		usuarioDAO.save(usuario);
 
