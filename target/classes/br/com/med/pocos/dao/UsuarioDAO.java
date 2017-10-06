@@ -48,9 +48,9 @@ public class UsuarioDAO implements GenericDAO {
 
 	}
 
-	public List<?> list(String tabela) {
+	public List<?> list() {
 
-		return emP.createQuery("SELECT * FROM " + tabela + " US WHERE US.HAS_ATIVO=1").getResultList();
+		return emP.createNamedQuery("Usuario.buscaUsuarios").getResultList();
 
 	}
 

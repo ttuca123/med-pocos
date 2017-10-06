@@ -34,7 +34,7 @@ public class UsuarioService {
 
 	}
 
-	private String TABELA = "USUARIOS";
+	
 
 	public void salvar(Usuario usuario) {
 
@@ -55,12 +55,6 @@ public class UsuarioService {
 
 	}
 
-	public List<Usuario> getUsuarios() {
-
-		List<Usuario> usuarios = (List<Usuario>) usuarioDAO.list(TABELA);
-
-		return usuarios;
-
-	}
+	
 
 }

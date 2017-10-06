@@ -15,7 +15,7 @@ public interface GenericDAO {
 
 	public abstract void save(Usuario usuario);
 
-	public abstract List<?> list(String tabela);
+	public abstract List<?> list();
 
 	public abstract Object getObject(Class<?> entityClass, Long seqId);
 

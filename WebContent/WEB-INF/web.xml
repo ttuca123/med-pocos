@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>med-pocos</display-name>
 	<welcome-file-list>
-		<welcome-file>cadastro-usuario.xhtml</welcome-file>
+		<welcome-file>painel_principal.xhtml</welcome-file>
 
 	</welcome-file-list>
 

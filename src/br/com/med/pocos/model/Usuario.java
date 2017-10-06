@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -14,6 +15,8 @@ import javax.persistence.Table;
  * Entity implementation class for Entity: Usuario
  *
  */
+@NamedQuery(name="Usuario.buscaUsuarios", 
+query="select u from Usuario u ")
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
@@ -35,6 +38,17 @@ public class Usuario implements Serializable {
 
 	@Column(name = "telefone")
 	private String telefone;
+	
+	@Column(name = "is_ativo")
+	private Boolean isAtivo;
+
+	public Boolean getIsAtivo() {
+		return isAtivo;
+	}
+
+	public void setIsAtivo(Boolean isAtivo) {
+		this.isAtivo = isAtivo;
+	}
 
 	private static final long serialVersionUID = 1L;
 

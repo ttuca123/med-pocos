@@ -17,9 +17,11 @@
 <h:body styleClass="w3-black">
 	
 		<p:dock position="bottom">
-			<p:menuitem value="Home" icon="/images/home.png" url="index.xhtml"/>
-   	 		<p:menuitem value="Poços"  icon="/images/home.png" url="index.xhtml"/>  	 		    
-   	 		<p:menuitem value="Clientes" icon="/images/lista.png" url="index.xhtml"/>
+			<p:menuitem value="Home" icon="/images/home.png" url="painel_principal.xhtml"/>
+   	 		<p:menuitem value="Usuários"  icon="/images/home.png" url="#{usuarioBean.listar}"/>  	 		    
+   	 		<p:menuitem value="Clientes" icon="/images/lista.png" url="listar_usuarios.xhtml"/>
+   	 		<p:menuitem value="Propriedades" icon="/images/lista.png" url="listar_usuarios.xhtml"/>
+   	 		<p:menuitem value="Portarias" icon="/images/lista.png" url="listar_usuarios.xhtml"/>
    	 		
 		</p:dock>
 	
