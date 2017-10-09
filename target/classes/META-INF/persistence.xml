@@ -7,8 +7,9 @@
 	<persistence-unit name="med-pocos" transaction-type="JTA">
 	
 	<!--  <persistence-unit name="PostgresDS" transaction-type="JTA"> -->
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		 <jta-data-source>java:/med-pocos</jta-data-source>	
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		 <jta-data-source>java:/med-pocos</jta-data-source>
+		 <class>br.com.med.pocos.model.Usuario</class>	
 
 		<properties>
 			<property name="hibernate.default_schema" value="desenvolvimento" />		
@@ -18,7 +19,7 @@
 
 			<property name="hibernate.show_sql" value="true" />
 
-			<!--  <property name="hibernate.hbm2ddl.auto" value="create" /> -->d
+			<!--  <property name="hibernate.hbm2ddl.auto" value="create" /> -->
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
@@ -39,16 +40,7 @@
 			<property name="hibernate.c3p0.idle_test_period" value="3000" />
 			<property name="hibernate.id.new_generator_mappings" value="true"/>
 
-
-
 		</properties>
-
-
 	</persistence-unit>
-	
-	
-	
-
-
 
 </persistence>
