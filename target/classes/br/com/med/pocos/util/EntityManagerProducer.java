@@ -3,27 +3,33 @@ package br.com.med.pocos.util;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
+import javax.faces.bean.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
-@RequestScoped
+@ApplicationScoped
 public class EntityManagerProducer implements Serializable{
 
 	@PersistenceContext(name="PostgresDS")
 	private EntityManager entityManager2;
 	
-	private EntityManagerFactory factory = Persistence.createEntityManagerFactory("PostgresDS");
-    private EntityManager entityManager = factory.createEntityManager();
+	private EntityManagerFactory factory;
+    private EntityManager entityManager;
 
+    public EntityManagerProducer(){
+    	factory = Persistence.createEntityManagerFactory("PostgresDS");
+    }
+    
+    
 	 @Produces
-	    @RequestScoped
+	 @RequestScoped
 	    public EntityManager criaEntityManager(){
+		 
+		 entityManager = factory.createEntityManager();
 	        return entityManager;
 	    }
 

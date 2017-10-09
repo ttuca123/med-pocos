@@ -1,0 +1,9 @@
+br\com\med\pocos\bean\UsuarioBean.class
+br\com\med\pocos\services\UsuarioService.class
+br\com\med\pocos\util\EntityManagerProducer.class
+br\com\med\pocos\dao\UsuarioDAO.class
+br\com\med\pocos\model\Usuario.class
+br\com\med\pocos\dao\GenericDAO.class
+br\com\med\pocos\services\GenericService.class
+br\com\med\pocos\util\Transactional.class
+br\com\med\pocos\util\TransactionInterceptor.class
