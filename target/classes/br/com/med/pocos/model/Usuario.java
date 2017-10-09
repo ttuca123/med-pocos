@@ -16,7 +16,7 @@ import javax.persistence.Table;
  *
  */
 @NamedQuery(name="Usuario.buscaUsuarios", 
-query="select u from Usuario u ")
+query="select u from Usuario u where u.isAtivo = true ")
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
@@ -39,7 +39,8 @@ public class Usuario implements Serializable {
 	@Column(name = "telefone")
 	private String telefone;
 	
-	@Column(name = "is_ativo")
+	
+	@Column(name = "is_ativo", nullable = false)
 	private Boolean isAtivo;
 
 	public Boolean getIsAtivo() {

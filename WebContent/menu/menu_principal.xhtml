@@ -13,24 +13,31 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="/css/estilo.css" />
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-		crossorigin="anonymous" />
-	<title>Med-Poços</title>
+
 </h:head>
-<h:body styleClass="w3-row-padding">
+<h:body styleClass="w3-black">
 
-	
-	<div class="jumbotron">
 
-		<h3 align="center" class="display-3">Sistema de Medidor de Poço</h3>
+	<div style="padding: 50px 0px 50px 0px; text-align: center;">
+		<h:form >
 
-		
+
+			<p:commandLink title="Home" action="painel_principal.xhtml"
+				ajax="false">
+				<p:graphicImage value="/images/home.png" width="135px"
+					style="padding-left:20px; padding-right:40px" />
+			</p:commandLink>
+			
+			<p:commandLink title="Usuários" action="listar_usuarios.xhtml"
+				ajax="false">
+				<p:graphicImage value="/images/user.png" width="135px"
+					style="padding-left:20px; padding-right:40px" />
+			</p:commandLink>
+
+
+
+		</h:form>
 	</div>
-	<ui:include src="/menu/menu_principal.xhtml" />
-
-	
 
 </h:body>
 </html>
