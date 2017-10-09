@@ -4,12 +4,20 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<persistence-unit name="med-pocos" transaction-type="JTA">
+	<persistence-unit name="PostgresDS" transaction-type="JTA">
 	
 	<!--  <persistence-unit name="PostgresDS" transaction-type="JTA"> -->
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		 <jta-data-source>java:/med-pocos</jta-data-source>
-		 <class>br.com.med.pocos.model.Usuario</class>	
+		 <jta-data-source>java:/PostgresDS</jta-data-source>
+		
+		 <class>br.com.med.pocos.model.Usuario</class>
+		 <class>br.com.med.pocos.model.Endereco</class>
+		 <class>br.com.med.pocos.model.Empreendimento</class>
+		 <class>br.com.med.pocos.model.Poco</class>
+		  <class>br.com.med.pocos.model.Proprietario</class>
+		
+		 
+		 
 
 		<properties>
 			<property name="hibernate.default_schema" value="desenvolvimento" />		
@@ -19,7 +27,7 @@
 
 			<property name="hibernate.show_sql" value="true" />
 
-			<!--  <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+			  <property name="hibernate.hbm2ddl.auto" value="create" /> 
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 

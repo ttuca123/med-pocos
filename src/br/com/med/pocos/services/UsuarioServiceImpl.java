@@ -1,5 +1,6 @@
 package br.com.med.pocos.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -21,8 +22,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setIsAtivo(true);
 		
 		if (usuario.getSeqUsuario() == null) {
+			
+			usuario.setDataCadastro(new Date());
+			
 			emService.getEntityManager().persist(object);
+			
 		} else {
+			
 			emService.getEntityManager().merge(object);
 		}
 

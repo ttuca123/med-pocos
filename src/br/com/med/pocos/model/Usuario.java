@@ -1,6 +1,7 @@
 package br.com.med.pocos.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Entity implementation class for Entity: Usuario
@@ -39,7 +42,19 @@ public class Usuario implements Serializable {
 	@Column(name = "telefone")
 	private String telefone;
 	
+	@Column(name = "data_cadastro")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
 	
+	
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
 	@Column(name = "is_ativo", nullable = false)
 	private Boolean isAtivo;
 

@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "EntityManagerService")
 public class EntityManagerServiceImpl implements EntityManagerService {
 
-	@PersistenceContext(name = "med-pocos")
+	@PersistenceContext(name = "PostgresDS")
 	private EntityManager entityManager;
 
 	public EntityManager getEntityManager() {
