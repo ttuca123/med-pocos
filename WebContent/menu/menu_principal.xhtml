@@ -7,18 +7,13 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css?family=Montserrat" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="/css/estilo.css" />
+
 
 </h:head>
-<h:body styleClass="w3-black">
+<h:body>
 
-	<h:form >
-		<h3 style="margin-top: 0">Menu</h3>
+	<h:form>
+		<!--  <h3 style="margin-top: 0">Menu</h3>
 		<div class="ui-g">
 			<div class="ui-g-2">
 
@@ -39,8 +34,70 @@
 			</div>
 
 		</div>
+		
+		!-->
 
-</h:form>
+		<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><h:outputLabel value="#{msg['version.name']}" /></a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active">
+				
+				<p:commandLink title="Home" value="Home"
+						action="painelPrincipal" ajax="false">
+												
+					</p:commandLink>
+					
+					</li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Cadastro <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>
+							<p:commandLink title="Usuário" value="Usuário"
+								action="cadastrarUsuario" ajax="false">												
+							</p:commandLink>
+						</li>
+						<li><a href="#">Empreendimento</a></li>
+						<li><a href="#">Responsável / Empreendimento </a></li>
+						<li><a href="#">Portaria </a></li>
+					</ul></li>
+				 <li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Consulta <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">
+							<p:commandLink title="Usuários" value="Usuários"
+								action="listarUsuarios" ajax="false">												
+							</p:commandLink>								
+						</a></li>
+						<li><a href="#">Empreendimentos</a></li>
+						<li><a href="#">Responsável</a></li>
+						<li><a href="#">Portarias</a></li>
+					</ul></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Medição <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Poços Artesianos</a></li>
+						<li><a href="#">Hidrômetros Convencionais</a></li>						
+					</ul></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#">Relatórios <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Responsável / Empreendimento</a></li>
+						<li><a href="#">Monitoramento de Poços</a></li>
+						<li><a href="#">Grandes Consumidores</a></li>
+					</ul></li>
+				<li><a href="#">Sair</a></li>	
+				
+			</ul>
+		</div>
+		</nav>
+		<div align="right"><h:outputLabel value="#{msg['version.system']}" /></div><br/>
+
+
+
+	</h:form>
 
 </h:body>
 </html>

@@ -36,7 +36,7 @@ public class UsuarioBean implements Serializable {
 
 		usuario = new Usuario();
 
-		return "cadastro_usuario?faces-redirect=true";
+		return "cadastrarUsuario";
 	}
 
 	@PostConstruct
@@ -76,7 +76,7 @@ public class UsuarioBean implements Serializable {
 
 		usuarios = (List<Usuario>) usuarioService.listar();
 
-		return "listar_usuarios.xhtml";
+		return "listar_usuarios";
 	}
 
 	public List<Usuario> getUsuarios() {

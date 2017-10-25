@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.util.EntityManagerService;
+import br.com.med.pocos.util.Utils;
 
 @Stateless(name = "usuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
@@ -24,18 +25,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Usuario usuario = (Usuario) object;
 		usuario.setIsAtivo(true);
 		
-		String senhaMD5 = usuario.getSenha();
-		
-		MessageDigest m = null;
-		try {
-			m = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		m.update(senhaMD5.getBytes(), 0, senhaMD5.length());
-		
-		senhaMD5 = new BigInteger(1, m.digest()).toString();
+		String senhaMD5 = Utils.gerarMD5(usuario.getSenha());	
 		
 		usuario.setSenha(senhaMD5);
 		
@@ -79,7 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		try {
 			emService.getEntityManager().createNamedQuery("Usuario.verificaUsuario")
-					.setParameter("email", email).setParameter("senha", senha).getSingleResult();
+					.setParameter("email", email).setParameter("senha", Utils.gerarMD5(senha)).getSingleResult();
 			
 		} catch (Exception e) {
 			

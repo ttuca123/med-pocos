@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 	query="select u from Usuario u where u.isAtivo = true "),
 	
 	@NamedQuery(name="Usuario.verificaUsuario", 
-	query="select u from Usuario u where u.email = :email AND u.senha = :senha")})
+	query="select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true")})
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {

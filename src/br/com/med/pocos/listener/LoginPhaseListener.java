@@ -26,7 +26,7 @@ public class LoginPhaseListener implements PhaseListener {
 		
 		HttpSession session  = (HttpSession) facesContext.getExternalContext().getSession(true);
 		
-		String user = (String) session.getAttribute("currentUser");
+		String user = (String) session.getAttribute("user");
 		
 		if(!isLoginPage && user == null) {
 			

@@ -40,7 +40,7 @@ public class LoginBean implements Serializable{
 		if (valid) {
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("user", usuario.getEmail());
-			return "painel_principal?faces-redirect=true";
+			return "painelPrincipal";
 			
 		} else {
 			Utils.addMessageAviso("Login ou senha incorreta");		
