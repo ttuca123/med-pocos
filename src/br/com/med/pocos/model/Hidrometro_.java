@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2017-11-08T07:55:41.883-0300")
+@Generated(value="Dali", date="2017-11-10T09:37:17.041-0300")
 @StaticMetamodel(Hidrometro.class)
 public class Hidrometro_ {
 	public static volatile SingularAttribute<Hidrometro, Long> seqPoco;

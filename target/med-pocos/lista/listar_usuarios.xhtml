@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css?family=Montserrat" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/estilo.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+	<title>Lista de Usuários</title>
+</h:head>
+<h:body styleClass="w3-row-padding">
+	
+	<div class="jumbotron">
+
+		<h3 align="center" class="display-4">Lista de Usuários</h3>
+	</div>
+	
+	
+	<h:form>
+	<div class="form-group">
+							<div class="control-label col-sm-2">
+								<p class="lead">
+									<h:commandLink class="btn btn-primary btn-lg" update="growl"
+										ajax="false" action="painel_principal.xhtml">
+
+										<h:outputText value="Voltar" />
+
+									</h:commandLink>
+								</p>
+							</div>
+						</div>
+	
+		<div class="form-group">
+			<div class="control-label col-sm-2">
+				<p class="lead">
+					<h:commandLink class="btn btn-primary btn-lg" ajax="true"
+						action="#{usuarioBean.novo}">
+
+						<h:outputText value="Novo *" />
+
+					</h:commandLink>
+				</p>
+			</div>
+		</div>
+
+	</h:form>
+
+	<h:form id="formExibir">
+
+		<p:growl id="growl" autoUpdate="true" life="2000" />
+
+
+		<p:dataTable id="tblUsuarios" var="usuario"
+			filteredValue="#{usuarioBean.filteredUsuarios}"
+			value="#{usuarioBean.usuarios}" rows="20" paginator="true"
+			widgetVar="usuariosTable" scrollable="true" styleClass="paginated"
+			emptyMessage="Nenhum usuário encontrado com os critérios selecionados"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Usuários:" />
+				</p:outputPanel>
+
+			</f:facet>
+
+			<p:column headerText="Nome do Usuário"
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px">
+				<h:outputText value="#{usuario.nome}" style="display:inline-block" />
+
+			</p:column>
+
+
+			<p:column headerText="Sobrenome">
+				<h:outputText value="#{usuario.sobrenome}" />
+			</p:column>
+
+			<p:column headerText="Telefone">
+				<h:outputText value="#{usuario.telefone}" />
+			</p:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{usuario.email}" />
+			</p:column>
+
+			<p:column headerText="Editar" style="width:100px" width="100px">
+				<p:commandLink update=":form:usuarioDetail"
+					oncomplete="PF('usuarioDialog').show()" title="Detalhar"
+					styleClass="ui-icon ui-icon-search"
+					style="float:left;margin-right:10px">
+					<f:setPropertyActionListener value="#{usuario}"
+						target="#{usuarioBean.usuario}" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column headerText="Excluir" style="width:100px" width="100px">
+
+				<p:commandLink title="Excluir" update=":formExcluir:Excluir"
+					oncomplete="PF('confirmation').show()" immediate="true">
+					<p:graphicImage value="./images/del.png" width="25px"
+						style="padding-left:10px" />
+					<f:setPropertyActionListener value="#{usuario}"
+						target="#{usuarioBean.usuario}" />
+				</p:commandLink>
+
+
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<h:form id="formExcluir">
+
+		<p:confirmDialog id="Excluir" closeOnEscape="true"
+			message="Confirma exclusão do usuário #{usuarioBean.usuario.nome} #{usuarioBean.usuario.sobrenome}?"
+			header="Excluir" severity="alert" widgetVar="confirmation">
+
+			<p:commandButton value="Sim" type="submit"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+				actionListener="#{usuarioBean.excluir}"
+				onclick="PF('confirmation').hide()" update=":formExibir:tblUsuarios"
+				immediate="true" />
+
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+				onclick="PF('confirmation').hide()" />
+
+		</p:confirmDialog>
+	</h:form>
+
+
+	<h:form id="form">
+		<p:dialog header="Editar usuario" widgetVar="usuarioDialog"
+			modal="true" hideEffect="explode" showEffect="bounce"
+			closeOnEscape="true" maximizable="true" id="dialogCadastrar"
+			resizable="true">
+			<p:outputPanel id="usuarioDetail" style="text-align:center;">
+				<p:panelGrid columns="3" columnClasses="label,value">
+					<f:facet name="header">
+
+					</f:facet>
+
+					<p:outputLabel value="Nome: *" />
+					<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
+						size="30" required="true"
+						requiredMessage="O campo Nome é obrigatório" />
+					<p:message for="nome" />
+
+					<p:outputLabel value="SobreNome: *" />
+					<p:inputText id="sobrenome" value="#{usuarioBean.usuario.sobrenome}"
+						size="30" required="true"
+						requiredMessage="O campo SobreNome é obrigatório" />
+					<p:message for="nome" />
+
+					<p:outputLabel value="Telefone: *" />
+					<p:inputText id="fone" value="#{usuarioBean.usuario.telefone}"
+						size="30" required="true"
+						requiredMessage="O campo SobreNome é obrigatório" />
+					<p:message for="fone" />
+
+					<p:outputLabel value="Email: *" />
+					<p:inputText id="email" value="#{usuarioBean.usuario.email}"
+						size="30" />
+					<p:message for="email" />
+
+
+					<p:growl id="messages" />
+
+					<p:splitButton value="Save" actionListener="#{usuarioBean.salvar}"
+						update="messages, formExibir" icon="ui-icon-disk">
+						<p:separator />
+						<p:menuitem value="Home" url="index.xhtml" icon="ui-icon-extlink" />
+					</p:splitButton>
+					<p:outputLabel value="" />
+
+				</p:panelGrid>
+
+			</p:outputPanel>
+
+		</p:dialog>
+
+	</h:form>	
+
+	
+
+</h:body>
+</html>
