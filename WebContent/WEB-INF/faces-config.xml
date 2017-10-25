@@ -17,13 +17,28 @@
 		</locale-config>
 
 	</application>
-	
-	<!-- 
-	<lifecycle>
 
-		<phase-listener>br.com.zenus.listeners.LoginPhaseListener</phase-listener>
-		<phase-listener>br.com.zenus.listeners.LocalePhaseListener</phase-listener>
+
+	<lifecycle>
+		<phase-listener>br.com.med.pocos.listener.LoginPhaseListener</phase-listener>
 	</lifecycle>
 
- -->
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>loginPage</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 </faces-config>

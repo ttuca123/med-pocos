@@ -1,9 +1,11 @@
+br\com\med\pocos\util\EntityManagerService.class
+br\com\med\pocos\services\UsuarioServiceImpl.class
 br\com\med\pocos\bean\UsuarioBean.class
+br\com\med\pocos\util\EntityManagerServiceImpl.class
 br\com\med\pocos\services\UsuarioService.class
-br\com\med\pocos\util\EntityManagerProducer.class
-br\com\med\pocos\dao\UsuarioDAO.class
 br\com\med\pocos\model\Usuario.class
-br\com\med\pocos\dao\GenericDAO.class
+br\com\med\pocos\model\Empreendimento.class
 br\com\med\pocos\services\GenericService.class
-br\com\med\pocos\util\Transactional.class
-br\com\med\pocos\util\TransactionInterceptor.class
+br\com\med\pocos\listener\LoginPhaseListener.class
+br\com\med\pocos\model\Responsavel.class
+br\com\med\pocos\model\Poco.class

@@ -11,17 +11,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Entity implementation class for Entity: Empreendimento
  *
  */
 @Entity
-
+@Table(name="empreendimento")
 public class Empreendimento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,27 +31,38 @@ public class Empreendimento implements Serializable {
 	}
 
 	@Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
-	@SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence")
+	 //@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)	
 	@Column(name = "seq_empreendimento", columnDefinition = "serial not null")
 	private Long seqEmpreendimento;
 
 	@Column(name = "descricao")
 	private String descricao;
 
-	@ManyToOne
-	@JoinColumn(name = "empreendimento_proprietario", nullable = false)
-	private List<Proprietario> proprietarios;
+	@OneToOne	
+	private Responsavel responsavel;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "empreendimento_poco")
-	private List<Poco> lstPocos;
+	private List<Poco> lstPocos;	
+	
+	@Transient
+	private String logradouro;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Endereco endereco;
+	@Transient
+	private String bairro;
 
-	private boolean isAtivo;
+	@Transient
+	private String municipio;
+
+	@Transient
+	private String estado;
+	
+	@Column(name = "cep", length=8)
+	private String cep;
+
+	@Column(name = "complemento", length=80)
+	private String complemento;
 
 	public Long getSeqEmpreendimento() {
 		return seqEmpreendimento;
@@ -69,28 +80,14 @@ public class Empreendimento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public List<Proprietario> getProprietarios() {
-		return proprietarios;
+	
+
+	public Responsavel getResponsavel() {
+		return responsavel;
 	}
 
-	public void setProprietarios(List<Proprietario> proprietarios) {
-		this.proprietarios = proprietarios;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
-	public boolean isAtivo() {
-		return isAtivo;
-	}
-
-	public void setAtivo(boolean isAtivo) {
-		this.isAtivo = isAtivo;
+	public void setResponsavel(Responsavel responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	public List<Poco> getLstPocos() {
@@ -100,5 +97,56 @@ public class Empreendimento implements Serializable {
 	public void setLstPocos(List<Poco> lstPocos) {
 		this.lstPocos = lstPocos;
 	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	
+
+	
 
 }

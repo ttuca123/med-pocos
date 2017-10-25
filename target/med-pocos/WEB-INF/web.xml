@@ -5,13 +5,13 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>med-pocos</display-name>
 	<welcome-file-list>
-		<welcome-file>painel_principal.xhtml</welcome-file>
+		<welcome-file>painel_principal.jsf</welcome-file>
 
 	</welcome-file-list>
 
 	<context-param>
 		<param-name>facelets.SKIP_COMMENTS</param-name>
-		<param-value>true</param-value>
+		<param-value>false</param-value>
 	</context-param>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -21,13 +21,21 @@
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
+		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
 
-	
 
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
+	<context-param>
+		<param-name>primefaces.skin</param-name>
+		<param-value>none</param-value>
+	</context-param>
 
 </web-app>
 

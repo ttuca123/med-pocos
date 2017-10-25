@@ -1,5 +1,8 @@
 package br.com.med.pocos.services;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +23,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		Usuario usuario = (Usuario) object;
 		usuario.setIsAtivo(true);
+		
+		String senhaMD5 = usuario.getSenha();
+		
+		MessageDigest m = null;
+		try {
+			m = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		m.update(senhaMD5.getBytes(), 0, senhaMD5.length());
+		
+		senhaMD5 = new BigInteger(1, m.digest()).toString();
+		
+		usuario.setSenha(senhaMD5);
 		
 		if (usuario.getSeqUsuario() == null) {
 			
@@ -54,6 +72,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<?> listar() {
 		// TODO Auto-generated method stub
 		return emService.getEntityManager().createNamedQuery("Usuario.buscaUsuarios").getResultList();
+	}
+
+	@Override
+	public boolean verifyUser(String email, String senha) {
+		
+		try {
+			emService.getEntityManager().createNamedQuery("Usuario.verificaUsuario")
+					.setParameter("email", email).setParameter("senha", senha).getSingleResult();
+			
+		} catch (Exception e) {
+			
+			return false;
+		}
+		
+		return true;
 	}
 
 }

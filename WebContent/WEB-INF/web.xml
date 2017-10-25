@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>med-pocos</display-name>
 	<welcome-file-list>
-		<welcome-file>painel_principal.jsf</welcome-file>
+		<welcome-file>login.jsf</welcome-file>
 
 	</welcome-file-list>
 
@@ -23,16 +23,33 @@
 		<url-pattern>*.xhtml</url-pattern>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
 
-	
 
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
 	<context-param>
-        <param-name>primefaces.skin</param-name>
-        <param-value>none</param-value>
-    </context-param>
+		<param-name>primefaces.skin</param-name>
+		<param-value>none</param-value>
+	</context-param>
+	
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error.xhtml</location>
+	</error-page>
 
 </web-app>
 

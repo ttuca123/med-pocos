@@ -10,11 +10,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="poco")
-public class Poco {
+public class Poco { 
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
-	@SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence")
+	@GeneratedValue(strategy = GenerationType.AUTO)	
 	@Column(name = "seq_poco", columnDefinition = "serial not null")
 	private Long seqPoco;
 	

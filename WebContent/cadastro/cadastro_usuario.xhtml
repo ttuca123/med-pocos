@@ -67,7 +67,6 @@
 							</div>
 						</div>
 
-
 						<div class="form-group">
 							<div class="control-label col-sm-2">
 
@@ -77,6 +76,18 @@
 								<h:inputText id="email" class="form-control"
 									a:placeholder="Por favor digite seu email"
 									value="#{usuarioBean.usuario.email}" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="control-label col-sm-2">
+
+								<h:outputLabel value="Email"></h:outputLabel>
+							</div>
+							<div class="col-sm-10">
+								<p:password id="password" class="form-control"
+									a:placeholder="#{msg['page.login.password.placeholder']}"
+									value="#{usuarioBean.usuario.senha}" />
 							</div>
 						</div>
 
