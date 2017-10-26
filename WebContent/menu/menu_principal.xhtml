@@ -25,23 +25,11 @@
 				<li class="active">
 				
 				<p:commandLink title="Home" value="Home"
-						action="painelPrincipal" ajax="false">
+						action="#" ajax="false">
 												
 					</p:commandLink>
 					
-					</li>
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Cadastro <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li>
-							<p:commandLink title="Usuário" value="Usuário"
-								action="cadastrarUsuario" ajax="false">												
-							</p:commandLink>
-						</li>
-						<li><a href="#">Empreendimento</a></li>
-						<li><a href="#">Responsável / Empreendimento </a></li>
-						<li><a href="#">Portaria </a></li>
-					</ul></li>
+					</li>				
 				 <li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">Consulta <span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -66,16 +54,28 @@
 						<li><a href="#">Responsável / Empreendimento</a></li>
 						<li><a href="#">Monitoramento de Poços</a></li>
 						<li><a href="#">Grandes Consumidores</a></li>
-					</ul></li>
-				<li><a href="#">Sair</a></li>	
+					</ul></li>				
 				
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <h:outputLabel value="#{loginBean.usuario.email}"/></a></li>
+				<li>
+				<h:commandLink ajax="false"
+								action="#{loginBean.logout}" value="#{msg['page.exit']}"
+								class="glyphicon glyphicon-log-in" />
+								</li>  
+		      		      
+		    </ul>
+			
+			
 		</div>
 		</nav>
-		<div align="right"><h:outputLabel value="#{msg['version.system']}" /></div><br/>
+		
+			<div class="well well-sm"><h:outputLabel value="#{msg['version.system']}" /></div> 
+		
 
-
-
+	
 	</h:form>
 
 </h:body>

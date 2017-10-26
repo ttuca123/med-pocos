@@ -33,11 +33,11 @@ public class UsuarioBean implements Serializable {
 	@EJB
 	private UsuarioService usuarioService;
 
-	public String novo() {
+	public void novo() {
 
 		usuario = new Usuario();
 
-		return "cadastrarUsuario";
+		//return "cadastrarUsuario";
 	}
 
 	@PostConstruct
@@ -54,6 +54,8 @@ public class UsuarioBean implements Serializable {
 		Utils.addMessage("Cadastro realizado com sucesso");
 
 		novo();
+		
+		getListar();
 
 	}
 	

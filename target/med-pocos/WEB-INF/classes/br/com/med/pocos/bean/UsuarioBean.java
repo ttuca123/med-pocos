@@ -15,6 +15,7 @@ import javax.faces.event.ActionEvent;
 
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.services.UsuarioService;
+import br.com.med.pocos.util.Utils;
 
 @ManagedBean(name = "usuarioBean")
 @ViewScoped
@@ -46,13 +47,13 @@ public class UsuarioBean implements Serializable {
 		
 	}
 
-	public String salvar() {
+	public void salvar() {
 
 		usuarioService.salvar(usuario);
 
-		addMessage("Cadastro realizado com sucesso");
+		Utils.addMessage("Cadastro realizado com sucesso");
 
-		return novo();
+		novo();
 
 	}
 	

@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<link rel="stylesheet"
@@ -26,34 +27,29 @@
 
 	<h:form>
 
-		<p:panel>
+		
 			<div class="container-fluid">
 			<div class="form-group row">				
 					<div class="col-2 col-form-label">
 						
-						<h:commandLink class="btn btn-outline-info" ajax="false"
+						<h:commandLink  ajax="false"
 									action="painelPrincipal" value="#{msg['page.home']}"
 									update="display" />
 													
 					</div>						
 					<div class="col-2 col-form-label">
-							<h:commandLink class="btn btn-success btn-lg" ajax="true"
+							<p:commandLink class="btn btn-success btn-lg" 
+							update=":form:usuarioDetail" immediate="true"
+							oncomplete="PF('usuarioDialog').show()"
 							action="#{usuarioBean.novo}">
 
 							<b><h:outputText value="Novo *" /> </b>
 
-						</h:commandLink>
+						</p:commandLink>
 					</div>
 						
 				</div>
-			</div>
-		
-		
-		
-		
-		
-		
-		
+			</div>		
 			<div class="form-group">
 				<div class="control-label col-sm-2">
 					
@@ -64,9 +60,9 @@
 					</p>
 				</div>
 			</div>
-		</p:panel>
+		
 	</h:form>
-
+<p:separator />
 	<h:form id="formExibir">
 
 		<p:growl id="growl" autoUpdate="true" life="2000" />
@@ -91,7 +87,6 @@
 				<h:outputText value="#{usuario.nome}" style="display:inline-block" />
 
 			</p:column>
-
 
 			<p:column headerText="Sobrenome">
 				<h:outputText value="#{usuario.sobrenome}" />
@@ -150,57 +145,78 @@
 
 
 	<h:form id="form">
-		<p:dialog header="Editar usuario" widgetVar="usuarioDialog"
+		<p:dialog header="Usuário" widgetVar="usuarioDialog"
 			modal="true" hideEffect="explode" showEffect="bounce"
 			closeOnEscape="true" maximizable="true" id="dialogCadastrar"
-			resizable="true">
-			<p:outputPanel id="usuarioDetail" style="text-align:center;">
-				<p:panelGrid columns="3" columnClasses="label,value">
-					<f:facet name="header">
+			resizable="true">	
+			
+			
+			<p:outputPanel id="usuarioDetail" style="text-align:center; width:600px;">
+				
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
+					<div class="col-10">
+						<p:inputText id="nome" class="form-control"
+							required="true" 
+							requiredMessage="O campo Nome é obrigatório"
+							a:placeholder="Por favor digite seu nome"
+							value="#{usuarioBean.usuario.nome}" />
+					</div>
+				</div>
+				<p:message for="nome" />
+				
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Sobrenome</label>
+					<div class="col-10">
+						<p:inputText id="sobrenome" class="form-control"
+							required="true"
+							requiredMessage="O campo Sobrenome é obrigatório"
+							a:placeholder="Por favor digite seu sobrenome"
+							value="#{usuarioBean.usuario.sobrenome}" >							 
+							</p:inputText>
+					</div>
+				</div>
+					<p:message for="sobrenome" />
+				
+				<div class="form-group row">
+					<label for="example-email-input" class="col-2 col-form-label">Email</label>
+					<div class="col-10">
+						<p:inputText id="email" class="form-control"
+							a:placeholder="Por favor digite seu email"
+							value="#{usuarioBean.usuario.email}" 
+							required="true"
+						    requiredMessage="O campo Email é obrigatório" />
+					</div>
+				</div>
+				<p:message for="email" />
 
-					</f:facet>
-
-					<p:outputLabel value="Nome: *" />
-					<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
-						size="30" required="true"
-						requiredMessage="O campo Nome é obrigatório" />
-					<p:message for="nome" />
-
-					<p:outputLabel value="SobreNome: *" />
-					<p:inputText id="sobrenome"
-						value="#{usuarioBean.usuario.sobrenome}" size="30" required="true"
-						requiredMessage="O campo SobreNome é obrigatório" />
-					<p:message for="nome" />
-
-					<p:outputLabel value="Telefone: *" />
-					<p:inputText id="fone" value="#{usuarioBean.usuario.telefone}"
-						size="30" required="true"
-						requiredMessage="O campo SobreNome é obrigatório" />
-					<p:message for="fone" />
-
-					<p:outputLabel value="Email: *" />
-					<p:inputText id="email" value="#{usuarioBean.usuario.email}"
-						size="30" />
-					<p:message for="email" />
-					
-					<p:outputLabel value="Nova Senha: " />
-					<p:password id="senha" value="#{usuarioBean.usuario.senha}"
-						size="12" required="true"
-						requiredMessage="O campo Senha é obrigatório" />
-						
+				<div class="form-group row">
+					<label for="example-tel-input" class="col-2 col-form-label">Senha</label>
+					<div class="col-10">
+						<p:password id="senha" class="form-control" size="12"
+							maxlength="12" a:placeholder="Por favor digite uma senha"
+							value="#{usuarioBean.usuario.senha}" 
+							required="true"	requiredMessage="O campo Senha é obrigatório"/>
+					</div>
+				</div>
 					<p:message for="senha" />
-
-
-					<p:growl id="messages" />
-
-					<p:splitButton value="Save" actionListener="#{usuarioBean.salvar}"
-						update="messages, formExibir" icon="ui-icon-disk">
-						<p:separator />
-						<p:menuitem value="Home" url="index.xhtml" icon="ui-icon-extlink" />
-					</p:splitButton>
-					<p:outputLabel value="" />
-
-				</p:panelGrid>
+					
+				<div class="form-group row">
+					<label for="phone" class="col-2 col-form-label">Telefone</label>
+					<div class="col-10">
+						<p:inputMask id="fone" class="form-control" value="#{usuarioBean.usuario.telefone}"
+							mask="(99)99999-9999" size="30" required="true"
+						   requiredMessage="O campo Telefone é obrigatório" />
+					</div>
+				</div>
+					<p:message for="fone" />
+			<p:separator />		
+			
+			<p:growl id="messages" />		
+			
+			<p:commandLink class="btn btn-success btn-lg btn-block"  value="Save" actionListener="#{usuarioBean.salvar}"
+						update="messages, formExibir" icon="ui-icon-disk" />	
+				
 
 			</p:outputPanel>
 
