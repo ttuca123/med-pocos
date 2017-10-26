@@ -7,53 +7,64 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" />
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css?family=Montserrat" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="/css/estilo.css" />
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
 		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href="css/sigin.css" />
 	<title>Lista de Usuários</title>
 </h:head>
 <h:body styleClass="w3-row-padding">
-	
+
+
+
 	<div class="jumbotron">
 
 		<h3 align="center" class="display-4">Lista de Usuários</h3>
 	</div>
-	
-	
+
 	<h:form>
-	<div class="form-group">
-							<div class="control-label col-sm-2">
-								<p class="lead">
-									<h:commandLink class="btn btn-primary btn-lg" update="growl"
-										ajax="false" action="painelPrincipal">
 
-										<h:outputText value="Voltar" />
+		<p:panel>
+			<div class="container-fluid">
+			<div class="form-group row">				
+					<div class="col-2 col-form-label">
+						
+						<h:commandLink class="btn btn-outline-info" ajax="false"
+									action="painelPrincipal" value="#{msg['page.home']}"
+									update="display" />
+													
+					</div>						
+					<div class="col-2 col-form-label">
+							<h:commandLink class="btn btn-success btn-lg" ajax="true"
+							action="#{usuarioBean.novo}">
 
-									</h:commandLink>
-								</p>
-							</div>
-						</div>
-	
-		<div class="form-group">
-			<div class="control-label col-sm-2">
-				<p class="lead">
-					<h:commandLink class="btn btn-primary btn-lg" ajax="true"
-						action="#{usuarioBean.novo}">
+							<b><h:outputText value="Novo *" /> </b>
 
-						<h:outputText value="Novo *" />
-
-					</h:commandLink>
-				</p>
+						</h:commandLink>
+					</div>
+						
+				</div>
 			</div>
-		</div>
-
+		
+		
+		
+		
+		
+		
+		
+			<div class="form-group">
+				<div class="control-label col-sm-2">
+					
+					<p class="lead">
+						
+					
+						
+					</p>
+				</div>
+			</div>
+		</p:panel>
 	</h:form>
 
 	<h:form id="formExibir">
@@ -75,9 +86,8 @@
 
 			</f:facet>
 
-			<p:column headerText="Nome do Usuário"
-				style="width:200px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px">
+			<p:column headerText="Nome" style="width:200px"
+				filterMatchMode="contains" filterStyle="width:200px" width="200px">
 				<h:outputText value="#{usuario.nome}" style="display:inline-block" />
 
 			</p:column>
@@ -108,7 +118,7 @@
 
 				<p:commandLink title="Excluir" update=":formExcluir:Excluir"
 					oncomplete="PF('confirmation').show()" immediate="true">
-					<p:graphicImage value="./images/del.png" width="25px"
+					<p:graphicImage value="../images/del.png" width="25px"
 						style="padding-left:10px" />
 					<f:setPropertyActionListener value="#{usuario}"
 						target="#{usuarioBean.usuario}" />
@@ -157,8 +167,8 @@
 					<p:message for="nome" />
 
 					<p:outputLabel value="SobreNome: *" />
-					<p:inputText id="sobrenome" value="#{usuarioBean.usuario.sobrenome}"
-						size="30" required="true"
+					<p:inputText id="sobrenome"
+						value="#{usuarioBean.usuario.sobrenome}" size="30" required="true"
 						requiredMessage="O campo SobreNome é obrigatório" />
 					<p:message for="nome" />
 
@@ -172,6 +182,13 @@
 					<p:inputText id="email" value="#{usuarioBean.usuario.email}"
 						size="30" />
 					<p:message for="email" />
+					
+					<p:outputLabel value="Nova Senha: " />
+					<p:password id="senha" value="#{usuarioBean.usuario.senha}"
+						size="12" required="true"
+						requiredMessage="O campo Senha é obrigatório" />
+						
+					<p:message for="senha" />
 
 
 					<p:growl id="messages" />
@@ -189,9 +206,9 @@
 
 		</p:dialog>
 
-	</h:form>	
+	</h:form>
 
-	
+
 
 </h:body>
 </html>

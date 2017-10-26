@@ -21,14 +21,17 @@ import javax.persistence.TemporalType;
  */
 @NamedQueries( value = {
 	@NamedQuery(name="Usuario.buscaUsuarios", 
-	query="select u from Usuario u where u.isAtivo = true ")})
+	query="select u from Usuario u where u.isAtivo = true "),
+	
+	@NamedQuery(name="Usuario.verificaUsuario", 
+	query="select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true")})
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 	@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "hibernate_sequence")
-	@SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	@Column(name = "seq_usuario", columnDefinition = "serial not null")
 	private Long seqUsuario;
 
@@ -40,14 +43,19 @@ public class Usuario implements Serializable {
 
 	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "senha")
+	private String senha;	
 
 	@Column(name = "telefone")
 	private String telefone;
 	
 	@Column(name = "data_cadastro")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCadastro;
+	private Date dataCadastro;	
 	
+	@Column(name = "is_ativo", nullable = false)
+	private Boolean isAtivo;
 	
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -57,8 +65,7 @@ public class Usuario implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	@Column(name = "is_ativo", nullable = false)
-	private Boolean isAtivo;
+	
 
 	public Boolean getIsAtivo() {
 		return isAtivo;
@@ -116,6 +123,14 @@ public class Usuario implements Serializable {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }

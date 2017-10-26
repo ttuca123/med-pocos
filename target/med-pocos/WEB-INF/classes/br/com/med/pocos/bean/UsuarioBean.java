@@ -36,7 +36,7 @@ public class UsuarioBean implements Serializable {
 
 		usuario = new Usuario();
 
-		return "cadastro_usuario.xhtml";
+		return "cadastrarUsuario";
 	}
 
 	@PostConstruct
@@ -46,13 +46,13 @@ public class UsuarioBean implements Serializable {
 		
 	}
 
-	public void salvar() {
+	public String salvar() {
 
 		usuarioService.salvar(usuario);
 
 		addMessage("Cadastro realizado com sucesso");
 
-		novo();
+		return novo();
 
 	}
 	
@@ -63,7 +63,7 @@ public class UsuarioBean implements Serializable {
 
 			usuarioService.deletar(usuario);
 
-			addMessage("Item exclu�do com sucesso!!");
+			addMessage("Item excluido com sucesso!!");
 
 		} catch (Exception e) {
 			addMessageException("Ops, Erro ao excluir usuario!!!");
@@ -76,7 +76,7 @@ public class UsuarioBean implements Serializable {
 
 		usuarios = (List<Usuario>) usuarioService.listar();
 
-		return "listar_usuarios.xhtml";
+		return "listar_usuarios";
 	}
 
 	public List<Usuario> getUsuarios() {
