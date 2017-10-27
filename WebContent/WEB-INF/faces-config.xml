@@ -7,7 +7,7 @@
 
 	<application>
 		<resource-bundle>
-			<base-name>SystemMessages</base-name>
+			<base-name>messages_pt_BR</base-name>
 			<var>msg</var>
 		</resource-bundle>
 		<locale-config>

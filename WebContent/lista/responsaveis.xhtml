@@ -85,7 +85,9 @@
 			</p:column>
 
 			<p:column headerText="CPF">
-				<h:outputText value="#{responsavel.cpf}" />
+				<h:outputText value="#{responsavel.cpf}" >
+					<f:converter for="cpf" converterId="converter.CpfConverter" />		 
+				</h:outputText>
 			</p:column>
 			
 			<p:column headerText="Email">
@@ -94,12 +96,14 @@
 			
 			<p:column headerText="Data de Cadastro">
 				<h:outputText value="#{responsavel.dataCadastro}" >				
-					<f:convertDateTime pattern="dd/MM/yyyy"/>
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="#{initParam.timezone}" />
 				</h:outputText>
 			</p:column>
 			
 			<p:column headerText="Data de Encerramento">
-				<h:outputText value="#{responsavel.dataEncerramentoContrato}" />
+				<h:outputText value="#{responsavel.dataEncerramentoContrato}" >
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="#{initParam.timezone}" />
+				</h:outputText>
 			</p:column>
 
 			<p:column headerText="Editar" style="width:100px" width="100px">

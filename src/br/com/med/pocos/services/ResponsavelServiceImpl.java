@@ -7,8 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.med.pocos.model.Responsavel;
-import br.com.med.pocos.util.EntityManagerService;
-import br.com.med.pocos.util.Utils;
+import br.com.med.pocos.util.DataUtils;
 
 @Stateless(name = "ResponsavelService")
 public class ResponsavelServiceImpl implements ResponsavelService {
@@ -22,8 +21,10 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 		Responsavel Responsavel = (Responsavel) object;
 
 		if (Responsavel.getSeqResponsavel() == null) {
-
-			Responsavel.setDataCadastro(new Date());
+				
+			Date data = DataUtils.converterDataTimeZone();
+			
+			Responsavel.setDataCadastro(data);
 
 			emService.getEntityManager().persist(object);
 
@@ -46,7 +47,9 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
 		Responsavel responsavel = (Responsavel) object;
 
-		responsavel.setDataEncerramentoContrato(new Date());
+		Date data = DataUtils.converterDataTimeZone();
+		
+		responsavel.setDataEncerramentoContrato(data);
 
 		emService.getEntityManager().merge(responsavel);
 

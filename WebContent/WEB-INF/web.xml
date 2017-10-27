@@ -53,9 +53,9 @@
 	
 	<context-param>
         <param-name>
-            javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE
+            timezone
         </param-name>
-        <param-value>true</param-value>
+        <param-value>GMT-3</param-value>
     </context-param>
 
 </web-app>

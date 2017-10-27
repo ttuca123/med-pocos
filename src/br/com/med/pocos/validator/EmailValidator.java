@@ -7,6 +7,8 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import br.com.med.pocos.util.Utils;
+
 @FacesValidator("validator.EmailValidator")
 public class EmailValidator  implements Validator{
 	
@@ -25,8 +27,11 @@ public class EmailValidator  implements Validator{
 	            valid = false;
 	        }
 	        if (!valid) {
+	        	
+	        	String mensagem = Utils.getMensagem("erro.validacao.email");				 
+	        	
 	        	FacesMessage message = new FacesMessage(
-	                    FacesMessage.SEVERITY_ERROR, "Email Inválido",
+	                    FacesMessage.SEVERITY_ERROR, mensagem,
 	                    "Email inválido");
 	            throw new ValidatorException(message);
 	        }

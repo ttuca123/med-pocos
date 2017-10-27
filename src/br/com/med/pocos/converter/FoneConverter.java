@@ -27,7 +27,7 @@ public class FoneConverter implements Converter{
 		
 		if(fone !=null && fone.length()==11) {
 			
-			fone = "("+fone.substring(0, 3) + ")" + fone.substring(3,8)+ "-"+ fone.substring(8, 12);
+			fone = "("+fone.substring(0, 3) + ")" + fone.substring(3,8)+ "-"+ fone.substring(8, 11);
 			
 		}
 		

@@ -1,5 +1,6 @@
 package br.com.med.pocos.validator;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -17,11 +18,13 @@ public class CpfValidator implements Validator {
 	@Override
 	public void validate(FacesContext arg0, UIComponent arg1, Object valorTela) throws ValidatorException {
 		
-		 if (!validaCPF(String.valueOf(valorTela))) {			 
-			
-             
+		 if (!validaCPF(String.valueOf(valorTela))) {	    
+			    
+			 
+             String mensagem = Utils.getMensagem("erro.validacao.cpf");
+			 
              FacesMessage message = new FacesMessage(
-	                    FacesMessage.SEVERITY_ERROR, "Erro de validação do Cpf",
+	                    FacesMessage.SEVERITY_ERROR, mensagem,
 	                    "Cpf inválido");
              throw new ValidatorException(message);
             

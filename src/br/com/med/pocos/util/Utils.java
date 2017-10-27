@@ -3,6 +3,8 @@ package br.com.med.pocos.util;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -42,5 +44,17 @@ public class Utils {
 		
 		return textoMD5;
 	}
+	
+	public static String getMensagem(String chave) {
+		
+		 Locale pt_BR = new Locale("pt", "BR");
+
+		 ResourceBundle bundle = ResourceBundle.getBundle("messages", pt_BR);		    
+		    
+		    
+		 return bundle.getString(chave);
+	}
+	
+	
 	
 }
