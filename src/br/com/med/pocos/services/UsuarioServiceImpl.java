@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.med.pocos.model.Usuario;
+import br.com.med.pocos.util.DataUtils;
 import br.com.med.pocos.util.Utils;
 
 @Stateless(name = "usuarioService")
@@ -20,19 +21,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		Usuario usuario = (Usuario) object;
 		usuario.setIsAtivo(true);
-		
-		String senhaMD5 = Utils.gerarMD5(usuario.getSenha());	
-		
+
+		String senhaMD5 = Utils.gerarMD5(usuario.getSenha());
+
 		usuario.setSenha(senhaMD5);
-		
+
 		if (usuario.getSeqUsuario() == null) {
-			
-			usuario.setDataCadastro(new Date());
-			
+
+			Date data = DataUtils.converterDataTimeZone();
+
+			usuario.setDataCadastro(data);
+
 			emService.getEntityManager().persist(object);
-			
+
 		} else {
-			
+
 			emService.getEntityManager().merge(object);
 		}
 
@@ -47,11 +50,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public void deletar(Object object) {
-		
+
 		Usuario usuario = (Usuario) object;
-		
+
 		usuario.setIsAtivo(false);
-		
+
 		emService.getEntityManager().merge(usuario);
 
 	}
@@ -64,16 +67,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public boolean verifyUser(String email, String senha) {
-		
+
 		try {
-			emService.getEntityManager().createNamedQuery("Usuario.verificaUsuario")
-					.setParameter("email", email).setParameter("senha", Utils.gerarMD5(senha)).getSingleResult();
-			
+			emService.getEntityManager().createNamedQuery("Usuario.verificaUsuario").setParameter("email", email)
+					.setParameter("senha", Utils.gerarMD5(senha)).getSingleResult();
+
 		} catch (Exception e) {
-			
+
 			return false;
 		}
-		
+
 		return true;
 	}
 
