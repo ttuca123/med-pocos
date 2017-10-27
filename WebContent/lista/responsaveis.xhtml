@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href="css/sigin.css" />
+	<title>Lista de Responsáveis</title>
+</h:head>
+<h:body styleClass="w3-row-padding">
+	
+	<div class="jumbotron">
+
+		<h3 align="center" class="display-4">Lista de Responsáveis</h3>
+		
+	</div>
+
+	<h:form>	
+			<div class="container-fluid">
+			<div class="form-group row">				
+					<div class="col-2 col-form-label">
+						
+						<h:commandLink  ajax="false"
+									action="painelPrincipal" value="#{msg['page.back']}"
+									update="display" />
+													
+					</div>						
+					<div class="col-2 col-form-label">
+							<p:commandLink class="btn btn-success btn-lg" 
+							update=":form:responsavelDetail" immediate="true"
+							oncomplete="PF('responsavelDialog').show()"
+							action="#{responsavelBean.novo}">
+
+							<b><h:outputText value="Novo *" /> </b>
+
+						</p:commandLink>
+					</div>
+						
+				</div>
+			</div>		
+			<div class="form-group">
+				<div class="control-label col-sm-2">
+					
+					<p class="lead">					
+					
+						
+					</p>
+				</div>
+			</div>
+		
+	</h:form>
+<p:separator />
+	<h:form id="formExibir">
+
+		<p:growl id="growl" autoUpdate="true" life="2000" />
+
+
+		<p:dataTable id="tblResponsaveis" var="responsavel"
+			filteredValue="#{responsavelBean.filteredResponsaveis}"
+			value="#{responsavelBean.responsaveis}" rows="20" paginator="true"
+			widgetVar="responsavelsTable" scrollable="true" styleClass="paginated"
+			emptyMessage="Nenhum responsável encontrado com os critérios selecionados"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Lista de Responsáveis:" />
+				</p:outputPanel>
+
+			</f:facet>
+
+			<p:column headerText="Nome" style="width:200px"
+				filterMatchMode="contains" filterStyle="width:200px" width="200px">
+				<h:outputText value="#{responsavel.nome}" style="display:inline-block" />
+
+			</p:column>
+
+			<p:column headerText="CPF">
+				<h:outputText value="#{responsavel.cpf}" />
+			</p:column>
+			
+			<p:column headerText="Email">
+				<h:outputText value="#{responsavel.email}" />
+			</p:column>			
+			
+			<p:column headerText="Data de Cadastro">
+				<h:outputText value="#{responsavel.dataCadastro}" >				
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="Data de Encerramento">
+				<h:outputText value="#{responsavel.dataEncerramentoContrato}" />
+			</p:column>
+
+			<p:column headerText="Editar" style="width:100px" width="100px">
+				<p:commandLink update=":form:responsavelDetail"
+					oncomplete="PF('responsavelDialog').show()" title="Detalhar"
+					styleClass="ui-icon ui-icon-search"
+					style="float:left;margin-right:10px">
+					<f:setPropertyActionListener value="#{responsavel}"
+						target="#{responsavelBean.responsavel}" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column headerText="Excluir" style="width:100px" width="100px">
+
+				<p:commandLink title="Excluir" update=":formExcluir:Excluir"
+					oncomplete="PF('confirmation').show()" immediate="true">
+					<p:graphicImage value="../images/del.png" width="25px"
+						style="padding-left:10px" />
+					<f:setPropertyActionListener value="#{responsavel}"
+						target="#{responsavelBean.responsavel}" />
+				</p:commandLink>
+
+
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<h:form id="formExcluir">
+
+		<p:confirmDialog id="Excluir" closeOnEscape="true"
+			message="Confirma exclusão do usuário #{responsavelBean.responsavel.nome}?"
+			header="Excluir" severity="alert" widgetVar="confirmation">
+
+			<p:commandButton value="Sim" type="submit"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+				actionListener="#{responsavelBean.excluir}"
+				onclick="PF('confirmation').hide()" update=":formExibir:tblResponsaveis"
+				immediate="true" />
+
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+				onclick="PF('confirmation').hide()" />
+
+		</p:confirmDialog>
+	</h:form>
+
+
+	<h:form id="form">
+		<p:dialog header="Responsável" widgetVar="responsavelDialog"
+			modal="true" hideEffect="explode" showEffect="bounce"
+			closeOnEscape="true" maximizable="true" id="dialogCadastrar"
+			resizable="true">	
+			
+			
+				
+			
+
+			<p:outputPanel id="responsavelDetail" style="text-align:center; width:600px;">
+				
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
+					<div class="col-10">
+						<p:inputText id="nome" class="form-control"
+							required="true" maxlength="80"
+							requiredMessage="O campo Nome é obrigatório"
+							a:placeholder="Por favor digite seu nome"
+							value="#{responsavelBean.responsavel.nome}" >
+								<f:validateLength minimum="3" />
+							</p:inputText>
+					</div>
+				</div>
+				<p:message for="nome" />
+				
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">CPF</label>
+					<div class="col-10">
+						<p:inputMask id="cpf" class="form-control"
+							required="true" mask="999.999.999-99"
+							requiredMessage="O campo CPF é obrigatório"
+							a:placeholder="Por favor digite um CPF válido"
+							value="#{responsavelBean.responsavel.cpf}" >	
+							  <f:validator for="cpf" validatorId="validator.CpfValidator" />
+							  <f:converter for="cpf" converterId="converter.CpfConverter" />		 
+							</p:inputMask>
+					</div>
+				</div>
+					<p:message for="cpf" />					
+				
+				<div class="form-group row">
+					<label for="example-email-input" class="col-2 col-form-label">Email</label>
+					<div class="col-10">
+						<p:inputText id="email" class="form-control"
+							a:placeholder="Por favor digite seu email"
+							value="#{responsavelBean.responsavel.email}" 
+							required="true"
+						    requiredMessage="O campo Email é obrigatório" >
+						    <f:validator for="email" validatorId="validator.EmailValidator" />
+						    </p:inputText>
+					</div>
+				</div>
+				<p:message for="email" />
+				
+				<div class="form-group row">
+					<label for="celular" class="col-2 col-form-label">Celular</label>
+					<div class="col-10">
+						<p:inputMask id="celular" class="form-control" value="#{responsavelBean.responsavel.celular}"
+							mask="(999)99999-9999" size="20" required="true"
+						   requiredMessage="O campo Celular é obrigatório" >
+						   	<f:converter converterId="converter.FoneConverter" />
+						   </p:inputMask>
+					</div>
+				</div>
+					<p:message for="celular" />
+					
+				<div class="form-group row">
+					<label for="fixo" class="col-2 col-form-label">Fixo</label>
+					<div class="col-10">
+						<p:inputMask id="fixo" class="form-control" value="#{responsavelBean.responsavel.fixo}"
+							mask="(999)99999-9999" size="20" required="true"
+						   requiredMessage="O campo Fixo é obrigatório" >
+						   	<f:converter converterId="converter.FoneConverter" />
+						   </p:inputMask>
+					</div>
+				</div>
+					<p:message for="fixo" />				
+				
+			<p:separator />		
+			
+			<p:growl id="messages" />		
+			
+			<p:commandLink class="btn btn-success btn-lg btn-block"  value="Save" actionListener="#{responsavelBean.salvar}"
+						update="messages, formExibir" icon="ui-icon-disk" />	
+				
+
+			</p:outputPanel>
+			 
+		</p:dialog>
+
+	</h:form>
+
+
+
+</h:body>
+</html>

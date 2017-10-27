@@ -21,25 +21,13 @@
 
 	<lifecycle>
 		<phase-listener>br.com.med.pocos.listener.LoginPhaseListener</phase-listener>
-	</lifecycle>
-	
-	
-	
-	
-	<navigation-rule>
-		<from-view-id>/*</from-view-id>
-		<navigation-case>
-			<from-outcome>cadastrarUsuario</from-outcome>
-			<to-view-id>/cadastro/cadastro_usuario.xhtml?faces-redirect=true</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>	
+	</lifecycle>	
 	
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
 			<from-outcome>listarUsuarios</from-outcome>
-			<to-view-id>/lista/listar_usuarios.xhtml?faces-redirect=true</to-view-id>
+			<to-view-id>/lista/usuarios.xhtml?faces-redirect=true</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -47,8 +35,8 @@
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
-			<from-outcome>listarUsuarios</from-outcome>
-			<to-view-id>/lista/listar_usuarios.xhtml?faces-redirect=true</to-view-id>
+			<from-outcome>listarResponsaveis</from-outcome>
+			<to-view-id>/lista/responsaveis.xhtml?faces-redirect=true</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -81,5 +69,6 @@
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
 
 </faces-config>

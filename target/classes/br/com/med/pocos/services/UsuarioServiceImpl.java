@@ -50,8 +50,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public void deletar(Usuario usuario) {
-
+	public void deletar(Object object) {
+		
+		Usuario usuario = (Usuario) object;
+		
 		usuario.setIsAtivo(false);
 		
 		emService.getEntityManager().merge(usuario);

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15070327853520" configfile="/med-pocos/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf15088889591673" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15088889591674" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf15088889591675" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15088889591674 pf15089529277185" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf15089529277186" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15089529277185" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf15088889591673" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf15088889591674" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="178" id="pf15088889591675" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf15088889591674 pf15089529277185" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="754" id="pf15089529277186" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf15089529277185 pf15090491353422 pf15090491353423 pf15090580482719" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="cadastro/cadastro_usuario.xhtml?faces-redirect=true" x="122" y="1234" id="pf15090491353424" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="/cadastro/cadastro_usuario.xhtml?faces-redirect=true"/>
+  <nodes xsi:type="pageflow:PFPage" name="painel_principal.xhtml?faces-redirect=true" x="338" y="562" id="pf15090491353426" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf15090491353422" path="/painel_principal.xhtml?faces-redirect=true"/>
+  <nodes xsi:type="pageflow:PFPage" name="lista/usuarios.xhtml?faces-redirect=true" x="338" y="946" id="pf15090491353427" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15090491353423" path="/lista/usuarios.xhtml?faces-redirect=true"/>
+  <nodes xsi:type="pageflow:PFPage" name="lista/responsaveis.xhtml?faces-redirect=true" x="338" y="1330" id="pf150905804827110" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15090580482719" path="/lista/responsaveis.xhtml?faces-redirect=true"/>
   <links id="pf15088889591674" target="pf15088889591675" source="pf15088889591673" outcome="logout"/>
   <links id="pf15089529277185" target="pf15088889591675" source="pf15089529277186" outcome="loginPage" redirect="true"/>
+  <links id="pf15090491353422" target="pf15090491353426" source="pf15089529277186" outcome="painelPrincipal" redirect="true"/>
+  <links id="pf15090491353423" target="pf15090491353427" source="pf15089529277186" outcome="listarUsuarios" redirect="true"/>
+  <links id="pf15090580482719" target="pf150905804827110" source="pf15089529277186" outcome="listarResponsaveis" redirect="true"/>
 </pageflow:Pageflow>

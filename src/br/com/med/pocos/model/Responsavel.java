@@ -8,14 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Entity implementation class for Entity: Proprietário
+ * Entity implementation class for Entity: Responsável
  *
  */
+@NamedQueries( value = {
+		@NamedQuery(name="Responsavel.buscaResponsaveis", 
+		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ")		
+		})
+
 @Entity
 @Table(name = "responsavel")
 public class Responsavel implements Serializable {
