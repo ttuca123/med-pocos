@@ -17,7 +17,7 @@
 		 
 
 		<properties>
-			<property name="hibernate.default_schema" value="desenvolvimento" />		
+			<property name="hibernate.default_schema" value="producao" />		
 			
 			<property name="hibernate.format_sql" value="true" />			
 
