@@ -9,77 +9,75 @@
 <h:head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	<link rel="stylesheet" href="css/estilo.css" />
 </h:head>
-<h:body>
+<h:body  >
 
 	<h:form>		
-
-		<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><h:outputLabel value="#{msg['version.name']}" /></a>
-			</div>
-			<ul class="nav navbar-nav">
-				<li class="active">
-				
-				<p:commandLink title="Home" value="Home"
-						action="#" ajax="false">
-												
-					</p:commandLink>
-					
-					</li>				
-				 <li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Consulta <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li>
-							<p:commandLink title="Usuários" value="Usuários"
-								action="listarUsuarios" ajax="false">												
-							</p:commandLink>								
-						</li>
-						<li> <p:commandLink title="Responsáveis" value="Responsáveis"
-								action="listarResponsaveis" ajax="false">												
-							</p:commandLink>					
-							</li>
-						<li><a href="#">Empreendimentos</a></li>						
-						<li><a href="#">Portarias</a></li>
-					</ul></li>
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Medição <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Hidrômetros Pivôs</a></li>
-						<li><a href="#">Hidrômetros Poços</a></li>						
-						<li><a href="#">Medição de Vazão</a></li>
-					</ul></li>
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">Relatórios <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Responsável / Empreendimento</a></li>
-						<li><a href="#">Monitoramento de Poços</a></li>
-						<li><a href="#">Grandes Consumidores</a></li>
-					</ul></li>				
-				
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <h:outputLabel value="#{loginBean.usuario.email}"/></a></li>
-				<li>
-				<h:commandLink ajax="false"
-								action="#{loginBean.logout}" value="#{msg['page.exit']}"
-								class="glyphicon glyphicon-log-in" />
-								</li>  
-		      		      
-		    </ul>
-			
-			
+		<div class="page-header" align="center">
+  			<h1><h:outputLabel value="#{msg['version.name']}"  /></h1>
+  			<h5><h:outputLabel value=" #{msg['version.system']}"  /></h5>
 		</div>
+
+
+		<nav class="navbar navbar-light bg-faded">
+			<div class="container-fluid">
+				
+				<ul class="nav navbar-nav">
+					<li class="active">
+					
+					<p:commandLink title="Home" value="Home"
+							action="#" ajax="false">													
+						</p:commandLink>
+						
+						</li>				
+					 <li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Consulta <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li>
+								<p:commandLink title="Usuários" value="Usuários" disabled="true"
+									action="listarUsuarios" ajax="false">												
+								</p:commandLink>								
+							</li>
+							<li> <p:commandLink title="Responsáveis" value="Responsáveis"
+									action="listarResponsaveis" ajax="false">												
+								</p:commandLink>					
+								</li>
+							<li><a href="#">Empreendimentos</a></li>						
+							<li><a href="#">Portarias</a></li>
+						</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Medição <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Hidrômetros Pivôs</a></li>
+							<li><a href="#">Hidrômetros Poços</a></li>						
+							<li><a href="#">Medição de Vazão</a></li>
+						</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Relatórios <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Responsável / Empreendimento</a></li>
+							<li><a href="#">Monitoramento de Poços</a></li>
+							<li><a href="#">Grandes Consumidores</a></li>
+						</ul></li>				
+					
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> <h:outputLabel value="#{loginBean.usuario.email}"/></a></li>
+					<li>
+					<h:commandLink ajax="false"
+									action="#{loginBean.logout}" value="#{msg['page.exit']}"
+									class="glyphicon glyphicon-log-in" />
+									</li>	      		      
+					
+			    </ul>
+				<br />			
+			</div>
+			
 		</nav>
 		
-			<div class="well well-sm"><h:outputLabel value="#{msg['version.system']}" /></div> 
-		
-
-	
 	</h:form>
 
 </h:body>

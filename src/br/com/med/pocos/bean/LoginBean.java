@@ -40,10 +40,13 @@ public class LoginBean implements Serializable{
 		if (valid) {
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("user", usuario.getEmail());
-			return "painelPrincipal";
 			
+			Utils.addMessage(Utils.getMensagem("page.login.sucesso"));
+			
+			return "painelPrincipal";			
 		} else {
-			Utils.addMessageAviso("Login ou senha incorreta");		
+			
+			Utils.addMessage(Utils.getMensagem("page.login.erro"));		
 		}
 		
 		return "";

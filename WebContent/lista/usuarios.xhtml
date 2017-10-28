@@ -16,23 +16,24 @@
 	<link rel="stylesheet" href="css/sigin.css" />
 	<title>Lista de Usuários</title>
 </h:head>
-<h:body styleClass="w3-row-padding">
+<h:body styleClass="w3-row-padding ">
 
 
+<div class="page-header" align="center">
 
+</div>
 	<div class="jumbotron">
 
-		<h3 align="center" class="display-4">Lista de Usuários</h3>
+		<h3 align="center" class="display-4"><h:outputLabel value="#{msg['page.lista.usuarios']}" /></h3>
 	</div>
 
-	<h:form>
-
-		
+	<h:form>		
+			
 			<div class="container-fluid">
 			<div class="form-group row">				
 					<div class="col-2 col-form-label">
 						
-						<h:commandLink  ajax="false"
+						<h:commandLink  styleClass="btn btn-link" ajax="false"
 									action="painelPrincipal" value="#{msg['page.back']}"
 									update="display" />
 													
@@ -99,7 +100,7 @@
 				<h:outputText value="#{usuario.email}" />
 			</p:column>
 
-			<p:column headerText="Editar" style="width:100px" width="100px">
+			<p:column headerText="#{msg['page.editar']}" style="width:100px" width="100px">
 				<p:commandLink update=":form:usuarioDetail"
 					oncomplete="PF('usuarioDialog').show()" title="Detalhar"
 					styleClass="ui-icon ui-icon-search"
@@ -109,9 +110,9 @@
 				</p:commandLink>
 			</p:column>
 
-			<p:column headerText="Excluir" style="width:100px" width="100px">
+			<p:column headerText="#{msg['page.excluir']}" style="width:100px" width="100px">
 
-				<p:commandLink title="Excluir" update=":formExcluir:Excluir"
+				<p:commandLink title="#{msg['page.excluir']}" update=":formExcluir:Excluir"
 					oncomplete="PF('confirmation').show()" immediate="true">
 					<p:graphicImage value="../images/del.png" width="25px"
 						style="padding-left:10px" />
@@ -130,15 +131,17 @@
 			message="Confirma exclusão do usuário #{usuarioBean.usuario.nome} #{usuarioBean.usuario.sobrenome}?"
 			header="Excluir" severity="alert" widgetVar="confirmation">
 
-			<p:commandButton value="Sim" type="submit"
-				styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+			
+			
+			<p:commandLink value="Sim" 
+				styleClass="btn btn-danger btn-lg btn-block" 
 				actionListener="#{usuarioBean.excluir}"
 				onclick="PF('confirmation').hide()" update=":formExibir:tblUsuarios"
 				immediate="true" />
 
-			<p:commandButton value="Não" type="button"
-				styleClass="ui-confirmdialog-no" icon="ui-icon-close"
-				onclick="PF('confirmation').hide()" />
+			<p:commandLink value="Não" 
+				styleClass="btn btn-primary btn-lg btn-block" 
+				onclick="PF('confirmation').hide()" />			
 
 		</p:confirmDialog>
 	</h:form>
@@ -185,7 +188,9 @@
 							a:placeholder="Por favor digite seu email"
 							value="#{usuarioBean.usuario.email}" 
 							required="true"
-						    requiredMessage="O campo Email é obrigatório" />
+						    requiredMessage="O campo Email é obrigatório" >
+						     <f:validator for="email" validatorId="validator.EmailValidator" />
+						    </p:inputText>
 					</div>
 				</div>
 				<p:message for="email" />
@@ -202,11 +207,13 @@
 					<p:message for="senha" />
 					
 				<div class="form-group row">
-					<label for="phone" class="col-2 col-form-label">Telefone</label>
+					<label for="phone" class="col-2 col-form-label">Celular</label>
 					<div class="col-10">
 						<p:inputMask id="fone" class="form-control" value="#{usuarioBean.usuario.telefone}"
-							mask="(99)99999-9999" size="30" required="true"
-						   requiredMessage="O campo Telefone é obrigatório" />
+							mask="(999)99999-9999" size="30" required="true"
+						   requiredMessage="O campo Telefone é obrigatório" >						   
+						   <f:converter converterId="converter.FoneConverter" />
+						   </p:inputMask>
 					</div>
 				</div>
 					<p:message for="fone" />

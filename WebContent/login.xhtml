@@ -12,38 +12,53 @@
 		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
 		crossorigin="anonymous" />
 	<link rel="stylesheet" href="css/sigin.css" />
+	<link rel="stylesheet" href="css/estilo.css" />
 	<title>Med-Poços - Login</title>
 </h:head>
-<h:body>
-	<div class="container">
-		<p:growl id="growl" life="3000" />
+<h:body styleClass="estiloPagina">
+	
+		<div class="container">
+			<p:growl id="growl" life="3000" />
 
 
-		<h:form class="form-signin">
-		
-			<p:panel>
+			<h:form class="form-signin">
+
+
 				<h2 align="center">
 					<div class="form-signin-heading">
-						<h:outputLabel value="#{msg['page.login.title']}" />
+						<h:outputLabel value="#{msg['version.name']}" />
 					</div>
 				</h2>
+				<p:panel >
+					<h2 align="center">
+						<div class="form-signin-heading">
+							<h:outputLabel value="#{msg['page.login.title']}" />
+						</div>
+					</h2>
 
-				<h:inputText id="email" class="form-control"
-					a:placeholder="#{msg['page.login.user.desc']}"
-					value="#{loginBean.usuario.email}" />
+					<h:inputText id="email" class="form-control"
+						a:placeholder="#{msg['page.login.user.desc']}"
+						value="#{loginBean.usuario.email}" />
 
-				<p:password id="inputPassword" class="form-control"
-					a:placeholder="#{msg['page.login.password.placeholder']}"
-					value="#{loginBean.usuario.senha}" />
+					<p:password id="inputPassword" class="form-control"
+						a:placeholder="#{msg['page.login.password.placeholder']}"
+						value="#{loginBean.usuario.senha}" />
 
-				<h:commandLink class="btn btn-primary btn-lg btn-block" ajax="false"
-					action="#{loginBean.logar}" value="#{msg['page.login.btn.login']}"
-					update="growl" />
-			</p:panel>
-		</h:form>
-	</div>
+					<h:commandLink class="btn btn-primary btn-lg btn-block"
+						ajax="false" action="#{loginBean.logar}"
+						value="#{msg['page.login.btn.login']}" update="growl" />
+				</p:panel>
+			</h:form>
+			<div id="footer">
+				<div class="container">
+					<p align="center">
+						<p:outputLabel value="#{msg['page.copyright']}" />
+					</p>
+				</div>
+			</div>
+		</div>
 
-
+	
 
 </h:body>
 

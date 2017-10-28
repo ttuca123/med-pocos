@@ -80,4 +80,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return true;
 	}
 
+	@Override
+	public List<?> listar(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

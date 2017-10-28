@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * Entity implementation class for Entity: Responsável
@@ -21,7 +22,12 @@ import javax.persistence.TemporalType;
 @NamedQueries( value = {
 		@NamedQuery(name="Responsavel.buscaResponsaveis", 
 		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ")		
-		})
+		,
+	@NamedQuery(name="Responsavel.buscaResponsaveisComCriterios", 
+		query="select r from Responsavel r where (r.nome like :nome OR"
+				+ " r.cpf = :cpf OR r.email = :email) AND r.dataEncerramentoContrato IS NULL")		
+		}
+	)
 
 @Entity
 @Table(name = "responsavel")
@@ -64,7 +70,7 @@ public class Responsavel implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataEncerramentoContrato;
 	
-	@Column(name = "is_ativo")
+	@Transient
 	private boolean isAtivo;
 
 	public Long getSeqResponsavel() {
@@ -133,6 +139,13 @@ public class Responsavel implements Serializable {
 	}
 
 	public boolean isAtivo() {
+		
+		if(this.dataEncerramentoContrato==null) {
+			isAtivo =true;
+		}else {
+			isAtivo =false;
+		}
+		
 		return isAtivo;
 	}
 

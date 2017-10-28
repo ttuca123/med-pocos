@@ -11,5 +11,7 @@ public interface GenericService {
 	public void deletar (Object object);
 	
 	public List<?> listar();
+	
+	public List<?> listar(Object object);
 
 }

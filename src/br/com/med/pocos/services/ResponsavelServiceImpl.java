@@ -67,4 +67,20 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 		return false;
 	}
 
+	@Override
+	public List<?> listar(Object object) {
+		
+		Responsavel responsavel = (Responsavel) object;
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Responsavel> responsaveis =  emService.getEntityManager().createNamedQuery("Responsavel.buscaResponsaveisComCriterios")
+				.setParameter("nome","%" + responsavel.getNome()+ "%")
+				.setParameter("cpf", responsavel.getCpf())
+				.setParameter("email","%"+ responsavel.getEmail()+ "%")
+				.getResultList();
+		
+		return responsaveis;
+	}
+
 }

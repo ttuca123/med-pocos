@@ -27,8 +27,7 @@ public class ResponsavelBean implements Serializable {
 
 	@ManagedProperty(value = "#{responsaveis}")
 	private List<Responsavel> responsaveis = new ArrayList<Responsavel>();
-	
-	
+
 	private List<Responsavel> filteredResponsaveis;
 
 	@EJB
@@ -38,14 +37,13 @@ public class ResponsavelBean implements Serializable {
 
 		responsavel = new Responsavel();
 
-		
 	}
 
 	@PostConstruct
 	public void inicializar() {
 
 		getListar();
-		
+
 	}
 
 	public void salvar() {
@@ -53,30 +51,28 @@ public class ResponsavelBean implements Serializable {
 		try {
 			responsavelService.salvar(responsavel);
 
-			Utils.addMessage("Cadastro realizado com sucesso");
+			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
 
-			novo();
-			
 			getListar();
 		} catch (Exception e) {
-			Utils.addMessageException("Erro ao realizar cadastro");
+			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
+		} finally {
+			novo();
 		}
 
 	}
-	
-	
+
 	public void excluir(ActionEvent actionEvent) {
 
 		try {
 
 			responsavelService.deletar(responsavel);
 
-			addMessage("Item excluido com sucesso!!");
+			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
 
-		} catch (Exception e) {
-			addMessageException("Ops, Erro ao excluir Responsavel!!!");
-		} finally {
 			getListar();
+		} catch (Exception e) {
+			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.erro"));
 		}
 	}
 
@@ -85,6 +81,34 @@ public class ResponsavelBean implements Serializable {
 		responsaveis = (List<Responsavel>) responsavelService.listar();
 
 		return "listar_responsaveis";
+	}
+
+	public void filtrar() {
+
+		if (verificarFiltros()) {
+			filteredResponsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
+
+			responsaveis = filteredResponsaveis;
+		}else {
+			getListar();
+			filteredResponsaveis = responsaveis;
+		}
+	}
+
+	private boolean verificarFiltros() {
+
+		boolean condicao;
+
+		if (responsavel.getNome().isEmpty() && responsavel.getCpf().isEmpty() && responsavel.getEmail().isEmpty()) {
+			
+			condicao = false;
+		} else {
+			
+			condicao = true;
+		}
+
+		return condicao;
+
 	}
 
 	public List<Responsavel> getresponsaveis() {
@@ -103,18 +127,18 @@ public class ResponsavelBean implements Serializable {
 		this.responsavel = responsavel;
 	}
 
-	public List<String> getFilterResponsavel() {
-
-		List<String> filtro = new ArrayList<String>();
-
-		for (Responsavel Responsavel : responsaveis) {
-
-			filtro.add(Responsavel.getNome());
-
-		}
-
-		return filtro;
-	}
+	// public List<String> getFilterResponsavel() {
+	//
+	// List<String> filtro = new ArrayList<String>();
+	//
+	// for (Responsavel Responsavel : responsaveis) {
+	//
+	// filtro.add(Responsavel.getNome());
+	//
+	// }
+	//
+	// return filtro;
+	// }
 
 	public List<Responsavel> getFilteredResponsaveis() {
 		return filteredResponsaveis;

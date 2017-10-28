@@ -36,8 +36,7 @@ public class UsuarioBean implements Serializable {
 	public void novo() {
 
 		usuario = new Usuario();
-
-		//return "cadastrarUsuario";
+	
 	}
 
 	@PostConstruct
@@ -49,13 +48,19 @@ public class UsuarioBean implements Serializable {
 
 	public void salvar() {
 
-		usuarioService.salvar(usuario);
+		try {
+			usuarioService.salvar(usuario);
+			
+			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
 
-		Utils.addMessage("Cadastro realizado com sucesso");
-
-		novo();
-		
-		getListar();
+			novo();
+			
+			getListar();
+		} catch (Exception e) {
+			
+			addMessageException(Utils.getMensagem("page.cadastro.salvar.erro"));
+			e.printStackTrace();
+		}
 
 	}
 	
@@ -64,14 +69,16 @@ public class UsuarioBean implements Serializable {
 
 		try {
 
-			usuarioService.deletar(usuario);
-
-			addMessage("Item excluido com sucesso!!");
+			usuarioService.deletar(usuario);			
+			
+			addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
+			
+			getListar();
 
 		} catch (Exception e) {
-			addMessageException("Ops, Erro ao excluir usuario!!!");
-		} finally {
-			getListar();
+			
+			addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
+			e.printStackTrace();
 		}
 	}
 
