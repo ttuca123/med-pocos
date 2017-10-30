@@ -46,7 +46,7 @@ public class LoginBean implements Serializable{
 			return "painelPrincipal";			
 		} else {
 			
-			Utils.addMessage(Utils.getMensagem("page.login.erro"));		
+			Utils.addMessageAviso(Utils.getMensagem("page.login.erro"));		
 		}
 		
 		return "";

@@ -22,8 +22,8 @@ import br.com.med.pocos.util.Utils;
 public class ResponsavelBean implements Serializable {
 
 	private static final long serialVersionUID = -4970294226807286353L;
-
-	private Responsavel responsavel = new Responsavel();
+	
+	private Responsavel responsavel;
 
 	@ManagedProperty(value = "#{responsaveis}")
 	private List<Responsavel> responsaveis = new ArrayList<Responsavel>();
@@ -36,16 +36,28 @@ public class ResponsavelBean implements Serializable {
 	public void novo() {
 
 		responsavel = new Responsavel();
+		responsavel.setAtivo(true);
 
 	}
 
 	@PostConstruct
 	public void inicializar() {
 
-		getListar();
+		novo();
+//		getListar();
+		
 
 	}
 
+	public boolean isEditavel() {
+		
+		if(responsavel.getDataEncerramentoContrato()== null) {			
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public void salvar() {
 
 		try {
@@ -83,33 +95,13 @@ public class ResponsavelBean implements Serializable {
 		return "listar_responsaveis";
 	}
 
-	public void filtrar() {
-
-		if (verificarFiltros()) {
-			filteredResponsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
-
-			responsaveis = filteredResponsaveis;
-		}else {
-			getListar();
-			filteredResponsaveis = responsaveis;
-		}
+	public void filtrar() {	
+			
+		
+		responsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
+					
 	}
 
-	private boolean verificarFiltros() {
-
-		boolean condicao;
-
-		if (responsavel.getNome().isEmpty() && responsavel.getCpf().isEmpty() && responsavel.getEmail().isEmpty()) {
-			
-			condicao = false;
-		} else {
-			
-			condicao = true;
-		}
-
-		return condicao;
-
-	}
 
 	public List<Responsavel> getresponsaveis() {
 		return responsaveis;

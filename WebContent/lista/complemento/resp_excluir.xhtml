@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href="../../css/sigin.css" />
+	<link rel="stylesheet" href="../../css/estilo.css" />
+	
+</h:head>
+<h:body styleClass="w3-row-padding">
+	
+	
+	<h:form id="formExcluir">
+
+		<p:confirmDialog id="Excluir" closeOnEscape="true"
+			message="Confirma exclusão do usuário #{responsavelBean.responsavel.nome}?"
+			header="Excluir" severity="alert" widgetVar="confirmation">
+
+			<p:commandLink value="Sim"
+				styleClass="btn btn-danger btn-lg btn-block"
+				actionListener="#{responsavelBean.excluir}"
+				onclick="PF('confirmation').hide()"
+				update=":formExibir:tblResponsaveis" immediate="true" />
+
+			<p:commandLink value="Não"
+				styleClass="btn btn-primary btn-lg btn-block"
+				onclick="PF('confirmation').hide()" />
+
+		</p:confirmDialog>
+	</h:form>
+
+
+</h:body>
+</html>

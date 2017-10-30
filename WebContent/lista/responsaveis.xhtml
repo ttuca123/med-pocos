@@ -17,21 +17,23 @@
 	<link rel="stylesheet" href="../css/estilo.css" />
 	<title>Lista de Responsáveis</title>
 </h:head>
-<h:body styleClass="w3-row-padding">
+<h:body styleClass="estiloPagina">
 
-	<div class="estiloPagina">
-		<div class="jumbotron">
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
 
-			<h3 align="center" class="display-4">Lista de Responsáveis</h3>
-		</div>
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
+		closable="false" resizable="false" showHeader="false" header="test">
+		<p:graphicImage name="gifs/spinner.gif" />
+	</p:dialog>
 
-	</div>
+	<h3 align="center" class="display-4">Lista de Responsáveis</h3>
 	<h:form>
 		<div align="left">
-			
-			<p:commandLink ajax="false" styleClass="buttonBack"  
+
+			<p:commandLink ajax="false" styleClass="buttonBack"
 				action="painelPrincipal" value="#{msg['page.back']}"
-				update="display" >				
+				update="display">
 			</p:commandLink>
 
 
@@ -41,46 +43,26 @@
 
 	<h:form>
 
-
-		<p:panel>
-			<h:panelGrid columns="6" cellpadding="10" align="center" style="margin-bottom:10px">
-
-				<label for="example-text-input" class="col-2 col-form-label">Nome</label>
-
-				<p:inputText id="nomeFilter" class="form-control" maxlength="80"
-					length="30" a:placeholder="Por favor digite seu nome"
-					value="#{responsavelBean.responsavel.nome}">					
-				</p:inputText>
-
-
-
-				<label for="example-text-input" class="col-2 col-form-label">CPF</label>
-
-				<p:inputMask id="cpfFilter" class="form-control"
-					mask="999.999.999-99"
-					a:placeholder="Por favor digite um CPF válido"
-					value="#{responsavelBean.responsavel.cpf}">
-					<f:converter for="cpf" converterId="converter.CpfConverter" />
-				</p:inputMask>
-
-				<label for="example-email-input" class="col-2 col-form-label">Email</label>
-				<div class="col-10">
-					<p:inputText id="emailFilter" class="form-control"
-						a:placeholder="Por favor digite seu email"
-						value="#{responsavelBean.responsavel.email}">						
-					</p:inputText>
+		<div class="container">
+			<h2>Filtros</h2>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h:outputText value="Status:" />
+					<p:selectBooleanCheckbox id="status"
+					value="#{responsavelBean.responsavel.ativo}" label="Ativo?"
+					title="Ativo?" immediate="true" itemLabel="Ativo?" tabindex="1" />
+	
 				</div>
-				
-				<h:outputText value="Status: " />
-        		<p:selectBooleanCheckbox value="#{responsavelBean.responsavel.ativo}" />
+			</div>
+		</div>
 
-			</h:panelGrid>
-		</p:panel>
 
-		<br></br>
+
+		
+		
 
 		<p:commandLink class="btn btn-primary btn-lg btn-block"
-			update=":formExibir:tblResponsaveis" immediate="false"			
+			update=":formExibir:tblResponsaveis" immediate="false"
 			actionListener="#{responsavelBean.filtrar}">
 
 			<b><h:outputText value="Buscar" /> </b>
@@ -89,8 +71,8 @@
 
 
 		<p:commandLink class="btn btn-success btn-lg btn-block"
-			update=":form:responsavelDetail" immediate="true"
-			oncomplete="PF('responsavelDialog').show()"
+			update=":formNovo:responsavelNovo" immediate="true"
+			oncomplete="PF('responsavelDialogNovo').show()"
 			action="#{responsavelBean.novo}">
 
 			<b><h:outputText value="Novo *" /> </b>
@@ -120,20 +102,26 @@
 
 			</f:facet>
 
-			<p:column headerText="Nome" style="width:200px"
-				filterMatchMode="contains" filterStyle="width:200px" width="200px">
+			<p:column filterBy="#{responsavel.nome}" headerText="Nome"
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px" sortBy="#{responsavel.nome}">
 				<h:outputText value="#{responsavel.nome}"
 					style="display:inline-block" />
 
 			</p:column>
 
-			<p:column headerText="CPF">
+			<p:column headerText="CPF" filterBy="#{responsavel.cpf}"
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px">
 				<h:outputText value="#{responsavel.cpf}">
 					<f:converter for="cpf" converterId="converter.CpfConverter" />
 				</h:outputText>
 			</p:column>
 
-			<p:column headerText="Email">
+			<p:column headerText="Email" filterBy="#{responsavel.email}"
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px"
+				sortBy="#{responsavel.email}">
 				<h:outputText value="#{responsavel.email}" />
 			</p:column>
 
@@ -154,7 +142,7 @@
 			<p:column headerText="Editar" style="width:100px" width="100px">
 				<p:commandLink update=":form:responsavelDetail"
 					oncomplete="PF('responsavelDialog').show()" title="Detalhar"
-					styleClass="ui-icon ui-icon-search"
+					styleClass="ui-icon ui-icon-search" immediate="true"
 					style="float:left;margin-right:10px">
 					<f:setPropertyActionListener value="#{responsavel}"
 						target="#{responsavelBean.responsavel}" />
@@ -164,11 +152,14 @@
 			<p:column headerText="Excluir" style="width:100px" width="100px">
 
 				<p:commandLink title="Excluir" update=":formExcluir:Excluir"
+					disabled="#{!responsavelBean.responsavel.ativo}"
 					oncomplete="PF('confirmation').show()" immediate="true">
 					<p:graphicImage value="../images/del.png" width="25px"
 						style="padding-left:10px" />
 					<f:setPropertyActionListener value="#{responsavel}"
 						target="#{responsavelBean.responsavel}" />
+					<f:setPropertyActionListener value="#{editavel}"
+						target="#{responsavelBean.editavel}" />
 				</p:commandLink>
 
 
@@ -176,116 +167,12 @@
 		</p:dataTable>
 	</h:form>
 
-	<h:form id="formExcluir">
+	<ui:include src="complemento/resp_excluir.xhtml" />
 
-		<p:confirmDialog id="Excluir" closeOnEscape="true"
-			message="Confirma exclusão do usuário #{responsavelBean.responsavel.nome}?"
-			header="Excluir" severity="alert" widgetVar="confirmation">
+	<ui:include src="complemento/resp_editar.xhtml" />
 
-			<p:commandLink value="Sim"
-				styleClass="btn btn-danger btn-lg btn-block"
-				actionListener="#{responsavelBean.excluir}"
-				onclick="PF('confirmation').hide()"
-				update=":formExibir:tblResponsaveis" immediate="true" />
+	<ui:include src="complemento/resp_novo.xhtml" />
 
-			<p:commandLink value="Não"
-				styleClass="btn btn-primary btn-lg btn-block"
-				onclick="PF('confirmation').hide()" />
-
-		</p:confirmDialog>
-	</h:form>
-
-
-	<h:form id="form">
-		<p:dialog header="Responsável" widgetVar="responsavelDialog"
-			modal="true" hideEffect="explode" showEffect="bounce"
-			closeOnEscape="true" maximizable="true" id="dialogCadastrar"
-			resizable="true">
-
-
-			<p:outputPanel id="responsavelDetail"
-				style="text-align:center; width:600px;">
-
-				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
-					<div class="col-10">
-						<p:inputText id="nome" class="form-control" required="true"
-							maxlength="80" requiredMessage="O campo Nome é obrigatório"
-							a:placeholder="Por favor digite seu nome"
-							value="#{responsavelBean.responsavel.nome}">
-							<f:validateLength minimum="3" />
-						</p:inputText>
-					</div>
-				</div>
-				<p:message for="nome" />
-
-				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label">CPF</label>
-					<div class="col-10">
-						<p:inputMask id="cpf" class="form-control" required="true"
-							mask="999.999.999-99" requiredMessage="O campo CPF é obrigatório"
-							a:placeholder="Por favor digite um CPF válido"
-							value="#{responsavelBean.responsavel.cpf}">
-							<f:validator for="cpf" validatorId="validator.CpfValidator" />
-							<f:converter for="cpf" converterId="converter.CpfConverter" />
-						</p:inputMask>
-					</div>
-				</div>
-				<p:message for="cpf" />
-
-				<div class="form-group row">
-					<label for="example-email-input" class="col-2 col-form-label">Email</label>
-					<div class="col-10">
-						<p:inputText id="email" class="form-control"
-							a:placeholder="Por favor digite seu email"
-							value="#{responsavelBean.responsavel.email}" required="true"
-							requiredMessage="O campo Email é obrigatório">
-							<f:validator for="email" validatorId="validator.EmailValidator" />
-						</p:inputText>
-					</div>
-				</div>
-				<p:message for="email" />
-
-				<div class="form-group row">
-					<label for="celular" class="col-2 col-form-label">Celular</label>
-					<div class="col-10">
-						<p:inputMask id="celular" class="form-control"
-							value="#{responsavelBean.responsavel.celular}"
-							mask="(999)99999-9999" size="20" required="true"
-							requiredMessage="O campo Celular é obrigatório">
-							<f:converter converterId="converter.FoneConverter" />
-						</p:inputMask>
-					</div>
-				</div>
-				<p:message for="celular" />
-
-				<div class="form-group row">
-					<label for="fixo" class="col-2 col-form-label">Fixo</label>
-					<div class="col-10">
-						<p:inputMask id="fixo" class="form-control"
-							value="#{responsavelBean.responsavel.fixo}" mask="(999)9999-9999"
-							size="20" required="true"
-							requiredMessage="O campo Fixo é obrigatório">
-							<f:converter converterId="converter.FoneConverter" />
-						</p:inputMask>
-					</div>
-				</div>
-				<p:message for="fixo" />
-
-				<p:separator />
-
-				<p:growl id="messages" />
-
-				<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
-					actionListener="#{responsavelBean.salvar}"
-					update="messages, formExibir" icon="ui-icon-disk" />
-
-
-			</p:outputPanel>
-
-		</p:dialog>
-
-	</h:form>
 
 
 

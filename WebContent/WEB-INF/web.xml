@@ -55,7 +55,7 @@
         <param-name>
             timezone
         </param-name>
-        <param-value>GMT</param-value>
+        <param-value>GMT-3</param-value>
     </context-param>
 
 </web-app>

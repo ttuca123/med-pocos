@@ -21,14 +21,15 @@ import javax.persistence.Transient;
  */
 @NamedQueries( value = {
 		@NamedQuery(name="Responsavel.buscaResponsaveis", 
-		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ")		
+		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ORDER BY r.nome asc ")		
 		,
-	@NamedQuery(name="Responsavel.buscaResponsaveisComCriterios", 
-		query="select r from Responsavel r where (r.nome like :nome OR"
-				+ " r.cpf = :cpf OR r.email = :email) AND r.dataEncerramentoContrato IS NULL")		
+	@NamedQuery(name="Responsavel.buscaResponsaveisAtivos", 
+		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ORDER BY r.nome asc"),
+	@NamedQuery(name="Responsavel.buscaResponsaveisInativos", 
+	query="select r from Responsavel r where r.dataEncerramentoContrato IS NOT NULL ORDER BY r.nome asc")
+		
 		}
 	)
-
 @Entity
 @Table(name = "responsavel")
 public class Responsavel implements Serializable {
@@ -72,6 +73,8 @@ public class Responsavel implements Serializable {
 	
 	@Transient
 	private boolean isAtivo;
+	
+	
 
 	public Long getSeqResponsavel() {
 		return seqResponsavel;
@@ -138,13 +141,7 @@ public class Responsavel implements Serializable {
 		this.dataEncerramentoContrato = dataEncerramentoContrato;
 	}
 
-	public boolean isAtivo() {
-		
-		if(this.dataEncerramentoContrato==null) {
-			isAtivo =true;
-		}else {
-			isAtivo =false;
-		}
+	public boolean isAtivo() {		
 		
 		return isAtivo;
 	}
@@ -152,6 +149,8 @@ public class Responsavel implements Serializable {
 	public void setAtivo(boolean isAtivo) {
 		this.isAtivo = isAtivo;
 	}
+	
+	
 
 	
 }
