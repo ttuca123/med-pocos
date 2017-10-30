@@ -1,5 +1,6 @@
 package br.com.med.pocos.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,34 +11,48 @@ import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.util.DataUtils;
 import br.com.med.pocos.util.Utils;
 
+/**
+ * Class responsável pelo gerenciamento de usuários do sistema
+ * @author Artur
+ *
+ */
+
+
 @Stateless(name = "usuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@EJB
 	public EntityManagerService emService;
 
+	@SuppressWarnings("unused")
 	@Override
-	public void salvar(Object object) {
+	public void salvar(Object object) throws Exception {
 
 		Usuario usuario = (Usuario) object;
+
 		usuario.setIsAtivo(true);
 
 		String senhaMD5 = Utils.gerarMD5(usuario.getSenha());
 
 		usuario.setSenha(senhaMD5);
 
-		if (usuario.getSeqUsuario() == null) {
+		if (usuario != null) {
+			if (usuario.getSeqUsuario() == null) {
 
-			Date data = DataUtils.converterDataTimeZone();
+				Date data = DataUtils.converterDataTimeZone();
 
-			usuario.setDataCadastro(data);
+				usuario.setDataCadastro(data);
 
-			emService.getEntityManager().persist(object);
+				emService.getEntityManager().persist(object);
 
-		} else {
+			} else {
 
-			emService.getEntityManager().merge(object);
+				emService.getEntityManager().merge(object);
+			}
+		}else {
+			throw new Exception();
 		}
+		
 
 	}
 
@@ -51,37 +66,47 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void deletar(Object object) {
 
-		Usuario usuario = (Usuario) object;
+		try {
+			Usuario usuario = (Usuario) object;
 
-		usuario.setIsAtivo(false);
+			usuario.setIsAtivo(false);
 
-		emService.getEntityManager().merge(usuario);
+			emService.getEntityManager().merge(usuario);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public List<?> listar() {
-		// TODO Auto-generated method stub
-		return emService.getEntityManager().createNamedQuery("Usuario.buscaUsuarios").getResultList();
+	public List<Usuario> listar() {
+		
+		List<Usuario> usuarios = emService.getEntityManager().createNamedQuery("Usuario.buscaUsuarios").getResultList(); 
+		
+		return usuarios==null?new ArrayList<Usuario>():usuarios;
 	}
 
 	@Override
 	public boolean verifyUser(String email, String senha) {
-
+		
+		
+		boolean condicao;
 		try {
 			emService.getEntityManager().createNamedQuery("Usuario.verificaUsuario").setParameter("email", email)
 					.setParameter("senha", Utils.gerarMD5(senha)).getSingleResult();
-
+			
+			condicao = true;
 		} catch (Exception e) {
 
-			return false;
+			condicao = false;
 		}
 
-		return true;
+		return condicao;
 	}
 
 	@Override
-	public List<?> listar(Object object) {
+	public List<Usuario> listar(Object object) {
 		// TODO Auto-generated method stub
 		return null;
 	}

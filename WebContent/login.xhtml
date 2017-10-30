@@ -16,7 +16,9 @@
 	<title>Med-Poços - Login</title>
 </h:head>
 <h:body styleClass="estiloPagina">
-	
+		
+		
+		
 		<div class="container">
 			<p:growl id="growl" life="3000" />
 
@@ -49,13 +51,9 @@
 						value="#{msg['page.login.btn.login']}" update="growl" />
 				</p:panel>
 			</h:form>
-			<div id="footer">
-				<div class="container">
-					<p align="center">
-						<p:outputLabel value="#{msg['page.copyright']}" />
-					</p>
-				</div>
-			</div>
+			
+			<ui:include src="menu/rodape.xhtml"></ui:include>
+			
 		</div>
 
 	

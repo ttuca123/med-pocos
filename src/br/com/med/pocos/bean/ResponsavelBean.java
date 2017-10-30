@@ -40,6 +40,8 @@ public class ResponsavelBean implements Serializable {
 
 	}
 
+	
+
 	@PostConstruct
 	public void inicializar() {
 
@@ -84,19 +86,26 @@ public class ResponsavelBean implements Serializable {
 
 			getListar();
 		} catch (Exception e) {
-			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.erro"));
+			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
 		}
 	}
 
 	public String getListar() {
 
-		responsaveis = (List<Responsavel>) responsavelService.listar();
+		try {
+			
+			responsaveis = (List<Responsavel>) responsavelService.listar();
+		
+		} catch (Exception e) {
+			
+			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+		}
 
 		return "listar_responsaveis";
 	}
 
 	public void filtrar() {	
-			
+		
 		
 		responsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
 					
@@ -117,20 +126,7 @@ public class ResponsavelBean implements Serializable {
 
 	public void setResponsavel(Responsavel responsavel) {
 		this.responsavel = responsavel;
-	}
-
-	// public List<String> getFilterResponsavel() {
-	//
-	// List<String> filtro = new ArrayList<String>();
-	//
-	// for (Responsavel Responsavel : responsaveis) {
-	//
-	// filtro.add(Responsavel.getNome());
-	//
-	// }
-	//
-	// return filtro;
-	// }
+	}	
 
 	public List<Responsavel> getFilteredResponsaveis() {
 		return filteredResponsaveis;
@@ -149,6 +145,22 @@ public class ResponsavelBean implements Serializable {
 	public void addMessageException(String summary) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
+	
+	public List<Responsavel> getResponsaveis() {
+		return responsaveis;
+	}
+
+	public void setResponsaveis(List<Responsavel> responsaveis) {
+		this.responsaveis = responsaveis;
+	}
+
+	public ResponsavelService getResponsavelService() {
+		return responsavelService;
+	}
+
+	public void setResponsavelService(ResponsavelService responsavelService) {
+		this.responsavelService = responsavelService;
 	}
 
 }

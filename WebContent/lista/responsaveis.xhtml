@@ -17,17 +17,15 @@
 	<link rel="stylesheet" href="../css/estilo.css" />
 	<title>Lista de Responsáveis</title>
 </h:head>
-<h:body styleClass="estiloPagina">
+<h:body styleClass="filtro">
 
-	<p:ajaxStatus onstart="PF('statusDialog').show()"
-		onsuccess="PF('statusDialog').hide()" />
+	<ui:include src="ajax.xhtml" />	
 
-	<p:dialog widgetVar="statusDialog" modal="true" draggable="true"
-		closable="false" resizable="false" showHeader="false" header="test">
-		<p:graphicImage name="gifs/spinner.gif" />
-	</p:dialog>
+	<div class="page-header" align="center">
+		<h3 class="display-4">Lista de Responsáveis</h3>
 
-	<h3 align="center" class="display-4">Lista de Responsáveis</h3>
+	</div>
+	<p:separator style="border-color: white;"></p:separator>
 	<h:form>
 		<div align="left">
 
@@ -35,59 +33,63 @@
 				action="painelPrincipal" value="#{msg['page.back']}"
 				update="display">
 			</p:commandLink>
-
-
 		</div>
 	</h:form>
+	<p:separator style="border-color: white;"></p:separator>
+	<h:form styleClass="estiloFiltro">
+		<div class="panel panel-default">
+			<div class="panel-body">
 
 
-	<h:form>
-
-		<div class="container">
-			<h2>Filtros</h2>
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<h:outputText value="Status:" />
-					<p:selectBooleanCheckbox id="status"
-					value="#{responsavelBean.responsavel.ativo}" label="Ativo?"
-					title="Ativo?" immediate="true" itemLabel="Ativo?" tabindex="1" />
-	
+				<div class="container-fluid">
+					<h2>Filtros</h2>
+					<p />
+					<div class="row">
+						<div class="col-sm-2">
+							<h:outputText value="Status:" />
+						</div>
+						<div class="col-sm-2">
+							<p:selectBooleanCheckbox id="status"
+								value="#{responsavelBean.responsavel.ativo}" label="Ativo?"
+								title="Ativo?" immediate="true" itemLabel="Ativo?" tabindex="1" />
+						</div>
+					</div>
 				</div>
+
+
+
+				<p:separator style="border-color: white;"></p:separator>
+				<p:commandLink class="btn btn-primary btn-lg btn-block"
+					update=":formExibir:tblResponsaveis" immediate="false"
+					actionListener="#{responsavelBean.filtrar}">
+
+					<b><h:outputText value="Buscar" /> </b>
+
+				</p:commandLink>
+
+
+				<p:commandLink class="btn btn-success btn-lg btn-block"
+					update=":formNovo:responsavelNovo" immediate="true"
+					oncomplete="PF('responsavelDialogNovo').show()"
+					action="#{responsavelBean.novo}">
+
+					<b><h:outputText value="Novo *" /> </b>
+
+				</p:commandLink>
+
 			</div>
 		</div>
-
-
-
-		
-		
-
-		<p:commandLink class="btn btn-primary btn-lg btn-block"
-			update=":formExibir:tblResponsaveis" immediate="false"
-			actionListener="#{responsavelBean.filtrar}">
-
-			<b><h:outputText value="Buscar" /> </b>
-
-		</p:commandLink>
-
-
-		<p:commandLink class="btn btn-success btn-lg btn-block"
-			update=":formNovo:responsavelNovo" immediate="true"
-			oncomplete="PF('responsavelDialogNovo').show()"
-			action="#{responsavelBean.novo}">
-
-			<b><h:outputText value="Novo *" /> </b>
-
-		</p:commandLink>
 	</h:form>
 
 
-	<p:separator />
+	<p:separator style="border-color: white;"></p:separator>
 	<h:form id="formExibir">
 
 		<p:growl id="growl" autoUpdate="true" life="2000" />
 
 
 		<p:dataTable id="tblResponsaveis" var="responsavel"
+			style="font-family: 'Montserrat', 'sans-serif'"
 			filteredValue="#{responsavelBean.filteredResponsaveis}"
 			value="#{responsavelBean.responsaveis}" rows="20" paginator="true"
 			widgetVar="responsavelsTable" scrollable="true"
@@ -97,7 +99,8 @@
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h:outputText value="Lista de Responsáveis:" />
+					<h:outputText value="Lista de Responsáveis:"
+						style="font-family: 'Montserrat', 'sans-serif'" />
 				</p:outputPanel>
 
 			</f:facet>
@@ -105,62 +108,75 @@
 			<p:column filterBy="#{responsavel.nome}" headerText="Nome"
 				style="width:200px" filterMatchMode="contains"
 				filterStyle="width:200px" width="200px" sortBy="#{responsavel.nome}">
-				<h:outputText value="#{responsavel.nome}"
-					style="display:inline-block" />
+				<div align="center">
+					<h:outputText value="#{responsavel.nome}"
+						style="display:inline-block" />
+				</div>
 
 			</p:column>
 
 			<p:column headerText="CPF" filterBy="#{responsavel.cpf}"
 				style="width:200px" filterMatchMode="contains"
 				filterStyle="width:200px" width="200px">
-				<h:outputText value="#{responsavel.cpf}">
-					<f:converter for="cpf" converterId="converter.CpfConverter" />
-				</h:outputText>
+				<div align="center">
+					<h:outputText value="#{responsavel.cpf}">
+						<f:converter for="cpf" converterId="converter.CpfConverter" />
+					</h:outputText>
+				</div>
 			</p:column>
 
 			<p:column headerText="Email" filterBy="#{responsavel.email}"
-				style="width:200px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px"
+				style="width:250px" filterMatchMode="contains"
+				filterStyle="width:250px" width="250px"
 				sortBy="#{responsavel.email}">
-				<h:outputText value="#{responsavel.email}" />
+				<div align="center">
+					<h:outputText value="#{responsavel.email}" />
+				</div>
 			</p:column>
 
-			<p:column headerText="Data de Cadastro">
-				<h:outputText value="#{responsavel.dataCadastro}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
-						timeZone="#{initParam.timezone}" />
-				</h:outputText>
+			<p:column headerText="Data de Cadastro" style="width:100px">
+				<div align="center">
+					<h:outputText value="#{responsavel.dataCadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+							timeZone="#{initParam.timezone}" />
+					</h:outputText>
+				</div>
 			</p:column>
 
-			<p:column headerText="Data de Encerramento">
-				<h:outputText value="#{responsavel.dataEncerramentoContrato}">
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
-						timeZone="#{initParam.timezone}" />
-				</h:outputText>
+			<p:column headerText="Data de Encerramento" style="width:100px">
+				<div align="center">
+					<h:outputText value="#{responsavel.dataEncerramentoContrato}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+							timeZone="#{initParam.timezone}" />
+					</h:outputText>
+				</div>
 			</p:column>
 
 			<p:column headerText="Editar" style="width:100px" width="100px">
-				<p:commandLink update=":form:responsavelDetail"
-					oncomplete="PF('responsavelDialog').show()" title="Detalhar"
-					styleClass="ui-icon ui-icon-search" immediate="true"
-					style="float:left;margin-right:10px">
-					<f:setPropertyActionListener value="#{responsavel}"
-						target="#{responsavelBean.responsavel}" />
-				</p:commandLink>
+				<div align="center">
+					<p:commandLink update=":form:responsavelDetail"
+						oncomplete="PF('responsavelDialog').show()" title="Detalhar"
+						styleClass="ui-icon ui-icon-search" immediate="true"
+						style="float:left;margin-right:10px">
+						<f:setPropertyActionListener value="#{responsavel}"
+							target="#{responsavelBean.responsavel}" />
+					</p:commandLink>
+				</div>
 			</p:column>
 
 			<p:column headerText="Excluir" style="width:100px" width="100px">
-
-				<p:commandLink title="Excluir" update=":formExcluir:Excluir"
-					disabled="#{!responsavelBean.responsavel.ativo}"
-					oncomplete="PF('confirmation').show()" immediate="true">
-					<p:graphicImage value="../images/del.png" width="25px"
-						style="padding-left:10px" />
-					<f:setPropertyActionListener value="#{responsavel}"
-						target="#{responsavelBean.responsavel}" />
-					<f:setPropertyActionListener value="#{editavel}"
-						target="#{responsavelBean.editavel}" />
-				</p:commandLink>
+				<div align="center">
+					<p:commandLink title="Excluir" update=":formExcluir:Excluir"
+						disabled="#{!responsavelBean.responsavel.ativo}"
+						oncomplete="PF('confirmation').show()" immediate="true">
+						<p:graphicImage value="../images/del.png" width="25px"
+							style="padding-left:10px" />
+						<f:setPropertyActionListener value="#{responsavel}"
+							target="#{responsavelBean.responsavel}" />
+						<f:setPropertyActionListener value="#{editavel}"
+							target="#{responsavelBean.editavel}" />
+					</p:commandLink>
+				</div>
 
 
 			</p:column>

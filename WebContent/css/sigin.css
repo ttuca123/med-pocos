@@ -4,7 +4,8 @@ body {
 }
 
 .filtro{
-	background-color: gray;
+	color: white;
+	background-color: #87CEFA;
 	
 }
 .form-signin {

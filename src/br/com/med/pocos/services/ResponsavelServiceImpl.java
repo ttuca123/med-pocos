@@ -11,36 +11,46 @@ import javax.persistence.Query;
 import br.com.med.pocos.model.Responsavel;
 import br.com.med.pocos.util.DataUtils;
 
+/**
+ * Classe responsável pela manutenção dos responsáveis dos empreendimentos
+ * @author Artur
+ *
+ */
+
 @Stateless(name = "ResponsavelService")
 public class ResponsavelServiceImpl implements ResponsavelService {
 
 	@EJB
-	public EntityManagerService emService;
+	public EntityManagerService emService;	
 
 	@Override
-	public void salvar(Object object) {
+	public void salvar(Object object) throws Exception {		 
+		
+		Responsavel	responsavel = (Responsavel) object;
 
-		Responsavel responsavel = (Responsavel) object;
-
-		try {
-			if (responsavel.getSeqResponsavel() == null) {
+			if(responsavel!=null) {
+				if (responsavel.getSeqResponsavel() == null) {
+						
+					Date data = DataUtils.converterDataTimeZone();
 					
-				Date data = DataUtils.converterDataTimeZone();
-				
-				responsavel.setDataCadastro(data);
-
-				emService.getEntityManager().persist(object);
-
-			} else {
-
-				emService.getEntityManager().merge(object);
+					responsavel.setDataCadastro(data);
+	
+					emService.getEntityManager().persist(object);
+	
+				} else {
+					editar(responsavel);
+					
+				}
+			}else {
+				throw new Exception();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();		
-			
-		}
-
+	}
+	
+	
+	private void editar(Responsavel responsavel) {
+		
+		emService.getEntityManager().merge(responsavel);
+		
 	}
 
 	@Override
@@ -71,7 +81,7 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 	}
 
 	@Override
-	public List<?> listar() {
+	public List<Responsavel> listar() {
 		// TODO Auto-generated method stub
 		
 		List<Responsavel> responsaveis;
@@ -94,7 +104,7 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 	}
 
 	@Override
-	public List<?> listar(Object object) {
+	public List<Responsavel> listar(Object object) {
 		
 		Responsavel responsavel = (Responsavel) object;		
 		
@@ -123,5 +133,15 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 		
 		return responsaveis;
 	}
+	
+	
+	
+	public List<Responsavel> listarResponsaveis() {
+		
+		
+		
+		return new ArrayList<Responsavel>();
+	}
+	
 
 }

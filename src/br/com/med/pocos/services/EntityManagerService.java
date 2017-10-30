@@ -6,6 +6,6 @@ import javax.persistence.EntityManager;
 @Remote
 public interface EntityManagerService {
 
-	
 	public EntityManager getEntityManager();
+
 }
