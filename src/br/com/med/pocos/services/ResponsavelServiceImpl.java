@@ -132,54 +132,53 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
 		root = query.from(Responsavel.class);
 
-		List<Predicate> predicates = adicionarFiltros(responsavel);
+		Predicate predicados = adicionarFiltros(responsavel);
 
-		for (Predicate predicado : predicates) {
+		query.select(root).where(predicados);
 
-			query.where(predicado);
-
-		}
 		TypedQuery<Responsavel> resultado = emService.getEntityManager().createQuery(query);
 
 		return resultado.getResultList();
 
 	}
 
-	private List<Predicate> adicionarFiltros(Responsavel responsavel) {
+	private Predicate adicionarFiltros(Responsavel responsavel) {
 
 		Path<Date> data = root.get(Responsavel_.dataEncerramentoContrato);
 
 		Path<Boolean> proprietario = root.get(Responsavel_.isProprietario);
 
-		List<Predicate> predicates = new ArrayList<Predicate>();
+		Predicate predicados = criteriaBuilder.and();
 
 		if (responsavel.isAtivo()) {
 
-			Predicate predicadoAtivo = (Predicate) criteriaBuilder.isNotNull(data);
+			Predicate predicadoResponsavelAtivo = (Predicate) criteriaBuilder.isNull(data);
 
-			predicates.add(predicadoAtivo);
+			predicados = criteriaBuilder.and(predicados, predicadoResponsavelAtivo);
+
 		} else {
 
-			Predicate predicateInativo = (Predicate) criteriaBuilder.isNull(data);
+			Predicate predicadoResponsavelInativo = (Predicate) criteriaBuilder.isNotNull(data);
 
-			predicates.add(predicateInativo);
+			predicados = criteriaBuilder.and(predicados, predicadoResponsavelInativo);
+
 		}
 
 		if (responsavel.isProprietario()) {
 
-			Predicate predicadoAtivo = (Predicate) criteriaBuilder.isTrue(proprietario);
+			Predicate predicadoisProprietario = (Predicate) criteriaBuilder.isTrue(proprietario);
 
-			predicates.add(predicadoAtivo);
+			predicados = criteriaBuilder.and(predicados, predicadoisProprietario);
 
 		} else {
 
-			Predicate predicadoAtivo = (Predicate) criteriaBuilder.isFalse(proprietario);
+			Predicate predicadoNaoProprietario = (Predicate) criteriaBuilder.isFalse(proprietario);
 
-			predicates.add(predicadoAtivo);
+			predicados = criteriaBuilder.and(predicados, predicadoNaoProprietario);
 
 		}
 
-		return predicates;
+		return predicados;
 	}
 
 	public List<Responsavel> listarResponsaveis() {
