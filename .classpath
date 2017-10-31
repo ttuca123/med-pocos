@@ -15,7 +15,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/hibernate/ejb3-persistence/3.3.2.Beta1/ejb3-persistence-3.3.2.Beta1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/postgresql/postgresql/9.1-901.jdbc4/postgresql-9.1-901.jdbc4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.6.1/slf4j-log4j12-1.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar"/>
@@ -45,7 +44,6 @@
 	<classpathentry kind="var" path="M2_REPO/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar"/>
 	<classpathentry kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-entitymanager/4.3.5.Final/hibernate-entitymanager-4.3.5.Final.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-jmx/3.5.6-Final/hibernate-jmx-3.5.6-Final.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/primefaces/primefaces/6.0/primefaces-6.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/glassfish/javax.faces/2.1.10/javax.faces-2.1.10.jar"/>

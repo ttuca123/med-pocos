@@ -41,6 +41,25 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>listarEmpreendimentos</from-outcome>
+			<to-view-id>/lista/empreendimentos.xhtml?faces-redirect=true</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
+		<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>listarPortarias</from-outcome>
+			<to-view-id>/lista/portarias.xhtml?faces-redirect=true</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
 	
 
 	<navigation-rule>

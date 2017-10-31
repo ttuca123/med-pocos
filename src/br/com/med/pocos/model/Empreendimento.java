@@ -42,8 +42,7 @@ public class Empreendimento implements Serializable {
 	@OneToOne	
 	private Responsavel responsavel;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "empreendimento_poco")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="empreendimento")	
 	private List<Poco> lstPocos;	
 	
 	@Transient

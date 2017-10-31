@@ -15,14 +15,14 @@
 
 	<link rel="stylesheet" href="../css/sigin.css" />
 	<link rel="stylesheet" href="../css/estilo.css" />
-	<title>Lista de Responsáveis</title>
+	<title>Lista de Empreendimentos</title>
 </h:head>
 <h:body styleClass="filtro">
 
-	<ui:include src="ajax.xhtml" />	
+	<ui:include src="ajax.xhtml" />
 
 	<div class="page-header" align="center">
-		<h3 class="display-4">Lista de Responsáveis</h3>
+		<h3 class="display-4">Lista de Empreendimentos</h3>
 
 	</div>
 	<p:separator style="border-color: white;"></p:separator>
@@ -51,17 +51,33 @@
 								value="#{responsavelBean.responsavel.ativo}" title="Ativo?"
 								immediate="true" tabindex="1" />
 						</div>
-						
-						<div class="col-sm-2"><b><h:outputText value="Proprietário?" /> </b></div>
-						<div class="col-sm-4">
-							<p:selectBooleanCheckbox id="proprietario"
-								value="#{responsavelBean.responsavel.proprietario}" title="Proprietário?"
-								immediate="true" tabindex="1" />
+
+						<div class="col-sm-2">
+
+							<b><h:outputText value="Nome:" /> </b>
 						</div>
-						
+						<div class="col-sm-4">
+
+							
+								<div class="col-xs-5 selectContainer">
+									<p:selectOneMenu id="lstEmpreendimentos" immediate="true"
+										styleClass="form-control" style="border:0px;">
+										<f:selectItem itemLabel="Selecione um empreendimento"
+											itemValue="teste" noSelectionOption="true" />
+										<f:selectItem itemLabel="Fazenda São Domingos"
+											itemValue="Sao Domingos" noSelectionOption="true" />
+										<f:selectItem itemLabel="Fazenda Sesmaria" itemValue="SP"
+											noSelectionOption="true" />
+										<f:selectItems value="" />
+									</p:selectOneMenu>
+								</div>
+							
+
+						</div>
 					</div>
+
 				</div>
-				
+
 
 
 				<p:separator style="border-color: white;"></p:separator>
@@ -100,18 +116,29 @@
 			value="#{responsavelBean.responsaveis}" rows="20" paginator="true"
 			widgetVar="responsavelsTable" scrollable="true"
 			styleClass="paginated"
-			emptyMessage="Nenhum responsável encontrado com os critérios selecionados"
+			emptyMessage="Nenhum empreendimento encontrado com os critérios selecionados"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h:outputText value="Lista de Responsáveis:"
+					<h:outputText value="Lista de Empreendimentos:"
 						style="font-family: 'Montserrat', 'sans-serif'" />
 				</p:outputPanel>
 
 			</f:facet>
+			
+			
+			<p:column filterBy="#{responsavel.nome}" headerText="Nome Fantasia"
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px" sortBy="#{responsavel.nome}">
+				<div align="center">
+					<h:outputText value="#{responsavel.nome}"
+						style="display:inline-block" />
+				</div>
 
-			<p:column filterBy="#{responsavel.nome}" headerText="Nome"
+			</p:column>
+
+			<p:column filterBy="#{responsavel.nome}" headerText="Descrição"
 				style="width:200px" filterMatchMode="contains"
 				filterStyle="width:200px" width="200px" sortBy="#{responsavel.nome}">
 				<div align="center">
@@ -194,9 +221,6 @@
 	<ui:include src="complemento/resp_editar.xhtml" />
 
 	<ui:include src="complemento/resp_novo.xhtml" />
-
-
-
 
 </h:body>
 </html>

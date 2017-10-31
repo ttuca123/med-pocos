@@ -74,7 +74,20 @@ public class Responsavel implements Serializable {
 	@Transient
 	private boolean isAtivo;
 	
+	@Column(name = "is_proprietario", nullable=true)
+	private boolean isProprietario;
 	
+
+	public boolean isProprietario() {
+		
+		
+		
+		return isProprietario;
+	}
+
+	public void setProprietario(boolean isProprietario) {
+		this.isProprietario = isProprietario;
+	}
 
 	public Long getSeqResponsavel() {
 		return seqResponsavel;

@@ -5,7 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +26,19 @@ public class Poco {
 	
 	@Column(name="is_ativo")
 	private boolean isAtivo;
+	
+	@ManyToOne
+	@JoinColumn(name="empreendimento_poco")
+	private Empreendimento empreendimento;	
+	
+	
+	public Empreendimento getEmpreendimento() {
+		return empreendimento;
+	}
+
+	public void setEmpreendimento(Empreendimento empreendimento) {
+		this.empreendimento = empreendimento;
+	}
 
 	public Long getSeqPoco() {
 		return seqPoco;

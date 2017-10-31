@@ -96,6 +96,16 @@
 					</div>
 				</div>
 				<p:message for="fixoNovo" />
+				
+				<div class="form-group row">
+					<label for="proprietario" class="col-2 col-form-label">Proprietário</label>
+					<div class="col-10">
+						<p:selectBooleanCheckbox id="proprietario"
+								value="#{responsavelBean.responsavel.proprietario}" label="Ativo?"
+								title="Proprietário?" immediate="true"  tabindex="2" />
+					</div>
+				</div>
+				
 
 				<p:separator />			
 

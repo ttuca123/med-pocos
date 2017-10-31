@@ -15,14 +15,14 @@
 
 	<link rel="stylesheet" href="../css/sigin.css" />
 	<link rel="stylesheet" href="../css/estilo.css" />
-	<title>Lista de Responsáveis</title>
+	<title>Lista de Portarias</title>
 </h:head>
 <h:body styleClass="filtro">
 
 	<ui:include src="ajax.xhtml" />	
 
 	<div class="page-header" align="center">
-		<h3 class="display-4">Lista de Responsáveis</h3>
+		<h3 class="display-4">Lista de Portarias</h3>
 
 	</div>
 	<p:separator style="border-color: white;"></p:separator>
@@ -45,23 +45,17 @@
 					<h2>Filtros</h2>
 					<p />
 					<div class="row">
-						<div class="col-sm-2"><b><h:outputText value="Ativo?" /> </b></div>
-						<div class="col-sm-4">
+						<div class="col-sm-2">
+							<h:outputText value="Status:" />
+						</div>
+						<div class="col-sm-2">
 							<p:selectBooleanCheckbox id="status"
-								value="#{responsavelBean.responsavel.ativo}" title="Ativo?"
-								immediate="true" tabindex="1" />
+								value="#{responsavelBean.responsavel.ativo}" label="Ativo?"
+								title="Ativo?" immediate="true" itemLabel="Ativo?" tabindex="1" />
 						</div>
-						
-						<div class="col-sm-2"><b><h:outputText value="Proprietário?" /> </b></div>
-						<div class="col-sm-4">
-							<p:selectBooleanCheckbox id="proprietario"
-								value="#{responsavelBean.responsavel.proprietario}" title="Proprietário?"
-								immediate="true" tabindex="1" />
-						</div>
-						
 					</div>
 				</div>
-				
+
 
 
 				<p:separator style="border-color: white;"></p:separator>
@@ -100,12 +94,12 @@
 			value="#{responsavelBean.responsaveis}" rows="20" paginator="true"
 			widgetVar="responsavelsTable" scrollable="true"
 			styleClass="paginated"
-			emptyMessage="Nenhum responsável encontrado com os critérios selecionados"
+			emptyMessage="Nenhuma portaria encontrado com os critérios selecionados"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h:outputText value="Lista de Responsáveis:"
+					<h:outputText value="Lista de Portarias:"
 						style="font-family: 'Montserrat', 'sans-serif'" />
 				</p:outputPanel>
 
