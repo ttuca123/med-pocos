@@ -19,7 +19,7 @@
 </h:head>
 <h:body styleClass="filtro">
 
-	<ui:include src="ajax.xhtml" />	
+	<ui:include src="ajax.xhtml" />
 
 	<div class="page-header" align="center">
 		<h3 class="display-4">Lista de Responsáveis</h3>
@@ -29,44 +29,82 @@
 	<h:form>
 		<div align="left">
 
-			<p:commandLink ajax="false" styleClass="buttonBack"
-				action="painelPrincipal" value="#{msg['page.back']}"
-				update="display">
-			</p:commandLink>
+			<p:commandLink ajax="false" class="btn btn-info" style="color: white;"
+						action="painelPrincipal" value="#{msg['page.back']}"
+						update="display">
+					</p:commandLink>
 		</div>
 	</h:form>
 	<p:separator style="border-color: white;"></p:separator>
-	<h:form styleClass="estiloFiltro">
+	<h:form id="formResponsaveis" styleClass="estiloFiltro">
 		<div class="panel panel-default">
 			<div class="panel-body">
-
 
 				<div class="container-fluid">
 					<h2>Filtros</h2>
 					<p />
-					<div class="row">
-						<div class="col-sm-2"><b><h:outputText value="Ativo?" /> </b></div>
-						<div class="col-sm-4">
-							<p:selectBooleanCheckbox id="status"
-								value="#{responsavelBean.responsavel.ativo}" title="Ativo?"
-								immediate="true" tabindex="1" />
-						</div>
-						
-						<div class="col-sm-2"><b><h:outputText value="Proprietário?" /> </b></div>
-						<div class="col-sm-4">
-							<p:selectBooleanCheckbox id="proprietario"
-								value="#{responsavelBean.responsavel.proprietario}" title="Proprietário?"
-								immediate="true" tabindex="1" />
-						</div>
-						
-					</div>
-				</div>
-				
+					<p:outputPanel id="painel">
+						<div class="row">
+							<div class="col-sm-2">
+								<b><h:outputText value="Ativo?" /> </b>
+							</div>
+							<div class="col-sm-4">
+								<p:selectBooleanCheckbox id="status"
+									value="#{responsavelBean.responsavel.ativo}" title="Ativo?"
+									immediate="true" tabindex="1">
+									<f:ajax render="formResponsaveis:painel"></f:ajax>
+								</p:selectBooleanCheckbox>
 
+								<b><h:outputText  value="Sim"
+										rendered="#{responsavelBean.responsavel.ativo}" /> </b> <b><h:outputText
+										value="Não"
+										rendered="#{!responsavelBean.responsavel.ativo}" /> </b>
+
+
+							</div>
+
+							<div class="col-sm-2">
+								<b><h:outputText value="Proprietário?" /> </b>
+							</div>
+							<div class="col-sm-4">
+								<p:selectBooleanCheckbox id="proprietario"
+									value="#{responsavelBean.responsavel.proprietario}"
+									title="Proprietário?" immediate="true" tabindex="1">
+									<f:ajax render="formResponsaveis:painel"></f:ajax>
+								</p:selectBooleanCheckbox>
+								
+								<b><h:outputText  value="Sim"
+										rendered="#{responsavelBean.responsavel.proprietario}" /> </b> <b><h:outputText
+										value="Não"
+										rendered="#{!responsavelBean.responsavel.proprietario}" /> </b>
+							</div>
+							
+							<div class="col-sm-2">
+								<b><h:outputText value="Todos?" /> </b>
+							</div>
+							<div class="col-sm-4">
+								<p:selectBooleanCheckbox id="todos"
+									value="#{responsavelBean.todos}" title="Ativo?"
+									immediate="true" tabindex="1">
+									<f:ajax render="formResponsaveis:painel"></f:ajax>
+								</p:selectBooleanCheckbox>
+
+								<b><h:outputText  value="Sim"
+										rendered="#{responsavelBean.todos}" /> </b> <b><h:outputText
+										value="Não"
+										rendered="#{!responsavelBean.todos}" /> </b>
+
+
+							</div>
+
+						</div>
+					</p:outputPanel>
+				</div>
 
 				<p:separator style="border-color: white;"></p:separator>
-				<p:commandLink class="btn btn-primary btn-lg btn-block"
-					update=":formExibir:tblResponsaveis" immediate="false"
+				<p:commandLink id="btnFilter"
+					class="btn btn-primary btn-lg btn-block"
+					update=":formExibir:tblResponsaveis" immediate="true"
 					actionListener="#{responsavelBean.filtrar}">
 
 					<b><h:outputText value="Buscar" /> </b>
@@ -97,7 +135,7 @@
 		<p:dataTable id="tblResponsaveis" var="responsavel"
 			style="font-family: 'Montserrat', 'sans-serif'"
 			filteredValue="#{responsavelBean.filteredResponsaveis}"
-			value="#{responsavelBean.responsaveis}" rows="20" paginator="true"
+			value="#{responsavelBean.responsaveis}" rows="10" paginator="true"
 			widgetVar="responsavelsTable" scrollable="true"
 			styleClass="paginated"
 			emptyMessage="Nenhum responsável encontrado com os critérios selecionados"
@@ -157,6 +195,20 @@
 					</h:outputText>
 				</div>
 			</p:column>
+			
+			<p:column headerText="Proprietário?" style="width:100px">
+				<div align="center">
+					<p:selectBooleanCheckbox id="proprietario"
+									value="#{responsavel.proprietario}" disabled="true"
+									/>						
+								
+				</div>
+			</p:column>
+			
+			
+								
+								
+								
 
 			<p:column headerText="Editar" style="width:100px" width="100px">
 				<div align="center">
@@ -173,7 +225,7 @@
 			<p:column headerText="Excluir" style="width:100px" width="100px">
 				<div align="center">
 					<p:commandLink title="Excluir" update=":formExcluir:Excluir"
-						disabled="#{!responsavelBean.responsavel.ativo}"
+						disabled="#{!responsavel.operar}"
 						oncomplete="PF('confirmation').show()" immediate="true">
 						<p:graphicImage value="../images/del.png" width="25px"
 							style="padding-left:10px" />
@@ -187,6 +239,7 @@
 
 			</p:column>
 		</p:dataTable>
+
 	</h:form>
 
 	<ui:include src="complemento/resp_excluir.xhtml" />

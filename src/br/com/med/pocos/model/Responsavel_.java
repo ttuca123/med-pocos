@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2017-10-31T16:40:23.115-0300")
+@Generated(value="Dali", date="2017-11-01T11:18:31.633-0300")
 @StaticMetamodel(Responsavel.class)
 public class Responsavel_ {
 	public static volatile SingularAttribute<Responsavel, Long> seqResponsavel;

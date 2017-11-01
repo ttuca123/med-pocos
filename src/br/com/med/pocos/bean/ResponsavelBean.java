@@ -24,7 +24,10 @@ public class ResponsavelBean implements Serializable {
 	private static final long serialVersionUID = -4970294226807286353L;
 	
 	private Responsavel responsavel;
+	
+	private boolean todos;
 
+	
 	@ManagedProperty(value = "#{responsaveis}")
 	private List<Responsavel> responsaveis = new ArrayList<Responsavel>();
 
@@ -90,7 +93,7 @@ public class ResponsavelBean implements Serializable {
 		}
 	}
 
-	public String getListar() {
+	public void getListar() {
 
 		try {
 			
@@ -100,15 +103,18 @@ public class ResponsavelBean implements Serializable {
 			
 			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
 		}
-
-		return "listar_responsaveis";
+		
 	}
 
 	public void filtrar() {	
 		
+		if(todos) {
+			getListar();
+		}else {
 		
-		responsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
+			responsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
 					
+		}
 	}
 
 
@@ -162,5 +168,16 @@ public class ResponsavelBean implements Serializable {
 	public void setResponsavelService(ResponsavelService responsavelService) {
 		this.responsavelService = responsavelService;
 	}
+	
+	public boolean isTodos() {
+		return todos;
+	}
+
+
+
+	public void setTodos(boolean todos) {
+		this.todos = todos;
+	}
+
 
 }

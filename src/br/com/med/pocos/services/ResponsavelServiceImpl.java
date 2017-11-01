@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -133,8 +134,10 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 		root = query.from(Responsavel.class);
 
 		Predicate predicados = adicionarFiltros(responsavel);
-
-		query.select(root).where(predicados);
+		
+		Path<String> nome = root.get(Responsavel_.nome);
+		
+		query.select(root).where(predicados).orderBy(criteriaBuilder.asc(nome));
 
 		TypedQuery<Responsavel> resultado = emService.getEntityManager().createQuery(query);
 
@@ -147,6 +150,8 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 		Path<Date> data = root.get(Responsavel_.dataEncerramentoContrato);
 
 		Path<Boolean> proprietario = root.get(Responsavel_.isProprietario);
+		
+		
 
 		Predicate predicados = criteriaBuilder.and();
 
@@ -156,12 +161,12 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
 			predicados = criteriaBuilder.and(predicados, predicadoResponsavelAtivo);
 
-		} else {
+		}else {
+			
+			Predicate predicadoResponsavelAtivo = (Predicate) criteriaBuilder.isNotNull(data);
 
-			Predicate predicadoResponsavelInativo = (Predicate) criteriaBuilder.isNotNull(data);
-
-			predicados = criteriaBuilder.and(predicados, predicadoResponsavelInativo);
-
+			predicados = criteriaBuilder.and(predicados, predicadoResponsavelAtivo);
+			
 		}
 
 		if (responsavel.isProprietario()) {
@@ -170,13 +175,15 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
 			predicados = criteriaBuilder.and(predicados, predicadoisProprietario);
 
-		} else {
+		}else {
+			
+			Predicate predicadoisProprietario = (Predicate) criteriaBuilder.isFalse(proprietario);
 
-			Predicate predicadoNaoProprietario = (Predicate) criteriaBuilder.isFalse(proprietario);
-
-			predicados = criteriaBuilder.and(predicados, predicadoNaoProprietario);
-
-		}
+			predicados = criteriaBuilder.and(predicados, predicadoisProprietario);
+			
+		}		
+		
+		
 
 		return predicados;
 	}

@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,44 +18,42 @@ import javax.persistence.TemporalType;
  * Entity implementation class for Entity: Usuario
  *
  */
-@NamedQueries( value = {
-	@NamedQuery(name="Usuario.buscaUsuarios", 
-	query="select u from Usuario u where u.isAtivo = true "),
-	
-	@NamedQuery(name="Usuario.verificaUsuario", 
-	query="select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true")})
+@NamedQueries(value = {
+		@NamedQuery(name = "Usuario.buscaUsuarios", query = "select u from Usuario u where u.isAtivo = true "),
+
+		@NamedQuery(name = "Usuario.verificaUsuario", query = "select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true") })
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	// @GeneratedValue(strategy = GenerationType.AUTO)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	
+
 	@Column(name = "seq_usuario", columnDefinition = "serial not null")
 	private Long seqUsuario;
 
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 
-	@Column(name = "sobrenome")
+	@Column(name = "sobrenome", nullable = false)
 	private String sobrenome;
 
-	@Column(name = "email")
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
-	@Column(name = "senha")
-	private String senha;	
 
-	@Column(name = "telefone")
+	@Column(name = "senha", nullable = false)
+	private String senha;
+
+	@Column(name = "telefone", nullable = true)
 	private String telefone;
-	
-	@Column(name = "data_cadastro")
+
+	@Column(name = "data_cadastro", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCadastro;	
-	
+	private Date dataCadastro;
+
 	@Column(name = "is_ativo", nullable = false)
 	private Boolean isAtivo;
-	
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -64,8 +61,6 @@ public class Usuario implements Serializable {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-
-	
 
 	public Boolean getIsAtivo() {
 		return isAtivo;
@@ -124,7 +119,7 @@ public class Usuario implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}

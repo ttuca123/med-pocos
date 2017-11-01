@@ -13,17 +13,17 @@
 		 <class>br.com.med.pocos.model.Usuario</class>
 		 <class>br.com.med.pocos.model.Empreendimento</class>
 		 <class>br.com.med.pocos.model.Poco</class>
-		  <class>br.com.med.pocos.model.Responsavel</class>		 
+		 <class>br.com.med.pocos.model.Responsavel</class>		 
 		 
 
 		<properties>
 			<property name="hibernate.default_schema" value="producao" />		
 			
-			<property name="hibernate.format_sql" value="true" />			
+			<property name="hibernate.format_sql" value="none" />			
 
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="none" />
 
-			<property name="hibernate.hbm2ddl.auto" value="update" /> 
+			<property name="hibernate.hbm2ddl.auto" value="none" /> 
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 

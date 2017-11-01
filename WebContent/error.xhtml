@@ -4,35 +4,46 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
 <h:head>
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
 		crossorigin="anonymous" />
-		<link rel="stylesheet"
-		href="css/sigin.css" />
-	<title>Med-Poços - Página de Erro</title>
-</h:head>
-	<h:body>
-	
-	<h:form>
-			<div class="container">		
-			<div class="hero-unit center">
-	          <h1>Infelizmente Ocorreu um Erro <small><font face="Tahoma" color="red">..</font></small></h1>
-	          <br />
-	          <p><b>Ocorreram alguns erros internos no sistema</b></p>
-	         
-	          <h:commandLink action="loginPage" class="btn btn-info" > Clique aqui para ir á tela inicial </h:commandLink>
-	          
-	        </div>
-			
-	      	<img src="images/error_page.jpg" />
-	    </div> 
-		
-	
-	</h:form>
-	
-	</h:body>
 
+	<link rel="stylesheet" href="css/sigin.css" />
+	<link rel="stylesheet" href="css/estilo.css" />
+
+
+	<title>Erro</title>
+</h:head>
+<h:body styleClass="estiloPaginaErro">
+
+	<div class="container">
+		<div class="page-header" align="center">
+			<h3 class="display-4">
+				<span class="alert alert-danger"> Infelizmente ocorreu um
+					erro no sistema </span>
+
+				<p:separator style="border-color: white;"></p:separator>
+			</h3>
+		</div>
+
+
+		<h:form>
+			<div align="left">
+				
+				<u><p:commandLink ajax="false" class="btn btn-info" style="color: white;"
+						action="painelPrincipal" value="#{msg['page.back']}"
+						update="display">
+					</p:commandLink></u>
+			</div>
+		</h:form>
+
+
+		<img src="" />
+	</div>
+</h:body>
 </html>

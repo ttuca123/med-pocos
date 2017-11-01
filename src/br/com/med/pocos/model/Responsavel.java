@@ -21,12 +21,7 @@ import javax.persistence.Transient;
  */
 @NamedQueries( value = {
 		@NamedQuery(name="Responsavel.buscaResponsaveis", 
-		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ORDER BY r.nome asc ")		
-		,
-	@NamedQuery(name="Responsavel.buscaResponsaveisAtivos", 
-		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ORDER BY r.nome asc"),
-	@NamedQuery(name="Responsavel.buscaResponsaveisInativos", 
-	query="select r from Responsavel r where r.dataEncerramentoContrato IS NOT NULL ORDER BY r.nome asc")
+		query="select r from Responsavel r ORDER BY r.nome asc ")	
 		
 		}
 	)
@@ -47,13 +42,13 @@ public class Responsavel implements Serializable {
 	@Column(name = "seq_responsavel", columnDefinition = "serial not null")
 	private Long seqResponsavel;
 
-	@Column(name = "nome", length=80, nullable=false)
+	@Column(name = "nome", length=80, nullable=false, unique = true)
 	private String nome;
 
-	@Column(name = "cpf", length=11, nullable=false )
+	@Column(name = "cpf", length=11, nullable=false, unique = true )
 	private String cpf;
 
-	@Column(name = "email", length=36, nullable = true)
+	@Column(name = "email", length=36, nullable = true, unique=true)
 	private String email;
 	
 	@Column(name = "celular", length=12, nullable=false)
@@ -163,7 +158,14 @@ public class Responsavel implements Serializable {
 		this.isAtivo = isAtivo;
 	}
 	
-	
+	public boolean isOperar() {
+		if(this.dataEncerramentoContrato==null) {
+			return true;
+		}else {
+			return false;
+			
+		}
+	}
 
 	
 }

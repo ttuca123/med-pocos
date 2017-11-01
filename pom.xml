@@ -144,12 +144,8 @@
 			<version>0.8</version>
 			<type>jar</type>
 		</dependency>
-
-
-
 	</dependencies>
-
-
+	
 	<build>
 		<finalName>med-pocos</finalName>
 		<sourceDirectory>src</sourceDirectory>
