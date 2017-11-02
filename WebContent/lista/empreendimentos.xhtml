@@ -22,7 +22,7 @@
 	<ui:include src="ajax.xhtml" />
 
 	<div class="page-header" align="center">
-		<h3 class="display-4">Lista de Empreendimentos</h3>
+		<h3 class="display-4" style="font-family: 'Montserrat', 'sans-serif'">Lista de Empreendimentos</h3>
 
 	</div>
 	<p:separator style="border-color: white;"></p:separator>
@@ -41,33 +41,33 @@
 			<div class="panel-body">
 
 				<div class="container-fluid">
-					<h2>Filtros</h2>
+					<h2><i><h:outputText value="Filtros"  style="font-family: 'Montserrat', 'sans-serif'"/></i></h2>
 					<p />
 					<p:outputPanel id="painel">
 						<div class="row">
 							<div class="col-sm-2">
-								<b><h:outputText value="Ativo?" /> </b>
+								<b><h:outputText value="Ativo?"  style="font-family: 'Montserrat', 'sans-serif'"/> </b>
 							</div>
 							<div class="col-sm-4">
-								<p:selectBooleanCheckbox id="status"
+								<p:selectBooleanCheckbox id="status" style="font-family: 'Montserrat', 'sans-serif'"
 									value="#{responsavelBean.responsavel.ativo}" title="Ativo?"
 									immediate="true" tabindex="1">
 									<f:ajax render="formResponsaveis:painel"></f:ajax>
 								</p:selectBooleanCheckbox>
 
-								<b><h:outputText value="Sim"
+								<b><h:outputText value="Sim" style="font-family: 'Montserrat', 'sans-serif'"
 										rendered="#{responsavelBean.responsavel.ativo}" /> </b> <b><h:outputText
-										value="Não" rendered="#{!responsavelBean.responsavel.ativo}" />
+										value="Não" rendered="#{!responsavelBean.responsavel.ativo}" style="font-family: 'Montserrat', 'sans-serif'" />
 								</b>
 							</div>								
 							
 
 							<div class="col-sm-2">
-								<b><h:outputText value="Tipo de Empreendimento:" /> </b>
+								<b><h:outputText value="Tipo de Empreendimento:" style="font-family: 'Montserrat', 'sans-serif'" /> </b>
 							</div>
 							<div class="col-sm-2">
 								<div class="form-group">
-									<h:selectOneMenu id="lstEmpreendimentos" class="form-control"
+									<h:selectOneMenu id="lstEmpreendimentos" class="form-control" style="font-family: 'Montserrat', 'sans-serif'"
 										immediate="true">
 										<f:selectItem itemLabel="Selecione um empreendimento"
 											itemValue="teste" noSelectionOption="true" />										
@@ -82,10 +82,10 @@
 							<div class="row">
 							
 							<div class="col-sm-2">
-								<b><h:outputText value="Nome" /> </b>
+								<b><h:outputText value="Nome" style="font-family: 'Montserrat', 'sans-serif'"/> </b>
 							</div>
 							<div class="col-sm-4">
-								<p:inputText id="nome" class="form-control"
+								<p:inputText id="nome" class="form-control" style="font-family: 'Montserrat', 'sans-serif'"
 									a:placeholder="Digite o nome da empresa"
 									value="#{responsavelBean.responsavel.nome}" 
 									immediate="true" >									
@@ -93,10 +93,10 @@
 							</div>
 							
 							<div class="col-sm-2">
-								<b><h:outputText value="Cnpj: " /> </b>
+								<b><h:outputText value="Cnpj: " style="font-family: 'Montserrat', 'sans-serif'"/> </b>
 							</div>
 							<div class="col-sm-4">
-								<p:inputMask id="cnpj"  required="true" 
+								<p:inputMask id="cnpj"  required="true"  style="font-family: 'Montserrat', 'sans-serif'"
 									mask="99.999.999/9999-99" 
 									a:placeholder="Digite cnpj da empresa"
 									value="#{responsavelBean.responsavel.cpf}">							
@@ -107,18 +107,18 @@
 												
 
 							<div class="col-sm-2">
-								<b><h:outputText value="Todos?" /> </b>
+								<b><h:outputText value="Todos?" style="font-family: 'Montserrat', 'sans-serif'"/> </b>
 							</div>
 							<div class="col-sm-4">
-								<p:selectBooleanCheckbox id="todos"
+								<p:selectBooleanCheckbox id="todos" style="font-family: 'Montserrat', 'sans-serif'"
 									value="#{responsavelBean.todos}" title="Ativo?"
 									immediate="true" tabindex="1">
 									<f:ajax render="formResponsaveis:painel"></f:ajax>
 								</p:selectBooleanCheckbox>
 
-								<b><h:outputText value="Sim"
+								<b><h:outputText value="Sim" style="font-family: 'Montserrat', 'sans-serif'"
 										rendered="#{responsavelBean.todos}" /> </b> <b><h:outputText
-										value="Não" rendered="#{!responsavelBean.todos}" /> </b>							
+										value="Não" rendered="#{!responsavelBean.todos}" style="font-family: 'Montserrat', 'sans-serif'"/> </b>							
 							</div>
 							
 							
@@ -128,7 +128,7 @@
 				</div>
 
 				<p:separator style="border-color: white;"></p:separator>
-				<p:commandLink id="btnFilter"
+				<p:commandLink id="btnFilter" style="font-family: 'Montserrat', 'sans-serif'"
 					class="btn btn-primary btn-lg btn-block"
 					update=":formExibir:tblResponsaveis" immediate="true"
 					actionListener="#{responsavelBean.filtrar}">
@@ -138,7 +138,7 @@
 				</p:commandLink>
 
 
-				<p:commandLink class="btn btn-success btn-lg btn-block"
+				<p:commandLink class="btn btn-success btn-lg btn-block" style="font-family: 'Montserrat', 'sans-serif'"
 					update=":formNovo:responsavelNovo" immediate="true"
 					oncomplete="PF('responsavelDialogNovo').show()"
 					action="#{responsavelBean.novo}">
@@ -164,12 +164,12 @@
 			value="#{responsavelBean.responsaveis}" rows="10" paginator="true"
 			widgetVar="responsavelsTable" scrollable="true"
 			styleClass="paginated"
-			emptyMessage="Nenhum responsável encontrado com os critérios selecionados"
+			emptyMessage="Nenhum empreendimento encontrado com os critérios selecionados"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h:outputText value="Lista de Responsáveis:"
+					<h:outputText value="Lista de Empreendimentos:"
 						style="font-family: 'Montserrat', 'sans-serif'" />
 				</p:outputPanel>
 
