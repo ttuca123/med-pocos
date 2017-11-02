@@ -13,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 import br.com.med.pocos.model.Responsavel;
 import br.com.med.pocos.services.ResponsavelService;
 import br.com.med.pocos.util.Utils;
@@ -27,6 +28,8 @@ public class ResponsavelBean implements Serializable {
 	
 	private boolean todos;
 
+	
+	private List<String> lstEmpreendimentos;
 	
 	@ManagedProperty(value = "#{responsaveis}")
 	private List<Responsavel> responsaveis = new ArrayList<Responsavel>();
@@ -78,6 +81,12 @@ public class ResponsavelBean implements Serializable {
 		}
 
 	}
+	
+	
+	
+
+	
+
 
 	public void excluir(ActionEvent actionEvent) {
 
@@ -177,6 +186,19 @@ public class ResponsavelBean implements Serializable {
 
 	public void setTodos(boolean todos) {
 		this.todos = todos;
+	}
+
+	public List<String> getLstEmpreendimentos() {
+		
+		lstEmpreendimentos = EnumTipoEmpreendimento.getLstTipoEmpreendimentos();
+		
+		return lstEmpreendimentos;
+	}
+
+
+
+	public void setLstEmpreendimentos(List<String> lstEmpreendimentos) {
+		this.lstEmpreendimentos = lstEmpreendimentos;
 	}
 
 

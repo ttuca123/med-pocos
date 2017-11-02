@@ -13,10 +13,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 
 .estiloLogin{
-	background-image: url("../images/background2.jpeg"); 
-    background-repeat: x-repeat;
-     background-position: center;
-    background-color: #87CEFA;
+	
+    /*background-color: #87CEFA;*/
+    background-color: #006699;
     background-attachment: fixed;
 	color: white;
 	

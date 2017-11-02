@@ -5,7 +5,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2017-10-31T16:40:23.029-0300")
+@Generated(value="Dali", date="2017-11-02T09:31:47.239-0300")
 @StaticMetamodel(Empreendimento.class)
 public class Empreendimento_ {
 	public static volatile SingularAttribute<Empreendimento, Long> seqEmpreendimento;
@@ -14,4 +14,6 @@ public class Empreendimento_ {
 	public static volatile ListAttribute<Empreendimento, Poco> lstPocos;
 	public static volatile SingularAttribute<Empreendimento, String> cep;
 	public static volatile SingularAttribute<Empreendimento, String> complemento;
+	public static volatile SingularAttribute<Empreendimento, String> nomeFantasia;
+	public static volatile SingularAttribute<Empreendimento, String> cnpj;
 }

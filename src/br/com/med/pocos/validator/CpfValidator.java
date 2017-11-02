@@ -1,8 +1,5 @@
 package br.com.med.pocos.validator;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -25,7 +22,7 @@ public class CpfValidator implements Validator {
 			 
              FacesMessage message = new FacesMessage(
 	                    FacesMessage.SEVERITY_ERROR, mensagem,
-	                    "Cpf inv√°lido");
+	                    "Cpf inv·lido");
              throw new ValidatorException(message);
             
         }

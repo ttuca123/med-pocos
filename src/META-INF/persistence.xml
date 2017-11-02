@@ -17,13 +17,13 @@
 		 
 
 		<properties>
-			<property name="hibernate.default_schema" value="producao" />		
+			<property name="hibernate.default_schema" value="desenvolvimento" />		
 			
 			<property name="hibernate.format_sql" value="none" />			
 
 			<property name="hibernate.show_sql" value="none" />
 
-			<property name="hibernate.hbm2ddl.auto" value="none" /> 
+			<property name="hibernate.hbm2ddl.auto" value="update" /> 
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 
