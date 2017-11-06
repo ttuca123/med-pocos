@@ -1,5 +1,6 @@
 br\com\med\pocos\model\Poco_.class
 br\com\med\pocos\services\UsuarioServiceImpl.class
+br\com\med\pocos\enu\EnumTipoEmpreendimento.class
 br\com\med\pocos\services\ResponsavelService.class
 br\com\med\pocos\bean\UsuarioBean.class
 br\com\med\pocos\validator\CpfValidator.class
@@ -20,7 +21,10 @@ br\com\med\pocos\filter\AcessoFilter.class
 br\com\med\pocos\model\Poco.class
 br\com\med\pocos\util\DataUtils.class
 br\com\med\pocos\model\Empreendimento_.class
+br\com\med\pocos\util\EmailService.class
+br\com\med\pocos\util\EmailServiceImpl.class
 br\com\med\pocos\bean\LoginBean.class
+br\com\med\pocos\converter\CnpjConverter.class
 br\com\med\pocos\services\UsuarioService.class
 br\com\med\pocos\converter\FoneConverter.class
 br\com\med\pocos\services\GenericService.class

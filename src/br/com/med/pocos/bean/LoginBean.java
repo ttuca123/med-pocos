@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.services.UsuarioService;
+import br.com.med.pocos.util.EmailService;
+import br.com.med.pocos.util.EmailServiceImpl;
 import br.com.med.pocos.util.SessionUtils;
 import br.com.med.pocos.util.Utils;
 
@@ -22,6 +24,9 @@ public class LoginBean implements Serializable{
 	
 	private Usuario usuario = new Usuario();
 
+	@EJB
+	private EmailService emailService;
+	
 	@EJB
 	private UsuarioService usuarioService;
 
@@ -46,7 +51,16 @@ public class LoginBean implements Serializable{
 			return "painelPrincipal";			
 		} else {
 			
-			Utils.addMessageAviso(Utils.getMensagem("page.login.erro"));		
+			Utils.addMessageAviso(Utils.getMensagem("page.login.erro"));	
+			
+//			emailService.sendEmail();
+			
+//			try {
+//				Utils.sendEmail();
+//			} catch (EmailException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		
 		return "";

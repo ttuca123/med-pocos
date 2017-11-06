@@ -1,25 +1,40 @@
 package br.com.med.pocos.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 
 /**
  * Entity implementation class for Entity: Empreendimento
  *
  */
+
+@NamedQueries( value = {
+		@NamedQuery(name="Empreendimento.buscaAllEmpreendimentos", 
+		query="select e from Empreendimento e ORDER BY e.nomeFantasia asc ")	
+		
+		}
+	)
 @Entity
 @Table(name="empreendimento")
 public class Empreendimento implements Serializable {
@@ -44,8 +59,20 @@ public class Empreendimento implements Serializable {
 	
 	@Column(name = "cnpj", nullable=false, length=14, unique=true)
 	private String cnpj;
+	
+	@Column(name = "data_cadastro", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
+	
+	@Column(name = "data_encerramento", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataEncerramento;
 
-
+	@Enumerated
+	@Column(name="tipo_empreendimento")
+	private EnumTipoEmpreendimento tipoEmpreendimento;
+	
+	
 	@OneToOne	
 	private Responsavel responsavel;
 
@@ -69,6 +96,36 @@ public class Empreendimento implements Serializable {
 
 	@Column(name = "complemento", length=80)
 	private String complemento;
+	
+	@Transient
+	private boolean isAtivo;
+	
+	
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	
+
+	public Date getDataEncerramento() {
+		return dataEncerramento;
+	}
+
+	public void setDataEncerramento(Date dataEncerramento) {
+		this.dataEncerramento = dataEncerramento;
+	}
+
+	public boolean isAtivo() {
+		return isAtivo;
+	}
+
+	public void setAtivo(boolean isAtivo) {
+		this.isAtivo = isAtivo;
+	}
 
 	public Long getSeqEmpreendimento() {
 		return seqEmpreendimento;
@@ -167,8 +224,18 @@ public class Empreendimento implements Serializable {
 	}
 
 	public void setCnpj(String cnpj) {
+	
 		this.cnpj = cnpj;
 	}
+	
+	public EnumTipoEmpreendimento getTipoEmpreendimento() {
+		return tipoEmpreendimento;
+	}
+
+	public void setTipoEmpreendimento(EnumTipoEmpreendimento tipoEmpreendimento) {
+		this.tipoEmpreendimento = tipoEmpreendimento;
+	}
+
 
 	@Override
 	public int hashCode() {

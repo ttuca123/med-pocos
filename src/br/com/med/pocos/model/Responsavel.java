@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
- * Entity implementation class for Entity: Respons√°vel
+ * Entity implementation class for Entity: Respons·vel
  *
  */
 @NamedQueries( value = {

@@ -18,7 +18,7 @@ import br.com.med.pocos.util.Utils;
  */
 
 
-@Stateless(name = "usuarioService")
+@Stateless(name = "UsuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@EJB

@@ -22,14 +22,14 @@
 	<ui:include src="ajax.xhtml" />
 
 	<div class="page-header" align="center">
-		<h3 class="display-4">Lista de Responsáveis</h3>
+		<h3 class="display-4" style="font-family: 'Montserrat', 'sans-serif'">Lista de Responsáveis</h3>
 
 	</div>
 	<p:separator style="border-color: white;"></p:separator>
 	<h:form>
 		<div align="left">
 
-			<p:commandLink ajax="false" class="btn btn-info" style="color: white;"
+			<p:commandLink ajax="false" class="btn btn-info" style="color: white; "
 						action="painelPrincipal" value="#{msg['page.back']}"
 						update="display">
 					</p:commandLink>
@@ -41,12 +41,12 @@
 			<div class="panel-body">
 
 				<div class="container-fluid">
-					<h2>Filtros</h2>
+					<h2 style="font-family: 'Montserrat', 'sans-serif'">Filtros</h2>
 					<p />
 					<p:outputPanel id="painel">
 						<div class="row">
 							<div class="col-sm-2">
-								<b><h:outputText value="Ativo?" /> </b>
+								<b><h:outputText value="Ativo?" style="font-family: 'Montserrat', 'sans-serif'" /> </b>
 							</div>
 							<div class="col-sm-4">
 								<p:selectBooleanCheckbox id="status"
@@ -56,31 +56,31 @@
 								</p:selectBooleanCheckbox>
 
 								<b><h:outputText  value="Sim"
-										rendered="#{responsavelBean.responsavel.ativo}" /> </b> <b><h:outputText
+										rendered="#{responsavelBean.responsavel.ativo}" style="font-family: 'Montserrat', 'sans-serif'"/> </b> <b><h:outputText
 										value="Não"
-										rendered="#{!responsavelBean.responsavel.ativo}" /> </b>
+										rendered="#{!responsavelBean.responsavel.ativo}" style="font-family: 'Montserrat', 'sans-serif'" /> </b>
 
 
 							</div>
 
 							<div class="col-sm-2">
-								<b><h:outputText value="Proprietário?" /> </b>
+								<b><h:outputText value="Proprietário?" style="font-family: 'Montserrat', 'sans-serif'" /> </b>
 							</div>
 							<div class="col-sm-4">
-								<p:selectBooleanCheckbox id="proprietario"
+								<p:selectBooleanCheckbox id="proprietario" 
 									value="#{responsavelBean.responsavel.proprietario}"
 									title="Proprietário?" immediate="true" tabindex="1">
 									<f:ajax render="formResponsaveis:painel"></f:ajax>
 								</p:selectBooleanCheckbox>
 								
-								<b><h:outputText  value="Sim"
+								<b><h:outputText  value="Sim" style="font-family: 'Montserrat', 'sans-serif'"
 										rendered="#{responsavelBean.responsavel.proprietario}" /> </b> <b><h:outputText
-										value="Não"
+										value="Não" style="font-family: 'Montserrat', 'sans-serif'"
 										rendered="#{!responsavelBean.responsavel.proprietario}" /> </b>
 							</div>
 							
 							<div class="col-sm-2">
-								<b><h:outputText value="Todos?" /> </b>
+								<b><h:outputText value="Todos?" style="font-family: 'Montserrat', 'sans-serif'"/> </b>
 							</div>
 							<div class="col-sm-4">
 								<p:selectBooleanCheckbox id="todos"
@@ -89,9 +89,9 @@
 									<f:ajax render="formResponsaveis:painel"></f:ajax>
 								</p:selectBooleanCheckbox>
 
-								<b><h:outputText  value="Sim"
+								<b><h:outputText  value="Sim" style="font-family: 'Montserrat', 'sans-serif'"
 										rendered="#{responsavelBean.todos}" /> </b> <b><h:outputText
-										value="Não"
+										value="Não" style="font-family: 'Montserrat', 'sans-serif'"
 										rendered="#{!responsavelBean.todos}" /> </b>
 
 
@@ -117,7 +117,7 @@
 					oncomplete="PF('responsavelDialogNovo').show()"
 					action="#{responsavelBean.novo}">
 
-					<b><h:outputText value="Novo *" /> </b>
+					<b><h:outputText value="Novo *" style="font-family: 'Montserrat', 'sans-serif'"/> </b>
 
 				</p:commandLink>
 
@@ -159,35 +159,35 @@
 
 			</p:column>
 
-			<p:column headerText="CPF" filterBy="#{responsavel.cpf}"
+			<p:column headerText="CPF" filterBy="#{responsavel.cpf}" 
 				style="width:200px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px">
+				filterStyle="width:200px" width="200px" > 
 				<div align="center">
-					<h:outputText value="#{responsavel.cpf}">
+					<h:outputText value="#{responsavel.cpf}" style="font-family: 'Montserrat', 'sans-serif'">
 						<f:converter for="cpf" converterId="converter.CpfConverter" />
 					</h:outputText>
 				</div>
 			</p:column>
 
-			<p:column headerText="Email" filterBy="#{responsavel.email}"
-				style="width:250px" filterMatchMode="contains"
+			<p:column headerText="Email" filterBy="#{responsavel.email}" 
+				style="width:250px font-family: 'Montserrat', 'sans-serif'" filterMatchMode="contains"
 				filterStyle="width:250px" width="250px"
-				sortBy="#{responsavel.email}">
+				sortBy="#{responsavel.email}" >
 				<div align="center">
-					<h:outputText value="#{responsavel.email}" />
+					<h:outputText value="#{responsavel.email}" style="font-family: 'Montserrat', 'sans-serif'"/>
 				</div>
 			</p:column>
 
 			<p:column headerText="Data de Cadastro" style="width:100px">
 				<div align="center">
-					<h:outputText value="#{responsavel.dataCadastro}">
+					<h:outputText value="#{responsavel.dataCadastro}" style="font-family: 'Montserrat', 'sans-serif'">
 						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
 							timeZone="#{initParam.timezone}" />
 					</h:outputText>
 				</div>
 			</p:column>
 
-			<p:column headerText="Data de Encerramento" style="width:100px">
+			<p:column headerText="Data de Encerramento" style="width:100px font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<h:outputText value="#{responsavel.dataEncerramentoContrato}">
 						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
@@ -196,7 +196,7 @@
 				</div>
 			</p:column>
 			
-			<p:column headerText="Proprietário?" style="width:100px">
+			<p:column headerText="Proprietário?" style="width:100px font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<p:selectBooleanCheckbox id="proprietario"
 									value="#{responsavel.proprietario}" disabled="true"
@@ -204,13 +204,7 @@
 								
 				</div>
 			</p:column>
-			
-			
-								
-								
-								
-
-			<p:column headerText="Editar" style="width:100px" width="100px">
+			<p:column headerText="Editar" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<p:commandLink update=":form:responsavelDetail"
 						oncomplete="PF('responsavelDialog').show()" title="Detalhar"
@@ -222,7 +216,7 @@
 				</div>
 			</p:column>
 
-			<p:column headerText="Excluir" style="width:100px" width="100px">
+			<p:column headerText="Excluir" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<p:commandLink title="Excluir" update=":formExcluir:Excluir"
 						disabled="#{!responsavel.operar}"
