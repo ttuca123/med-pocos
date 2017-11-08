@@ -1,19 +1,19 @@
  function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
-            document.getElementById('rua').value=("");
-            document.getElementById('bairro').value=("");
-            document.getElementById('cidade').value=("");
-            document.getElementById('uf').value=("");
+            document.getElementById('formNovo:rua').value=("");
+            document.getElementById('formNovo:bairro').value=("");
+            document.getElementById('formNovo:cidade').value=("");
+            document.getElementById('formNovo:uf').value=("");
             
     }
 
     function meu_callback(conteudo) {
         if (!("erro" in conteudo)) {
             //Atualiza os campos com os valores.
-            document.getElementById('rua').value=(conteudo.logradouro);
-            document.getElementById('bairro').value=(conteudo.bairro);
-            document.getElementById('cidade').value=(conteudo.localidade);
-            document.getElementById('uf').value=(conteudo.uf);
+            document.getElementById('formNovo:rua').value=(conteudo.logradouro);
+            document.getElementById('formNovo:bairro').value=(conteudo.bairro);
+            document.getElementById('formNovo:cidade').value=(conteudo.localidade);
+            document.getElementById('formNovo:uf').value=(conteudo.uf);
             
         } //end if.
         else {
@@ -23,8 +23,9 @@
         }
     }
         
-    function pesquisacep(valor) {
-    	alert('teste');
+    function pesquisacep(valor) {   	
+    	
+    	
         //Nova variável "cep" somente com dígitos.
         var cep = valor.replace(/\D/g, '');
 
@@ -38,10 +39,10 @@
             if(validacep.test(cep)) {
 
                 //Preenche os campos com "..." enquanto consulta webservice.
-                document.getElementById('rua').value="...";
-                document.getElementById('bairro').value="...";
-                document.getElementById('cidade').value="...";
-                document.getElementById('uf').value="...";
+                document.getElementById('formNovo:rua').value="...";
+                document.getElementById('formNovo:bairro').value="...";
+                document.getElementById('formNovo:cidade').value="...";
+                document.getElementById('formNovo:uf').value="...";
                 
 
                 //Cria um elemento javascript.

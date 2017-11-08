@@ -54,18 +54,18 @@ public class Empreendimento implements Serializable {
 	@Embedded
 	@AttributeOverrides({ @AttributeOverride(name = "razaoSocial", column = @Column(name = "razao_social")) })
 	private RazaoSocial razaoSocial;
-	
+
 	@Column(name = "nome_fantasia", nullable = false, unique = true, length = 80)
 	private String nomeFantasia;
 
 	@Column(name = "descricao", length = 256)
-	private String descricao;	
+	private String descricao;
 
 	@Column(name = "data_cadastro", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCadastro;
+	private Date dataCadastro;	
 
-	@Column(name = "data_encerramento", nullable = false)
+	@Column(name = "data_encerramento", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataEncerramento;
 
@@ -73,34 +73,17 @@ public class Empreendimento implements Serializable {
 	@Column(name = "tipo_empreendimento")
 	private EnumTipoEmpreendimento tipoEmpreendimento;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Responsavel responsavel;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "empreendimento")
 	private List<Hidrometro> lstHidrometros;
 
-	
-
-	@Transient
-	private String logradouro;
-
-	@Transient
-	private String bairro;
-
-	@Transient
-	private String municipio;
-
-	@Transient
-	private String estado;
-
-	@Column(name = "cep", length = 8)
-	private String cep;
-
-	@Column(name = "complemento", length = 80)
-	private String complemento;
-
 	@Transient
 	private boolean isAtivo;
+	
+	@Embedded
+	private Endereco endereco;
 
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -108,7 +91,7 @@ public class Empreendimento implements Serializable {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
-	}	
+	}
 
 	public Date getDataEncerramento() {
 		return dataEncerramento;
@@ -150,63 +133,13 @@ public class Empreendimento implements Serializable {
 		this.responsavel = responsavel;
 	}
 
-	
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getMunicipio() {
-		return municipio;
-	}
-
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
 	public String getNomeFantasia() {
 		return nomeFantasia;
 	}
 
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
-	}	
+	}
 
 	public RazaoSocial getRazaoSocial() {
 		return razaoSocial;
@@ -223,7 +156,7 @@ public class Empreendimento implements Serializable {
 	public void setTipoEmpreendimento(EnumTipoEmpreendimento tipoEmpreendimento) {
 		this.tipoEmpreendimento = tipoEmpreendimento;
 	}
-	
+
 	public List<Hidrometro> getLstHidrometros() {
 		return lstHidrometros;
 	}
@@ -231,11 +164,19 @@ public class Empreendimento implements Serializable {
 	public void setLstHidrometros(List<Hidrometro> lstHidrometros) {
 		this.lstHidrometros = lstHidrometros;
 	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;		
+		int result = 1;
 		result = prime * result + ((nomeFantasia == null) ? 0 : nomeFantasia.hashCode());
 		result = prime * result + ((seqEmpreendimento == null) ? 0 : seqEmpreendimento.hashCode());
 		return result;
@@ -250,7 +191,7 @@ public class Empreendimento implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Empreendimento other = (Empreendimento) obj;
-		
+
 		if (nomeFantasia == null) {
 			if (other.nomeFantasia != null)
 				return false;

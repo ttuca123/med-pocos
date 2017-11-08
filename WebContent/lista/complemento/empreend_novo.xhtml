@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="../../css/estilo.css" />	
 
     
-    <script type="text/javascript" src="cep.js" />
+    <script type="text/javascript" src="../js/cep.js" />
 	
 
 </h:head>
@@ -26,13 +26,13 @@
 
 	<h:form id="formNovo">
 
-		<p:dialog header="Novo Emprendimento"
+		<p:dialog header="Novo Emprendimento" height="500px"
 			widgetVar="empreendimentoDialogNovo" modal="true"
 			hideEffect="explode" showEffect="bounce" closeOnEscape="true"
 			maximizable="true" id="dialogCadastrar" resizable="true">
 
 			<p:outputPanel id="empreendimentoCpfCnpj"
-				style="text-align:center; width:900px;">
+				style="text-align:center; width:700px; ">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Escolha</label>
@@ -71,7 +71,7 @@
 			</p:outputPanel>
 
 			<p:outputPanel id="empreendimentoNovo"
-				style="text-align:center; width:900px;">
+				style="text-align:center; width:700px;">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Razão
@@ -117,9 +117,8 @@
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Cep</label>
 					<div class="col-10">
-						<p:inputMask id="cep" maxlength="8" class="form-control"
-							mask="99999-999" value="#{empreendimentoBean.empreendimento.cep}">
-						<f:ajax event="blur" immediate="true" onevent="pesquisacep(this);"></f:ajax>
+						<p:inputMask id="cep" maxlength="8" class="form-control" onblur="pesquisacep(this.value);"
+							mask="99999-999" value="#{empreendimentoBean.empreendimento.endereco.cep}">						
 						
 						</p:inputMask>
 					</div>
@@ -129,7 +128,7 @@
 					<label for="example-text-input" class="col-2 col-form-label">Complemento</label>
 					<div class="col-10">
 						<p:inputText id="complemento" maxlength="8" class="form-control"
-							value="#{empreendimentoBean.empreendimento.complemento}">
+							value="#{empreendimentoBean.empreendimento.endereco.complemento}">
 
 						</p:inputText>
 					</div>
@@ -141,8 +140,7 @@
 						<label for="example-text-input" class="col-2 col-form-label">Logradouro</label>
 						<div class="col-10">
 							<p:inputText id="rua" name="rua" maxlength="8" class="form-control" disabled="true"
-								value="#{empreendimentoBean.empreendimento.logradouro}">
-
+								value="#{empreendimentoBean.empreendimento.endereco.logradouro}">
 							</p:inputText>
 						</div>
 					</div>
@@ -152,7 +150,7 @@
 						<div class="col-10">
 							<p:inputText id="bairro" maxlength="8" class="form-control"
 								disabled="true"
-								value="#{empreendimentoBean.empreendimento.bairro}">
+								value="#{empreendimentoBean.empreendimento.endereco.bairro}">
 
 							</p:inputText>
 						</div>
@@ -163,7 +161,7 @@
 						<div class="col-10">
 							<p:inputText id="cidade" maxlength="8" class="form-control"
 								disabled="true"
-								value="#{empreendimentoBean.empreendimento.municipio}">
+								value="#{empreendimentoBean.empreendimento.endereco.municipio}">
 
 							</p:inputText>
 						</div>
@@ -174,7 +172,7 @@
 						<div class="col-10">
 							<p:inputText id="uf" maxlength="8" class="form-control"
 								disabled="true"
-								value="#{empreendimentoBean.empreendimento.estado}">
+								value="#{empreendimentoBean.empreendimento.endereco.estado}">
 
 							</p:inputText>
 						</div>
