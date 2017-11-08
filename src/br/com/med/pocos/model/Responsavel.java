@@ -26,6 +26,9 @@ import javax.persistence.Transient;
 		, @NamedQuery(name="Responsavel.buscaResponsaveisAtivos", 
 		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ORDER BY r.nome asc ")	
 		
+		,@NamedQuery(name="Responsavel.buscaResponsavelById", 
+				query="select r from Responsavel r where r.seqResponsavel=:sequencial ")	
+		
 		}
 	)
 @Entity
@@ -168,6 +171,37 @@ public class Responsavel implements Serializable {
 			return false;
 			
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((seqResponsavel == null) ? 0 : seqResponsavel.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Responsavel other = (Responsavel) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (seqResponsavel == null) {
+			if (other.seqResponsavel != null)
+				return false;
+		} else if (!seqResponsavel.equals(other.seqResponsavel))
+			return false;
+		return true;
 	}
 
 	

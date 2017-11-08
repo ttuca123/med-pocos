@@ -24,10 +24,10 @@
 <h:body styleClass="w3-row-padding">
 
 
-	<h:form id="formNovo">
+	<h:form id="formEditar">
 
-		<p:dialog header="Novo Emprendimento" height="500px"
-			widgetVar="empreendimentoDialogNovo" modal="true"
+		<p:dialog header="Editar Emprendimento" height="500px"
+			widgetVar="empreendimentoDialog" modal="true"
 			hideEffect="explode" showEffect="bounce" closeOnEscape="true"
 			maximizable="true" id="dialogCadastrar" resizable="true">
 
@@ -35,33 +35,26 @@
 				style="text-align:center; width:700px; ">
 
 				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label">Escolha</label>
-					<div class="col-10">
-
-						<p:selectOneRadio id="console"
-							value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">
-							<f:selectItem itemLabel="CPF" itemValue="true" />
-							<f:selectItem itemLabel="CNPJ" itemValue="false" />
-							<f:ajax render="formNovo:empreendimentoCpfCnpj"></f:ajax>
-						</p:selectOneRadio>
-
-						<p:inputMask id="cpf" class="form-control"
-							rendered="#{empreendimentoBean.escolhaCpfCnpj}"
+					<label for="example-text-input" class="col-2 col-form-label">CPF/CNPJ</label>
+					<div class="col-10">					
+						
+						<p:inputMask id="cpf" class="form-control" alt="CPF" title="Digite um Cpf"
+							rendered="#{not empty empreendimentoBean.empreendimento.razaoSocial.cpf}"
 							mask="999.999.999-99"
 							style="font-family: 'Montserrat', 'sans-serif'"
-							a:placeholder="Digite o cpf da empresa"
+							
 							value="#{empreendimentoBean.empreendimento.razaoSocial.cpf}">
 							<f:converter for="cpf" converterId="converter.CpfConverter" />
 							<f:validator for="cpf" validatorId="validator.CpfValidator" />
 						</p:inputMask>
 
-
-						<p:inputMask id="cnpj" class="form-control"
+						
+						<p:inputMask id="cnpj" class="form-control" alt="CNPJ" title="Digite um CNPJ"
 							style="font-family: 'Montserrat', 'sans-serif'"
-							rendered="#{!empreendimentoBean.escolhaCpfCnpj}"
-							mask="99.999.999/9999-99" a:placeholder="Digite cnpj da empresa"
+							rendered="#{not empty empreendimentoBean.empreendimento.razaoSocial.cnpj}"
+							mask="99.999.999/9999-99" 
 							value="#{empreendimentoBean.empreendimento.razaoSocial.cnpj}">
-							<f:converter converterId="converter.CnpjConverter" />
+							<f:converter for="cnpj" converterId="converter.CnpjConverter" />
 							<f:validator for="cnpj" validatorId="validator.CnpjValidator" />
 						</p:inputMask>
 
@@ -71,7 +64,7 @@
 				<p:message for="cpf" />
 			</p:outputPanel>
 			
-			<p:outputPanel id="empreendimentoNovo"
+			<p:outputPanel id="empreendimentoEditar"
 				style="text-align:center; width:700px;">
 
 				<div class="form-group row">

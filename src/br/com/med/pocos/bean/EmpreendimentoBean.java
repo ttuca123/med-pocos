@@ -7,30 +7,33 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 import br.com.med.pocos.model.Empreendimento;
-import br.com.med.pocos.model.Responsavel;
 import br.com.med.pocos.services.EmpreendimentoService;
 import br.com.med.pocos.util.Utils;
+
+
+
 
 @ManagedBean(name = "empreendimentoBean")
 @ViewScoped
 public class EmpreendimentoBean implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -7436327849003146777L;
 
 	private Empreendimento empreendimento;
 
-	private boolean todos;
+	private boolean todos = true;
 
-	private List<Empreendimento> lstEmpreendimentos = new ArrayList<Empreendimento>();
+	@ManagedProperty(value = "#{empreendimentos}")
+	private List<Empreendimento> empreendimentos = new ArrayList<Empreendimento>();
 	
-	private List<Empreendimento> filteredEmprendimentos = new ArrayList<Empreendimento>();
+	private List<Empreendimento> filteredEmprendimentos;
 
 	private boolean escolhaCpfCnpj;
 
@@ -40,9 +43,7 @@ public class EmpreendimentoBean implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 
-		empreendimento = new Empreendimento();
-
-		empreendimento.setAtivo(true);
+		novo();
 	}
 	
 	
@@ -86,8 +87,8 @@ public class EmpreendimentoBean implements Serializable {
 
 		try {
 			
-			lstEmpreendimentos = (List<Empreendimento>) empreendimentoService.listar();
-		
+			empreendimentos = (List<Empreendimento>) empreendimentoService.listar();
+			
 		} catch (Exception e) {
 			
 			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
@@ -98,11 +99,30 @@ public class EmpreendimentoBean implements Serializable {
 	public void filtrar() {	
 		
 		if(todos) {
+			
 			getListar();
+			
 		}else {
 		
-			lstEmpreendimentos = (List<Empreendimento>) empreendimentoService.listar(empreendimento);
+			empreendimentos = (List<Empreendimento>) empreendimentoService.listar(empreendimento);
 					
+		}
+	}
+	
+	public void excluir(ActionEvent actionEvent) {
+
+		try {
+
+			empreendimentoService.deletar(empreendimento);
+
+			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
+
+			getListar();
+			
+		} catch (Exception e) {
+			
+			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
+			
 		}
 	}
 	
@@ -131,14 +151,20 @@ public class EmpreendimentoBean implements Serializable {
 		this.todos = todos;
 	}
 
-	public List<Empreendimento> getLstEmpreendimentos() {
-		return lstEmpreendimentos;
+	
+	
+	public List<Empreendimento> getEmpreendimentos() {
+		return empreendimentos;
 	}
 
-	public void setLstEmpreendimentos(List<Empreendimento> lstEmpreendimentos) {
-		this.lstEmpreendimentos = lstEmpreendimentos;
+
+
+	public void setEmpreendimentos(List<Empreendimento> empreendimentos) {
+		this.empreendimentos = empreendimentos;
 	}
-	
+
+
+
 	public List<Empreendimento> getFilteredEmprendimentos() {
 		return filteredEmprendimentos;
 	}

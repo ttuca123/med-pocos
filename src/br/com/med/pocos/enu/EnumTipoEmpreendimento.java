@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum EnumTipoEmpreendimento {
 
-	FAZENDA(1, "Fazenda"), POSTO(2, "Posto");
+	FAZENDA(0, "Fazenda"), POSTO(1, "Posto");
 
 	private Integer codigo;
 	

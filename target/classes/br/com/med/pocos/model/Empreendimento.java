@@ -51,8 +51,7 @@ public class Empreendimento implements Serializable {
 	@Column(name = "seq_empreendimento", columnDefinition = "serial not null")
 	private Long seqEmpreendimento;
 
-	@Embedded
-	@AttributeOverrides({ @AttributeOverride(name = "razaoSocial", column = @Column(name = "razao_social")) })
+	@Embedded	
 	private RazaoSocial razaoSocial;
 
 	@Column(name = "nome_fantasia", nullable = false, unique = true, length = 80)
@@ -73,7 +72,7 @@ public class Empreendimento implements Serializable {
 	@Column(name = "tipo_empreendimento")
 	private EnumTipoEmpreendimento tipoEmpreendimento;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(optional=false)
 	private Responsavel responsavel;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "empreendimento")
@@ -126,6 +125,12 @@ public class Empreendimento implements Serializable {
 	}
 
 	public Responsavel getResponsavel() {
+		
+		if(responsavel==null) {
+			
+			responsavel = new Responsavel();
+		}
+		
 		return responsavel;
 	}
 
@@ -140,8 +145,13 @@ public class Empreendimento implements Serializable {
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
 	}
-
+	
 	public RazaoSocial getRazaoSocial() {
+		
+		if(razaoSocial==null) {
+			
+			razaoSocial = new RazaoSocial();
+		}
 		return razaoSocial;
 	}
 
@@ -166,6 +176,12 @@ public class Empreendimento implements Serializable {
 	}
 	
 	public Endereco getEndereco() {
+		
+		if(endereco==null) {
+			
+			endereco = new Endereco();
+		}
+		
 		return endereco;
 	}
 
@@ -173,6 +189,15 @@ public class Empreendimento implements Serializable {
 		this.endereco = endereco;
 	}
 
+	public boolean isOperar() {
+		if(this.dataEncerramento==null) {
+			return true;
+		}else {
+			return false;
+			
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

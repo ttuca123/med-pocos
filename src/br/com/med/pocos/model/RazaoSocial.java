@@ -1,23 +1,34 @@
 package br.com.med.pocos.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class RazaoSocial {
+public class RazaoSocial implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3442444175146410567L;
+
 	@Column(name = "razao_social")
 	private String razaoSocial;
 	
-	@Column(name = "cpf", length=11, nullable=false, unique = true )
+	@Column(name = "cpf", length=11 )
 	private String cpf;
 	
-	@Column(name = "cnpj", nullable = false, length = 14, unique = true)
+	@Column(name = "cnpj", length = 14)
 	private String cnpj;
 
 	public String getRazaoSocial() {
 		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 
 	public String getCpf() {
@@ -36,9 +47,7 @@ public class RazaoSocial {
 		this.cnpj = cnpj;
 	}
 
-	public void setRazaoSocial(String razaoSocial) {
-		this.razaoSocial = razaoSocial;
-	}
+	
 	
 	
 }

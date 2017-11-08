@@ -19,7 +19,7 @@
 </h:head>
 <h:body styleClass="filtro">
 
-	<ui:include src="ajax.xhtml" />
+	<ui:include src="../ajax/ajax.xhtml" />
 
 	<div class="page-header" align="center">
 		<h3 class="display-4" style="font-family: 'Montserrat', 'sans-serif'">Lista
@@ -37,7 +37,7 @@
 		</div>
 	</h:form>
 	<p:separator style="border-color: white;"></p:separator>
-	<h:form id="formResponsaveis" styleClass="estiloFiltro">
+	<h:form id="formEmpreendimentos" styleClass="estiloFiltro">
 		<div class="panel panel-default">
 			<div class="panel-body">
 
@@ -47,147 +47,136 @@
 								style="font-family: 'Montserrat', 'sans-serif'" /></i>
 					</h2>
 					<p />
-					<p:outputPanel id="painel">
-						<div class="row">
-							<div class="col-sm-2">
-								<b><h:outputText value="Ativo?"
-										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-							</div>
-							<div class="col-sm-4">
-								<p:selectBooleanCheckbox id="status"
-									style="font-family: 'Montserrat', 'sans-serif'"
-									value="#{empreendimentoBean.empreendimento.ativo}"
-									title="Ativo?" immediate="true" tabindex="1">
-									<f:ajax render="formResponsaveis:painel"></f:ajax>
-								</p:selectBooleanCheckbox>
 
-								<b><h:outputText value="Sim"
-										style="font-family: 'Montserrat', 'sans-serif'"
-										rendered="#{empreendimentoBean.empreendimento.ativo}" /> </b> <b><h:outputText
-										value="Não"
-										rendered="#{!empreendimentoBean.empreendimento.ativo}"
-										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-							</div>
+					<div class="row">
 
-
-							<div class="col-sm-2">
-								<b><h:outputText value="Tipo de Empreendimento:"
-										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-							</div>
-							<div class="col-sm-2">
-								<div class="form-group">
-									<h:selectOneMenu id="lstEmpreendimentos"
-										converter="converter.TipoEmpreendimentoConverter"
-										value="#{empreendimentoBean.empreendimento.tipoEmpreendimento}"
-										class="form-control"
-										style="font-family: 'Montserrat', 'sans-serif'"
-										immediate="true">
-
-										<f:selectItems
-											value="#{empreendimentoBean.tiposEmpreendimentos}" var="tipo"
-											itemValue="#{tipoEmpreendimento}"
-											itemLabel="#{tipoEmpreendimento.descricao}"></f:selectItems>
-
-									</h:selectOneMenu>
-
-								</div>
-							</div>
-
-						</div>
-						<div class="row">
-
-							<div class="col-sm-2">
-								<b><h:outputText value="Razão Social"
-										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-							</div>
-							<div class="col-sm-4">
-								<p:inputText id="razaoSocial" class="form-control"
-									style="font-family: 'Montserrat', 'sans-serif'"
-									a:placeholder="Digite o nome da empresa"
-									value="#{empreendimentoBean.empreendimento.razaoSocial}"
-									immediate="true">
-								</p:inputText>
-							</div>
-
-							<div class="col-sm-2">
-								<b><h:outputText value="Nome Fantasia"
-										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-							</div>
-							<div class="col-sm-4">
-								<p:inputText id="nome" class="form-control"
-									style="font-family: 'Montserrat', 'sans-serif'"
-									a:placeholder="Digite o nome da empresa"
-									value="#{empreendimentoBean.empreendimento.nomeFantasia}"
-									immediate="true">
-								</p:inputText>
-							</div>
-
-
-
+						<p:outputPanel id="painelCpfCnpj" style="padding-left:15px;">
 							<div class="col-sm-2">
 								<b><h:outputText value="Escolha: "
 										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
 							</div>
-							<div class="col-sm-4">
-								<p:selectOneRadio id="console"
-									value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">
-									<f:selectItem itemLabel="CPF" itemValue="true" />
-									<f:selectItem itemLabel="CNPJ" itemValue="false" />
-									<f:ajax render="formResponsaveis:painel"></f:ajax>
-								</p:selectOneRadio>
-							
 
+							<div class="row">
+								<div class="col-sm-4">
+									<p:selectOneRadio id="console"
+										value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">
+										<f:selectItem itemLabel="CPF" itemValue="true" />
+										<f:selectItem itemLabel="CNPJ" itemValue="false" />
+										<f:ajax render="formEmpreendimentos:painelCpfCnpj"></f:ajax>
+									</p:selectOneRadio>
 
-								<p:inputMask id="cpfNovo" rendered="#{empreendimentoBean.escolhaCpfCnpj}"
-									mask="999.999.999-99" style="font-family: 'Montserrat', 'sans-serif'"									
-									a:placeholder="Digite o cpf da empresa"
-									value="#{responsavelBean.responsavel.cpf}">									
-									<f:converter for="cpf" converterId="converter.CpfConverter" />
-								</p:inputMask>
-
-
-								<p:inputMask id="cnpj"
-									style="font-family: 'Montserrat', 'sans-serif'"
-									rendered="#{!empreendimentoBean.escolhaCpfCnpj}"
-									mask="99.999.999/9999-99"
-									a:placeholder="Digite cnpj da empresa"
-									value="#{empreendimentoBean.empreendimento.razaoSocial.cnpj}">
-									<f:converter converterId="converter.CnpjConverter" />
-								</p:inputMask>
-							</div>
-
-
-
-							<div class="col-sm-2">
-								<b><h:outputText value="Todos?"
-										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-							</div>
-							<div class="col-sm-4">
-								<p:selectBooleanCheckbox id="todos"
-									style="font-family: 'Montserrat', 'sans-serif'"
-									value="#{empreendimentoBean.todos}" title="Ativo?"
-									immediate="true" tabindex="1">
-									<f:ajax render="formResponsaveis:painel"></f:ajax>
-								</p:selectBooleanCheckbox>
-
-								<b><h:outputText value="Sim"
+								</div>
+								<div class="col-sm-4">
+									<p:inputMask id="cpfNovo" 
+										rendered="#{empreendimentoBean.escolhaCpfCnpj}"
+										mask="999.999.999-99"
 										style="font-family: 'Montserrat', 'sans-serif'"
-										rendered="#{empreendimentoBean.todos}" /> </b> <b><h:outputText
-										value="Não" rendered="#{!empreendimentoBean.todos}"
-										style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+										a:placeholder="Digite o cpf da empresa"
+										value="#{responsavelBean.responsavel.cpf}">
+										<f:converter for="cpf" converterId="converter.CpfConverter" />
+									</p:inputMask>
+
+
+									<p:inputMask id="cnpj"
+										style="font-family: 'Montserrat', 'sans-serif'"
+										rendered="#{!empreendimentoBean.escolhaCpfCnpj}"
+										mask="99.999.999/9999-99"
+										a:placeholder="Digite cnpj da empresa"
+										value="#{empreendimentoBean.empreendimento.razaoSocial.cnpj}">
+										<f:converter converterId="converter.CnpjConverter" />
+									</p:inputMask>
+								</div>
+							</div>
+						</p:outputPanel>
+
+
+						<div class="col-sm-2">
+							<b><h:outputText value="Tipo de Empreendimento:"
+									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-group">
+								<h:selectOneMenu id="lstEmpreendimentos"
+									converter="converter.TipoEmpreendimentoConverter"
+									value="#{empreendimentoBean.empreendimento.tipoEmpreendimento}"
+									class="form-control"
+									style="font-family: 'Montserrat', 'sans-serif'"
+									immediate="true">
+
+									<f:selectItems
+										value="#{empreendimentoBean.tiposEmpreendimentos}" var="tipo"
+										itemValue="#{tipoEmpreendimento}"
+										itemLabel="#{tipoEmpreendimento.descricao}"></f:selectItems>
+
+								</h:selectOneMenu>
+
+							</div>
+						</div>
+
+					</div>
+					<div class="row">
+
+						<div class="col-sm-2">
+							<b><h:outputText value="Razão Social"
+									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+						</div>
+						<div class="col-sm-4">
+							<p:inputText id="razaoSocial" class="form-control"
+								style="font-family: 'Montserrat', 'sans-serif'"
+								a:placeholder="Digite o nome da empresa"
+								value="#{empreendimentoBean.empreendimento.razaoSocial.razaoSocial}"
+								immediate="true">
+							</p:inputText>
+						</div>
+
+						<div class="col-sm-2">
+							<b><h:outputText value="Nome Fantasia"
+									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+						</div>
+						<div class="col-sm-4">
+							<p:inputText id="nome" class="form-control"
+								style="font-family: 'Montserrat', 'sans-serif'"
+								a:placeholder="Digite o nome da empresa"
+								value="#{empreendimentoBean.empreendimento.nomeFantasia}"
+								immediate="true">
+							</p:inputText>
+						</div>
+
+						<p:outputPanel id="painelTodos">
+
+							<div class="row">
+								<div class="col-sm-4">
+									<b><h:outputText value="Todos?"
+											style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+								</div>
+								<div class="col-sm-4">
+									<p:selectBooleanCheckbox id="todos"
+										style="font-family: 'Montserrat', 'sans-serif'"
+										value="#{empreendimentoBean.todos}" title="Ativo?"
+										immediate="true" tabindex="1">
+										<f:ajax render=":formEmpreendimentos:painelTodos"></f:ajax>
+									</p:selectBooleanCheckbox>
+								</div>
+								<div class="col-sm-4">
+									<b><h:outputText value="Sim"
+											style="font-family: 'Montserrat', 'sans-serif'"
+											rendered="#{empreendimentoBean.todos}" /> </b> <b><h:outputText
+											value="Não" rendered="#{!empreendimentoBean.todos}"
+											style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+								</div>
 							</div>
 
+						</p:outputPanel>
+					</div>
 
-
-						</div>
-					</p:outputPanel>
 				</div>
-
+				
+				
 				<p:separator style="border-color: white;"></p:separator>
 				<p:commandLink id="btnFilter"
 					style="font-family: 'Montserrat', 'sans-serif'"
 					class="btn btn-primary btn-lg btn-block"
-					update=":formExibir:tblResponsaveis" immediate="true"
+					update=":formExibir:tblEmpreendimentos" immediate="true"
 					actionListener="#{empreendimentoBean.filtrar}">
 
 					<b><h:outputText value="Buscar" /> </b>
@@ -216,10 +205,10 @@
 		<p:growl id="growl" autoUpdate="true" life="2000" />
 
 
-		<p:dataTable id="tblResponsaveis" var="empreendimento"
+		<p:dataTable id="tblEmpreendimentos" var="empreendimento"
 			style="font-family: 'Montserrat', 'sans-serif'"
 			filteredValue="#{empreendimentoBean.filteredEmprendimentos}"
-			value="#{empreendimentoBean.lstEmpreendimentos}" rows="10"
+			value="#{empreendimentoBean.empreendimentos}" rows="10"
 			paginator="true" widgetVar="empreendimentosTable" scrollable="true"
 			styleClass="paginated"
 			emptyMessage="Nenhum empreendimento encontrado com os critérios selecionados"
@@ -233,39 +222,87 @@
 
 			</f:facet>
 
-			<p:column filterBy="#{empreendimento.nome}" headerText="Nome"
+			<p:column 
+				headerText="Razão Social" filterBy="#{empreendimento.razaoSocial.razaoSocial}" 
 				style="width:200px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px"
-				sortBy="#{empreendimento.nomeFantasia}">
+				filterStyle="width:200px" width="200px"				
+				>
+				<div align="center">
+					<h:outputText value="#{empreendimento.razaoSocial.razaoSocial}"
+						style="display:inline-block" />
+				</div>
+			</p:column>
+			
+			<p:column 
+				headerText="Nome Fantasia" 	
+				filterBy="#{empreendimento.nomeFantasia}" 
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px" 
+						
+				>
 				<div align="center">
 					<h:outputText value="#{empreendimento.nomeFantasia}"
 						style="display:inline-block" />
 				</div>
-
 			</p:column>
 
-			<p:column headerText="Cnpj" filterBy="#{empreendimento.cnpj}"
-				style="width:200px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px">
+			<p:column headerText="Cpf" 
+				 style="width:250px"			
+				>
 				<div align="center">
-					<h:outputText value="#{empreendimento.cnpj}">
-						<f:converter for="cpf" converterId="converter.CpfConverter" />
-					</h:outputText>
+					<h:outputText value="#{empreendimento.razaoSocial.cpf}" />
 				</div>
 			</p:column>
+			
+			
+			<p:column headerText="Cnpj" 
+				 style="width:250px"			
+				>
+				<div align="center">
+					<h:outputText value="#{empreendimento.razaoSocial.cnpj}" />
+				</div>
+			</p:column>			
+			
 
 			<p:column headerText="Responsável"
-				filterBy="#{empreendimento.responsavel.nome}" style="width:250px"
-				filterMatchMode="contains" filterStyle="width:250px" width="250px"
-				sortBy="#{empreendimento.responsavel.nome}">
+				 filterBy="#{empreendimento.responsavel.nome}" 
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px"		
+				>
 				<div align="center">
 					<h:outputText value="#{empreendimento.responsavel.nome}" />
 				</div>
 			</p:column>
-
-			<p:column headerText="Editar" style="width:100px" width="100px">
+			
+			<p:column headerText="Tipo de Empreendimento"
+				 filterBy="#{empreendimento.tipoEmpreendimento.descricao}" 
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px"		
+				>
 				<div align="center">
-					<p:commandLink update=":form:empreendimentoDetail"
+					<h:outputText value="#{empreendimento.tipoEmpreendimento}" />
+				</div>
+			</p:column>
+			
+			
+			
+			
+			<p:column headerText="Data Encerramento Contrato"  
+				 style="width:250px"			
+				>
+				<div align="center">
+					<h:outputText value="#{empreendimento.dataEncerramento}" >
+						
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+							timeZone="#{initParam.timezone}" />	
+					</h:outputText>
+					
+				</div>
+			</p:column>
+			
+			<p:column headerText="Editar" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+				<div align="center">
+					<p:commandLink update="formEditar"
 						oncomplete="PF('empreendimentoDialog').show()" title="Detalhar"
 						styleClass="ui-icon ui-icon-search" immediate="true"
 						style="float:left;margin-right:10px">
@@ -274,11 +311,10 @@
 					</p:commandLink>
 				</div>
 			</p:column>
-
-			<p:column headerText="Excluir" style="width:100px" width="100px">
+			<p:column headerText="Excluir" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<p:commandLink title="Excluir" update=":formExcluir:Excluir"
-						disabled="#{!empreendimento.operar}"
+						disabled="#{!empreendimento.operar}" 
 						oncomplete="PF('confirmation').show()" immediate="true">
 						<p:graphicImage value="../images/del.png" width="25px"
 							style="padding-left:10px" />
@@ -291,15 +327,17 @@
 
 
 			</p:column>
+
+			
 		</p:dataTable>
 
 	</h:form>
-
-	<ui:include src="complemento/resp_excluir.xhtml" />
-
-	<ui:include src="complemento/resp_editar.xhtml" />
-
+	
 	<ui:include src="complemento/empreend_novo.xhtml" />
+	
+	<ui:include src="complemento/empreend_editar.xhtml" />
+	
+	<ui:include src="complemento/empreend_excluir.xhtml" />
 
 </h:body>
 </html>

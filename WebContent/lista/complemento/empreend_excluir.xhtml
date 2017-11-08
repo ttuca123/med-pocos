@@ -23,14 +23,14 @@
 	<h:form id="formExcluir">
 
 		<p:confirmDialog id="Excluir" closeOnEscape="true"
-			message="Confirma exclusão do responsável #{responsavelBean.responsavel.nome}?"
+			message="Confirma exclusão do empreendimento #{empreendimentoBean.empreendimento.nomeFantasia}?"
 			header="Excluir" severity="alert" widgetVar="confirmation">
 
 			<p:commandLink value="Sim"
 				styleClass="btn btn-danger btn-lg btn-block"
-				actionListener="#{responsavelBean.excluir}"
+				actionListener="#{empreendimentoBean.excluir}"
 				onclick="PF('confirmation').hide()"
-				update=":formExibir:tblResponsaveis" immediate="true" />
+				update=":formExibir:tblEmpreendimentos" immediate="true" />
 
 			<p:commandLink value="Não"
 				styleClass="btn btn-primary btn-lg btn-block"

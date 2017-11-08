@@ -66,8 +66,21 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 
 	@Override
 	public Object getObject(Long seqId) {
-
-		return null;
+			
+		Responsavel responsavel = null;
+		
+		try {
+			responsavel = (Responsavel) emService.getEntityManager().createNamedQuery("Responsavel.buscaResponsavelById").setParameter("sequencial", seqId)
+					.getSingleResult();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			responsavel = new Responsavel();
+		}
+		
+		return responsavel;
 
 	}
 

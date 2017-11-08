@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 
 import br.com.med.pocos.model.Empreendimento;
 import br.com.med.pocos.model.Empreendimento_;
+import br.com.med.pocos.model.Responsavel;
 import br.com.med.pocos.util.DataUtils;
 
 @Stateless(name = "EmpreendimentoService")
@@ -26,6 +27,9 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService{
 	
 	@EJB
 	public EntityManagerService emService;
+	
+	@EJB
+	public ResponsavelService responsavelService;
 
 	
 	@Override
@@ -34,12 +38,27 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService{
 		Empreendimento empreendimento = (Empreendimento) object;
 
 		if (empreendimento != null) {
+			Responsavel responsavel = empreendimento.getResponsavel(); 
+			
+			if(responsavel.getSeqResponsavel()!=null) {
+				
+//				responsavel = (Responsavel) responsavelService.getObject(responsavel.getSeqResponsavel());				
+				
+				empreendimento.setResponsavel(responsavel);
+				
+				emService.getEntityManager().detach(responsavel);
+			}
+			
+			
+			
 			if (empreendimento.getSeqEmpreendimento() == null) {
 
 				Date data = DataUtils.converterDataTimeZone();
 
 				empreendimento.setDataCadastro(data);
-
+				
+				
+				
 				emService.getEntityManager().persist(object);
 
 			} else {

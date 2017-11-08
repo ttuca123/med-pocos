@@ -1,10 +1,17 @@
 package br.com.med.pocos.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Endereco {
+public class Endereco implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 189944142012942177L;
 
 	@Column(name = "logradouro", length = 80)
 	private String logradouro;
