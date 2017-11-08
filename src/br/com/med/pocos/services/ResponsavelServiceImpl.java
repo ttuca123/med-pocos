@@ -193,4 +193,20 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 		return new ArrayList<Responsavel>();
 	}
 
+	@Override
+	public List<Responsavel> listarResponsaveisAtivos() {
+		List<Responsavel> responsaveis;
+
+		try {
+			responsaveis = emService.getEntityManager().createNamedQuery("Responsavel.buscaResponsaveisAtivos")
+					.getResultList();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			responsaveis = new ArrayList<Responsavel>();
+		}
+
+		return responsaveis;
+	}
+
 }

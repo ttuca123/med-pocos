@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 import br.com.med.pocos.model.Empreendimento;
 import br.com.med.pocos.model.Responsavel;
 import br.com.med.pocos.services.EmpreendimentoService;
@@ -28,6 +29,10 @@ public class EmpreendimentoBean implements Serializable {
 	private boolean todos;
 
 	private List<Empreendimento> lstEmpreendimentos = new ArrayList<Empreendimento>();
+	
+	private List<Empreendimento> filteredEmprendimentos = new ArrayList<Empreendimento>();
+
+	private boolean escolhaCpfCnpj;
 
 	@EJB
 	private EmpreendimentoService empreendimentoService;
@@ -101,6 +106,15 @@ public class EmpreendimentoBean implements Serializable {
 		}
 	}
 	
+	public EnumTipoEmpreendimento[] getTiposEmpreendimentos(){
+		
+		EnumTipoEmpreendimento[] enuTiposEmpreendimento = EnumTipoEmpreendimento.values();
+		
+		
+		
+		return enuTiposEmpreendimento;
+	}
+	
 	public Empreendimento getEmpreendimento() {
 		return empreendimento;
 	}
@@ -124,4 +138,25 @@ public class EmpreendimentoBean implements Serializable {
 	public void setLstEmpreendimentos(List<Empreendimento> lstEmpreendimentos) {
 		this.lstEmpreendimentos = lstEmpreendimentos;
 	}
+	
+	public List<Empreendimento> getFilteredEmprendimentos() {
+		return filteredEmprendimentos;
+	}
+
+
+
+	public void setFilteredEmprendimentos(List<Empreendimento> filteredEmprendimentos) {
+		this.filteredEmprendimentos = filteredEmprendimentos;
+	}
+	
+	public boolean isEscolhaCpfCnpj() {
+		return escolhaCpfCnpj;
+	}
+
+
+
+	public void setEscolhaCpfCnpj(boolean escolhaCpfCnpj) {
+		this.escolhaCpfCnpj = escolhaCpfCnpj;
+	}
+
 }

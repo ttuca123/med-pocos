@@ -4,15 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,14 +31,12 @@ import br.com.med.pocos.enu.EnumTipoEmpreendimento;
  *
  */
 
-@NamedQueries( value = {
-		@NamedQuery(name="Empreendimento.buscaAllEmpreendimentos", 
-		query="select e from Empreendimento e ORDER BY e.nomeFantasia asc ")	
-		
-		}
-	)
+@NamedQueries(value = {
+		@NamedQuery(name = "Empreendimento.buscaAllEmpreendimentos", query = "select e from Empreendimento e ORDER BY e.nomeFantasia asc ")
+
+})
 @Entity
-@Table(name="empreendimento")
+@Table(name = "empreendimento")
 public class Empreendimento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -46,39 +46,41 @@ public class Empreendimento implements Serializable {
 	}
 
 	@Id
-	 //@GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "seq_empreendimento", columnDefinition = "serial not null")
 	private Long seqEmpreendimento;
 
-	@Column(name = "nome_fantasia", nullable=false, unique=true, length=80)
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "razaoSocial", column = @Column(name = "razao_social")) })
+	private RazaoSocial razaoSocial;
+	
+	@Column(name = "nome_fantasia", nullable = false, unique = true, length = 80)
 	private String nomeFantasia;
-	
-	@Column(name = "descricao", length=256)
-	private String descricao;
-	
-	@Column(name = "cnpj", nullable=false, length=14, unique=true)
-	private String cnpj;
-	
-	@Column(name = "data_cadastro", nullable=false)
+
+	@Column(name = "descricao", length = 256)
+	private String descricao;	
+
+	@Column(name = "data_cadastro", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-	
-	@Column(name = "data_encerramento", nullable=false)
+
+	@Column(name = "data_encerramento", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataEncerramento;
 
 	@Enumerated
-	@Column(name="tipo_empreendimento")
+	@Column(name = "tipo_empreendimento")
 	private EnumTipoEmpreendimento tipoEmpreendimento;
-	
-	
-	@OneToOne	
+
+	@OneToOne
 	private Responsavel responsavel;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="empreendimento")	
-	private List<Poco> lstPocos;	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "empreendimento")
+	private List<Hidrometro> lstHidrometros;
+
 	
+
 	@Transient
 	private String logradouro;
 
@@ -90,26 +92,23 @@ public class Empreendimento implements Serializable {
 
 	@Transient
 	private String estado;
-	
-	@Column(name = "cep", length=8)
+
+	@Column(name = "cep", length = 8)
 	private String cep;
 
-	@Column(name = "complemento", length=80)
+	@Column(name = "complemento", length = 80)
 	private String complemento;
-	
+
 	@Transient
 	private boolean isAtivo;
-	
-	
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
-	}
-
-	
+	}	
 
 	public Date getDataEncerramento() {
 		return dataEncerramento;
@@ -143,8 +142,6 @@ public class Empreendimento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	
-
 	public Responsavel getResponsavel() {
 		return responsavel;
 	}
@@ -153,13 +150,7 @@ public class Empreendimento implements Serializable {
 		this.responsavel = responsavel;
 	}
 
-	public List<Poco> getLstPocos() {
-		return lstPocos;
-	}
-
-	public void setLstPocos(List<Poco> lstPocos) {
-		this.lstPocos = lstPocos;
-	}
+	
 
 	public String getLogradouro() {
 		return logradouro;
@@ -208,8 +199,6 @@ public class Empreendimento implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
-
 
 	public String getNomeFantasia() {
 		return nomeFantasia;
@@ -217,17 +206,16 @@ public class Empreendimento implements Serializable {
 
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
+	}	
+
+	public RazaoSocial getRazaoSocial() {
+		return razaoSocial;
 	}
 
-	public String getCnpj() {
-		return cnpj;
+	public void setRazaoSocial(RazaoSocial razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
 
-	public void setCnpj(String cnpj) {
-	
-		this.cnpj = cnpj;
-	}
-	
 	public EnumTipoEmpreendimento getTipoEmpreendimento() {
 		return tipoEmpreendimento;
 	}
@@ -235,13 +223,19 @@ public class Empreendimento implements Serializable {
 	public void setTipoEmpreendimento(EnumTipoEmpreendimento tipoEmpreendimento) {
 		this.tipoEmpreendimento = tipoEmpreendimento;
 	}
+	
+	public List<Hidrometro> getLstHidrometros() {
+		return lstHidrometros;
+	}
 
+	public void setLstHidrometros(List<Hidrometro> lstHidrometros) {
+		this.lstHidrometros = lstHidrometros;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
+		int result = 1;		
 		result = prime * result + ((nomeFantasia == null) ? 0 : nomeFantasia.hashCode());
 		result = prime * result + ((seqEmpreendimento == null) ? 0 : seqEmpreendimento.hashCode());
 		return result;
@@ -256,11 +250,7 @@ public class Empreendimento implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Empreendimento other = (Empreendimento) obj;
-		if (cnpj == null) {
-			if (other.cnpj != null)
-				return false;
-		} else if (!cnpj.equals(other.cnpj))
-			return false;
+		
 		if (nomeFantasia == null) {
 			if (other.nomeFantasia != null)
 				return false;
@@ -272,6 +262,6 @@ public class Empreendimento implements Serializable {
 		} else if (!seqEmpreendimento.equals(other.seqEmpreendimento))
 			return false;
 		return true;
-	}	
+	}
 
 }

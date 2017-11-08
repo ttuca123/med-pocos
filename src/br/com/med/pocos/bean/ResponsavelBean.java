@@ -44,9 +44,7 @@ public class ResponsavelBean implements Serializable {
 		responsavel = new Responsavel();
 		responsavel.setAtivo(true);
 
-	}
-
-	
+	}	
 
 	@PostConstruct
 	public void inicializar() {
@@ -80,12 +78,7 @@ public class ResponsavelBean implements Serializable {
 			novo();
 		}
 
-	}
-	
-	
-	
-
-	
+	}	
 
 
 	public void excluir(ActionEvent actionEvent) {
@@ -112,6 +105,21 @@ public class ResponsavelBean implements Serializable {
 			
 			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
 		}
+		
+	}
+	
+	public List<Responsavel> getListarResponsaveisAtivos() {
+
+		try {
+			
+			responsaveis = (List<Responsavel>) responsavelService.listarResponsaveisAtivos();
+		
+		} catch (Exception e) {
+			
+			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+		}
+		
+		return responsaveis;
 		
 	}
 
@@ -151,16 +159,7 @@ public class ResponsavelBean implements Serializable {
 		this.filteredResponsaveis = filteredresponsaveis;
 	}
 
-	public void addMessage(String summary) {
-
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	}
-
-	public void addMessageException(String summary) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	}
+	
 	
 	public List<Responsavel> getResponsaveis() {
 		return responsaveis;

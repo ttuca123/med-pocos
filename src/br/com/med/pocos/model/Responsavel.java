@@ -23,6 +23,9 @@ import javax.persistence.Transient;
 		@NamedQuery(name="Responsavel.buscaResponsaveis", 
 		query="select r from Responsavel r ORDER BY r.nome asc ")	
 		
+		, @NamedQuery(name="Responsavel.buscaResponsaveisAtivos", 
+		query="select r from Responsavel r where r.dataEncerramentoContrato IS NULL ORDER BY r.nome asc ")	
+		
 		}
 	)
 @Entity

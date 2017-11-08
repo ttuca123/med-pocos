@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href=".../../css/sigin.css" />
+	<link rel="stylesheet" href="../../css/estilo.css" />	
+
+    
+    <script type="text/javascript" src="cep.js" />
+	
+
+</h:head>
+<h:body styleClass="w3-row-padding">
+
+
+	<h:form id="formNovo">
+
+		<p:dialog header="Novo Emprendimento"
+			widgetVar="empreendimentoDialogNovo" modal="true"
+			hideEffect="explode" showEffect="bounce" closeOnEscape="true"
+			maximizable="true" id="dialogCadastrar" resizable="true">
+
+			<p:outputPanel id="empreendimentoCpfCnpj"
+				style="text-align:center; width:900px;">
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Escolha</label>
+					<div class="col-10">
+
+						<p:selectOneRadio id="console"
+							value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">
+							<f:selectItem itemLabel="CPF" itemValue="true" />
+							<f:selectItem itemLabel="CNPJ" itemValue="false" />
+							<f:ajax render="formNovo:empreendimentoCpfCnpj"></f:ajax>
+						</p:selectOneRadio>
+
+						<p:inputMask id="cpf" class="form-control"
+							rendered="#{empreendimentoBean.escolhaCpfCnpj}"
+							mask="999.999.999-99"
+							style="font-family: 'Montserrat', 'sans-serif'"
+							a:placeholder="Digite o cpf da empresa"
+							value="#{empreendimentoBean.empreendimento.razaoSocial.cpf}">
+							<f:converter for="cpf" converterId="converter.CpfConverter" />
+							<f:validator for="cpf" validatorId="validator.CpfValidator" />
+						</p:inputMask>
+
+
+						<p:inputMask id="cnpj" class="form-control"
+							style="font-family: 'Montserrat', 'sans-serif'"
+							rendered="#{!empreendimentoBean.escolhaCpfCnpj}"
+							mask="99.999.999/9999-99" a:placeholder="Digite cnpj da empresa"
+							value="#{empreendimentoBean.empreendimento.razaoSocial.cnpj}">
+							<f:converter converterId="converter.CnpjConverter" />
+						</p:inputMask>
+
+					</div>
+				</div>
+				<p:message for="cnpj" />
+				<p:message for="cpf" />
+			</p:outputPanel>
+
+			<p:outputPanel id="empreendimentoNovo"
+				style="text-align:center; width:900px;">
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Razão
+						Social </label>
+					<div class="col-10">
+						<p:inputText id="razaoSocial" class="form-control" required="true"
+							maxlength="80"
+							requiredMessage="O campo Razão Social é obrigatório"
+							a:placeholder="Por favor digite o nome da razão social"
+							value="#{empreendimentoBean.empreendimento.razaoSocial.razaoSocial}">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+					</div>
+				</div>
+				<p:message for="nome" />
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Nome
+						Fantasia</label>
+					<div class="col-10">
+						<p:inputText id="nome" class="form-control" required="true"
+							maxlength="80" requiredMessage="O campo Nome é obrigatório"
+							a:placeholder="Por favor digite o nome da empresa"
+							value="#{empreendimentoBean.empreendimento.nomeFantasia}">
+							<f:validateLength minimum="3" />
+						</p:inputText>
+					</div>
+				</div>
+				<p:message for="nome" />
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Descrição</label>
+					<div class="col-10">
+						<p:editor id="descricao" maxlength="256"
+							value="#{empreendimentoBean.empreendimento.descricao}">
+
+						</p:editor>
+					</div>
+				</div>
+				<p:message for="descricao" />
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Cep</label>
+					<div class="col-10">
+						<p:inputMask id="cep" maxlength="8" class="form-control"
+							mask="99999-999" value="#{empreendimentoBean.empreendimento.cep}">
+						<f:ajax event="blur" immediate="true" onevent="pesquisacep(this);"></f:ajax>
+						
+						</p:inputMask>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Complemento</label>
+					<div class="col-10">
+						<p:inputText id="complemento" maxlength="8" class="form-control"
+							value="#{empreendimentoBean.empreendimento.complemento}">
+
+						</p:inputText>
+					</div>
+				</div>
+
+				<p:outputPanel rendered="true">
+
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label">Logradouro</label>
+						<div class="col-10">
+							<p:inputText id="rua" name="rua" maxlength="8" class="form-control" disabled="true"
+								value="#{empreendimentoBean.empreendimento.logradouro}">
+
+							</p:inputText>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label">Bairro</label>
+						<div class="col-10">
+							<p:inputText id="bairro" maxlength="8" class="form-control"
+								disabled="true"
+								value="#{empreendimentoBean.empreendimento.bairro}">
+
+							</p:inputText>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label">Município</label>
+						<div class="col-10">
+							<p:inputText id="cidade" maxlength="8" class="form-control"
+								disabled="true"
+								value="#{empreendimentoBean.empreendimento.municipio}">
+
+							</p:inputText>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label">Estado</label>
+						<div class="col-10">
+							<p:inputText id="uf" maxlength="8" class="form-control"
+								disabled="true"
+								value="#{empreendimentoBean.empreendimento.estado}">
+
+							</p:inputText>
+						</div>
+					</div>
+				</p:outputPanel>
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Responsável</label>
+					<div class="col-10">
+						<h:selectOneMenu id="lstEmpreendimentos"
+							value="#{empreendimentoBean.empreendimento.responsavel}"
+							class="form-control"
+							style="font-family: 'Montserrat', 'sans-serif'" immediate="true">
+
+							<f:selectItems
+								value="#{responsavelBean.listarResponsaveisAtivos}"
+								var="responsavel" itemValue="#{responsavel}"
+								itemLabel="#{responsavel.nome}"></f:selectItems>
+
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+
+
+				<p:separator />
+
+				<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
+					action="#{empreendimentoBean.salvar}"
+					update="messages2, formExibir" icon="ui-icon-disk" />
+
+				<p:growl id="messages2" />
+			</p:outputPanel>
+
+		</p:dialog>
+
+	</h:form>
+
+
+
+</h:body>
+</html>
