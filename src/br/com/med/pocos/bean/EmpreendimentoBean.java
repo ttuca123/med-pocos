@@ -28,7 +28,7 @@ public class EmpreendimentoBean implements Serializable {
 
 	private Empreendimento empreendimento;
 
-	private boolean todos = true;
+	
 
 	@ManagedProperty(value = "#{empreendimentos}")
 	private List<Empreendimento> empreendimentos = new ArrayList<Empreendimento>();
@@ -98,15 +98,10 @@ public class EmpreendimentoBean implements Serializable {
 
 	public void filtrar() {	
 		
-		if(todos) {
-			
-			getListar();
-			
-		}else {
 		
 			empreendimentos = (List<Empreendimento>) empreendimentoService.listar(empreendimento);
 					
-		}
+		
 	}
 	
 	public void excluir(ActionEvent actionEvent) {
@@ -141,17 +136,7 @@ public class EmpreendimentoBean implements Serializable {
 
 	public void setEmpreendimento(Empreendimento empreendimento) {
 		this.empreendimento = empreendimento;
-	}
-
-	public boolean isTodos() {
-		return todos;
-	}
-
-	public void setTodos(boolean todos) {
-		this.todos = todos;
-	}
-
-	
+	}	
 	
 	public List<Empreendimento> getEmpreendimentos() {
 		return empreendimentos;

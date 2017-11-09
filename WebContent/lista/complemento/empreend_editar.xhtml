@@ -27,32 +27,33 @@
 	<h:form id="formEditar">
 
 		<p:dialog header="Editar Emprendimento" height="500px"
-			widgetVar="empreendimentoDialog" modal="true"
-			hideEffect="explode" showEffect="bounce" closeOnEscape="true"
-			maximizable="true" id="dialogCadastrar" resizable="true">
+			widgetVar="empreendimentoDialog" modal="true" hideEffect="explode"
+			showEffect="bounce" closeOnEscape="true" maximizable="true"
+			id="dialogCadastrar" resizable="true">
 
 			<p:outputPanel id="empreendimentoCpfCnpj"
 				style="text-align:center; width:700px; ">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">CPF/CNPJ</label>
-					<div class="col-10">					
-						
-						<p:inputMask id="cpf" class="form-control" alt="CPF" title="Digite um Cpf"
+					<div class="col-10">
+
+						<p:inputMask id="cpf" class="form-control" alt="CPF"
+							title="Digite um Cpf"
 							rendered="#{not empty empreendimentoBean.empreendimento.razaoSocial.cpf}"
 							mask="999.999.999-99"
 							style="font-family: 'Montserrat', 'sans-serif'"
-							
 							value="#{empreendimentoBean.empreendimento.razaoSocial.cpf}">
 							<f:converter for="cpf" converterId="converter.CpfConverter" />
 							<f:validator for="cpf" validatorId="validator.CpfValidator" />
 						</p:inputMask>
 
-						
-						<p:inputMask id="cnpj" class="form-control" alt="CNPJ" title="Digite um CNPJ"
+
+						<p:inputMask id="cnpj" class="form-control" alt="CNPJ"
+							title="Digite um CNPJ"
 							style="font-family: 'Montserrat', 'sans-serif'"
 							rendered="#{not empty empreendimentoBean.empreendimento.razaoSocial.cnpj}"
-							mask="99.999.999/9999-99" 
+							mask="99.999.999/9999-99"
 							value="#{empreendimentoBean.empreendimento.razaoSocial.cnpj}">
 							<f:converter for="cnpj" converterId="converter.CnpjConverter" />
 							<f:validator for="cnpj" validatorId="validator.CnpjValidator" />
@@ -63,7 +64,7 @@
 				<p:message for="cnpj" />
 				<p:message for="cpf" />
 			</p:outputPanel>
-			
+
 			<p:outputPanel id="empreendimentoEditar"
 				style="text-align:center; width:700px;">
 
@@ -99,8 +100,8 @@
 							style="font-family: 'Montserrat', 'sans-serif'" immediate="true">
 
 							<f:selectItems value="#{empreendimentoBean.tiposEmpreendimentos}"
-								var="tipo" itemValue="#{tipoEmpreendimento}"
-								itemLabel="#{tipoEmpreendimento.descricao}"></f:selectItems>
+								var="tipo" itemValue="#{tipo}"
+								itemLabel="#{tipo.descricao}"></f:selectItems>
 
 						</h:selectOneMenu>
 
@@ -121,14 +122,14 @@
 						</p:inputText>
 					</div>
 				</div>
-				<p:message for="nome" />
+				<p:message for="razaoSocial" />
 
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Nome
 						Fantasia</label>
 					<div class="col-10">
-						<p:inputText id="nome" class="form-control" required="true"
+						<p:inputText id="nomeFantasia" class="form-control" required="true"
 							maxlength="80" requiredMessage="O campo Nome é obrigatório"
 							a:placeholder="Por favor digite o nome da empresa"
 							value="#{empreendimentoBean.empreendimento.nomeFantasia}">
@@ -136,7 +137,7 @@
 						</p:inputText>
 					</div>
 				</div>
-				<p:message for="nome" />
+				<p:message for="nomeFantasia" />
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Descrição</label>
@@ -153,7 +154,7 @@
 					<label for="example-text-input" class="col-2 col-form-label">Cep</label>
 					<div class="col-10">
 						<p:inputMask id="cep" maxlength="8" class="form-control"
-							onblur="pesquisacep(this.value);" mask="99999-999"
+							onblur="pesquisacep(1, this.value);" mask="99999-999"
 							value="#{empreendimentoBean.empreendimento.endereco.cep}">
 							<f:converter converterId="converter.CepConverter" />
 						</p:inputMask>
@@ -213,7 +214,6 @@
 						</div>
 					</div>
 				</p:outputPanel>
-
 
 				<p:separator />
 

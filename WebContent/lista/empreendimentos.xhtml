@@ -59,7 +59,7 @@
 							<div class="row">
 								<div class="col-sm-4">
 									<p:selectOneRadio id="console"
-										value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">
+										value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">										
 										<f:selectItem itemLabel="CPF" itemValue="true" />
 										<f:selectItem itemLabel="CNPJ" itemValue="false" />
 										<f:ajax render="formEmpreendimentos:painelCpfCnpj"></f:ajax>
@@ -72,7 +72,7 @@
 										mask="999.999.999-99"
 										style="font-family: 'Montserrat', 'sans-serif'"
 										a:placeholder="Digite o cpf da empresa"
-										value="#{responsavelBean.responsavel.cpf}">
+										value="#{empreendimentoBean.empreendimento.razaoSocial.cpf}">
 										<f:converter for="cpf" converterId="converter.CpfConverter" />
 									</p:inputMask>
 
@@ -93,20 +93,19 @@
 						<div class="col-sm-2">
 							<b><h:outputText value="Tipo de Empreendimento:"
 									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-						</div>
-						<div class="col-sm-2">
+						
 							<div class="form-group">
-								<h:selectOneMenu id="lstEmpreendimentos"
+								<h:selectOneMenu id="lstEmpreendimentos" 
 									converter="converter.TipoEmpreendimentoConverter"
 									value="#{empreendimentoBean.empreendimento.tipoEmpreendimento}"
 									class="form-control"
-									style="font-family: 'Montserrat', 'sans-serif'"
-									immediate="true">
-
+									style="font-family: 'Montserrat', 'sans-serif'; width: 350px;"
+									>
+									
 									<f:selectItems
 										value="#{empreendimentoBean.tiposEmpreendimentos}" var="tipo"
-										itemValue="#{tipoEmpreendimento}"
-										itemLabel="#{tipoEmpreendimento.descricao}"></f:selectItems>
+										itemValue="#{tipo}"
+										itemLabel="#{tipo.descricao}"></f:selectItems>
 
 								</h:selectOneMenu>
 
@@ -119,55 +118,30 @@
 						<div class="col-sm-2">
 							<b><h:outputText value="Razão Social"
 									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-						</div>
-						<div class="col-sm-4">
+						
 							<p:inputText id="razaoSocial" class="form-control"
-								style="font-family: 'Montserrat', 'sans-serif'"
-								a:placeholder="Digite o nome da empresa"
+								style="font-family: 'Montserrat', 'sans-serif'; width: 250px;"
+								a:placeholder="Digite a razão social da empresa"
 								value="#{empreendimentoBean.empreendimento.razaoSocial.razaoSocial}"
-								immediate="true">
+								>
 							</p:inputText>
 						</div>
-
-						<div class="col-sm-2">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div class="col-sm-4">
 							<b><h:outputText value="Nome Fantasia"
 									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-						</div>
-						<div class="col-sm-4">
+						
 							<p:inputText id="nome" class="form-control"
-								style="font-family: 'Montserrat', 'sans-serif'"
-								a:placeholder="Digite o nome da empresa"
+								style="font-family: 'Montserrat', 'sans-serif'; width: 350px;"
+								a:placeholder="Digite o nome fantasia da empresa"
 								value="#{empreendimentoBean.empreendimento.nomeFantasia}"
-								immediate="true">
+								>
 							</p:inputText>
 						</div>
-
-						<p:outputPanel id="painelTodos">
-
-							<div class="row">
-								<div class="col-sm-4">
-									<b><h:outputText value="Todos?"
-											style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-								</div>
-								<div class="col-sm-4">
-									<p:selectBooleanCheckbox id="todos"
-										style="font-family: 'Montserrat', 'sans-serif'"
-										value="#{empreendimentoBean.todos}" title="Ativo?"
-										immediate="true" tabindex="1">
-										<f:ajax render=":formEmpreendimentos:painelTodos"></f:ajax>
-									</p:selectBooleanCheckbox>
-								</div>
-								<div class="col-sm-4">
-									<b><h:outputText value="Sim"
-											style="font-family: 'Montserrat', 'sans-serif'"
-											rendered="#{empreendimentoBean.todos}" /> </b> <b><h:outputText
-											value="Não" rendered="#{!empreendimentoBean.todos}"
-											style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-								</div>
-							</div>
-
-						</p:outputPanel>
 					</div>
+					
+						
+					
 
 				</div>
 				
@@ -176,7 +150,7 @@
 				<p:commandLink id="btnFilter"
 					style="font-family: 'Montserrat', 'sans-serif'"
 					class="btn btn-primary btn-lg btn-block"
-					update=":formExibir:tblEmpreendimentos" immediate="true"
+					update=":formExibir:tblEmpreendimentos" immediate="false"
 					actionListener="#{empreendimentoBean.filtrar}">
 
 					<b><h:outputText value="Buscar" /> </b>
@@ -280,7 +254,7 @@
 				filterStyle="width:200px" width="200px"		
 				>
 				<div align="center">
-					<h:outputText value="#{empreendimento.tipoEmpreendimento}" />
+					<h:outputText value="#{empreendimento.tipoEmpreendimento.descricao}" />
 				</div>
 			</p:column>
 			

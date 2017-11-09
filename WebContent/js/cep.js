@@ -1,19 +1,22 @@
- function limpa_formulário_cep() {
+
+var tipoFormulario;
+
+function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
-            document.getElementById('formNovo:rua').value=("");
-            document.getElementById('formNovo:bairro').value=("");
-            document.getElementById('formNovo:cidade').value=("");
-            document.getElementById('formNovo:uf').value=("");
+            document.getElementById(tipoFormulario+'rua').value=("");
+            document.getElementById(tipoFormulario+'bairro').value=("");
+            document.getElementById(tipoFormulario+'cidade').value=("");
+            document.getElementById(tipoFormulario+'uf').value=("");
             
     }
 
     function meu_callback(conteudo) {
         if (!("erro" in conteudo)) {
             //Atualiza os campos com os valores.
-            document.getElementById('formNovo:rua').value=(conteudo.logradouro);
-            document.getElementById('formNovo:bairro').value=(conteudo.bairro);
-            document.getElementById('formNovo:cidade').value=(conteudo.localidade);
-            document.getElementById('formNovo:uf').value=(conteudo.uf);
+            document.getElementById(tipoFormulario+'rua').value=(conteudo.logradouro);
+            document.getElementById(tipoFormulario+'bairro').value=(conteudo.bairro);
+            document.getElementById(tipoFormulario+'cidade').value=(conteudo.localidade);
+            document.getElementById(tipoFormulario+'uf').value=(conteudo.uf);
             
         } //end if.
         else {
@@ -23,8 +26,13 @@
         }
     }
         
-    function pesquisacep(valor) {   	
+    function pesquisacep(tipo, valor) {   	
     	
+    	if(tipo==0){
+    		tipoFormulario='formNovo:';
+    	}else{
+    		tipoFormulario='formEditar:';
+    	}
     	
         //Nova variável "cep" somente com dígitos.
         var cep = valor.replace(/\D/g, '');
@@ -36,13 +44,13 @@
             var validacep = /^[0-9]{8}$/;
 
             //Valida o formato do CEP.
-            if(validacep.test(cep)) {
+            if(validacep.test(cep) ) {
 
                 //Preenche os campos com "..." enquanto consulta webservice.
-                document.getElementById('formNovo:rua').value="...";
-                document.getElementById('formNovo:bairro').value="...";
-                document.getElementById('formNovo:cidade').value="...";
-                document.getElementById('formNovo:uf').value="...";
+                document.getElementById(tipoFormulario+'rua').value="...";
+                document.getElementById(tipoFormulario+'bairro').value="...";
+                document.getElementById(tipoFormulario+'cidade').value="...";
+                document.getElementById(tipoFormulario+'uf').value="...";
                 
 
                 //Cria um elemento javascript.
@@ -54,7 +62,7 @@
                 //Insere script no documento e carrega o conteúdo.
                 document.body.appendChild(script);
 
-            } //end if.
+            } 
             else {
                 //cep é inválido.
                 limpa_formulário_cep();
