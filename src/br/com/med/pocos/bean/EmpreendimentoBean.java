@@ -17,7 +17,11 @@ import br.com.med.pocos.services.EmpreendimentoService;
 import br.com.med.pocos.util.Utils;
 
 
-
+/**
+ * 
+ * @author Artur
+ *
+ */
 
 @ManagedBean(name = "empreendimentoBean")
 @ViewScoped
