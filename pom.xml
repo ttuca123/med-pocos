@@ -3,10 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>med-pocos</groupId>
 	<artifactId>med-pocos</artifactId>
-	<version>1.3</version>
+	<version>1.0.3</version>
 	<packaging>war</packaging>
-
-
 
 	<dependencies>
 

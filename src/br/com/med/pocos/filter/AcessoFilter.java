@@ -2,13 +2,14 @@ package br.com.med.pocos.filter;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 public class AcessoFilter implements Filter{
@@ -20,9 +21,30 @@ public class AcessoFilter implements Filter{
 	}
 
 	@Override
-	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
+		
+		
+		HttpSession sess = ((HttpServletRequest) request).getSession(true);
+		   
+        String newCurrentPage = ((HttpServletRequest) request).getServletPath();
+  
+        
+        
+        if (sess.getAttribute("currentPage") == null) {
+            sess.setAttribute("lastPage", newCurrentPage);
+            sess.setAttribute("currentPage", newCurrentPage);
+        } else {
+  
+            String oldCurrentPage = sess.getAttribute("currentPage").toString();
+            if (!oldCurrentPage.equals(newCurrentPage)) {
+              sess.setAttribute("lastPage", oldCurrentPage);
+              sess.setAttribute("currentPage", newCurrentPage);
+            }
+        }
+  
+        chain.doFilter(request, response);
 		
 	}
 

@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 @Stateless(name="EmailService")
 public class EmailServiceImpl implements EmailService {
 
-	@Resource(lookup="java:jboss/mail/med-pocos")
+	//@Resource(lookup="java:jboss/mail/med-pocos")
 	private Session mailSession;	
 	
 	public EmailServiceImpl() {

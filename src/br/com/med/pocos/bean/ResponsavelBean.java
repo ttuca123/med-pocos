@@ -120,6 +120,18 @@ public class ResponsavelBean implements Serializable {
 		
 	}
 
+	public int getTotal() {
+		if(responsaveis!=null) {
+			
+			return responsaveis.size();	
+		}else {
+			
+			return 0;
+		}
+		
+		
+	}
+	
 	public void filtrar() {	
 		
 		if(todos) {

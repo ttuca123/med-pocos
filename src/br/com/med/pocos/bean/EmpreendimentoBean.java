@@ -55,6 +55,19 @@ public class EmpreendimentoBean implements Serializable {
 
 	}
 
+	public int getTotal() {
+		if(empreendimentos!=null) {
+			
+			return empreendimentos.size();	
+		}else {
+			
+			return 0;
+		}
+		
+		
+	}
+	
+	
 	public boolean isEditavel() {
 
 		if (empreendimento.getDataEncerramento() == null) {

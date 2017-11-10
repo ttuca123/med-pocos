@@ -31,9 +31,8 @@
 	<context-param>
 		<param-name>primefaces.skin</param-name>
 		<param-value>none</param-value>
-	</context-param>
-	
-	<!--  
+	</context-param>	
+	  
 	<error-page>
 		<error-code>404</error-code>
 		<location>/error.xhtml</location>
@@ -46,7 +45,7 @@
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/error.xhtml</location>
 	</error-page>
-	-->
+	
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
@@ -57,6 +56,9 @@
         </param-name>
         <param-value>GMT-3</param-value>
     </context-param>
+
+
+
 
 </web-app>
 

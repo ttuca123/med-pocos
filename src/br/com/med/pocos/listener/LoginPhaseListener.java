@@ -22,7 +22,7 @@ public class LoginPhaseListener implements PhaseListener {
 		
 		String currentPage = facesContext.getViewRoot().getViewId();
 		
-		boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml")> -1);
+		boolean isLoginPage = (currentPage.lastIndexOf("login.xhtml") > -1);
 		
 		HttpSession session  = (HttpSession) facesContext.getExternalContext().getSession(true);
 		

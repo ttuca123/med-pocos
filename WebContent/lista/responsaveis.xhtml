@@ -137,17 +137,28 @@
 			filteredValue="#{responsavelBean.filteredResponsaveis}"
 			value="#{responsavelBean.responsaveis}" rows="10" paginator="true"
 			widgetVar="responsavelsTable" scrollable="true"
-			styleClass="paginated"
+			styleClass="paginated" rowIndexVar="rowIndex"
 			emptyMessage="Nenhum responsável encontrado com os critérios selecionados"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h:outputText value="Lista de Responsáveis:"
-						style="font-family: 'Montserrat', 'sans-serif'" />
+					<h2><h:outputText value="Lista de Responsáveis:"
+						style="font-family: 'Montserrat', 'sans-serif'" /></h2>
 				</p:outputPanel>
 
 			</f:facet>
+				<p:column 
+				headerText="#"  
+				style="width:50px" 				
+				>
+				<div align="center">
+					
+        			<h:outputText value="#{rowIndex+1}" />
+    			
+				</div>
+			</p:column>
+
 
 			<p:column filterBy="#{responsavel.nome}" headerText="Nome"
 				style="width:200px" filterMatchMode="contains"
@@ -170,8 +181,8 @@
 			</p:column>
 
 			<p:column headerText="Email" filterBy="#{responsavel.email}" 
-				style="width:250px font-family: 'Montserrat', 'sans-serif'" filterMatchMode="contains"
-				filterStyle="width:250px" width="250px"
+				style="width:400px font-family: 'Montserrat', 'sans-serif'" filterMatchMode="contains"
+				filterStyle="width:400px" width="400px"
 				sortBy="#{responsavel.email}" >
 				<div align="center">
 					<h:outputText value="#{responsavel.email}" style="font-family: 'Montserrat', 'sans-serif'"/>
@@ -232,6 +243,11 @@
 
 
 			</p:column>
+			
+			 <f:facet name="footer">
+        		<h2><h:outputLabel value="TOTAL: #{responsavelBean.total} ."></h:outputLabel></h2>
+    		</f:facet>
+			
 		</p:dataTable>
 
 	</h:form>

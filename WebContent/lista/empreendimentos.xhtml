@@ -184,21 +184,33 @@
 			filteredValue="#{empreendimentoBean.filteredEmprendimentos}"
 			value="#{empreendimentoBean.empreendimentos}" rows="10"
 			paginator="true" widgetVar="empreendimentosTable" scrollable="true"
-			styleClass="paginated"
+			styleClass="paginated" rowIndexVar="rowIndex"
 			emptyMessage="Nenhum empreendimento encontrado com os critérios selecionados"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h:outputText value="Lista de Empreendimentos:"
-						style="font-family: 'Montserrat', 'sans-serif'" />
+					<h2><h:outputText value="Lista de Empreendimentos:"
+						style="font-family: 'Montserrat', 'sans-serif'" /></h2>
 				</p:outputPanel>
 
 			</f:facet>
+			<p:column 
+				headerText="#"  
+				style="width:50px" 				
+				>
+				<div align="center">
+					
+        			<h:outputText value="#{rowIndex+1}" />
+    			
+				</div>
+			</p:column>
+
+
 
 			<p:column 
 				headerText="Razão Social" filterBy="#{empreendimento.razaoSocial.razaoSocial}" 
-				style="width:200px" filterMatchMode="contains"
+				style="width:300px" filterMatchMode="contains"
 				filterStyle="width:200px" width="200px"				
 				>
 				<div align="center">
@@ -210,8 +222,8 @@
 			<p:column 
 				headerText="Nome Fantasia" 	
 				filterBy="#{empreendimento.nomeFantasia}" 
-				style="width:200px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px" 
+				style="width:300px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px"	
 						
 				>
 				<div align="center">
@@ -240,7 +252,7 @@
 
 			<p:column headerText="Responsável"
 				 filterBy="#{empreendimento.responsavel.nome}" 
-				style="width:200px" filterMatchMode="contains"
+				style="width:300px" filterMatchMode="contains"
 				filterStyle="width:200px" width="200px"		
 				>
 				<div align="center">
@@ -250,11 +262,11 @@
 			
 			<p:column headerText="Tipo de Empreendimento"
 				 filterBy="#{empreendimento.tipoEmpreendimento.descricao}" 
-				style="width:200px" filterMatchMode="contains"
+				style="width:300px" filterMatchMode="contains"
 				filterStyle="width:200px" width="200px"		
 				>
 				<div align="center">
-					<h:outputText value="#{empreendimento.tipoEmpreendimento.descricao}" />
+					<h:outputText  value="#{empreendimento.tipoEmpreendimento.descricao}" />
 				</div>
 			</p:column>
 			
@@ -302,7 +314,9 @@
 
 			</p:column>
 
-			
+			<f:facet name="footer">
+        		<h2><h:outputLabel value="TOTAL: #{empreendimentoBean.total} ."></h:outputLabel></h2>
+    		</f:facet>
 		</p:dataTable>
 
 	</h:form>
