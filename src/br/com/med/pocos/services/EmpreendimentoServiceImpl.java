@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,6 +18,7 @@ import javax.persistence.criteria.Root;
 import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 import br.com.med.pocos.model.Empreendimento;
 import br.com.med.pocos.model.Empreendimento_;
+import br.com.med.pocos.model.Hidrometro;
 import br.com.med.pocos.model.RazaoSocial;
 import br.com.med.pocos.model.RazaoSocial_;
 import br.com.med.pocos.model.Responsavel;
@@ -27,8 +30,6 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 	private CriteriaBuilder criteriaBuilder;
 
 	private Root<Empreendimento> rootEmpreendimento;
-
-	
 
 	@EJB
 	public EntityManagerService emService;
@@ -42,13 +43,11 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 		Empreendimento empreendimento = (Empreendimento) object;
 
 		if (empreendimento != null) {
+
 			Responsavel responsavel = empreendimento.getResponsavel();
 
 			if (responsavel.getSeqResponsavel() != null) {
-
-				// responsavel = (Responsavel)
-				// responsavelService.getObject(responsavel.getSeqResponsavel());
-
+				
 				empreendimento.setResponsavel(responsavel);
 
 				emService.getEntityManager().detach(responsavel);
@@ -102,6 +101,7 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Empreendimento> listar() {
 		List<Empreendimento> empreendimentos;
@@ -138,8 +138,6 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 
 		rootEmpreendimento = query.from(Empreendimento.class);
 
-		
-
 		Predicate predicados = adicionarFiltros(empreendimento);
 
 		Path<String> nome = rootEmpreendimento.get(Empreendimento_.nomeFantasia);
@@ -154,54 +152,39 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 
 	private Predicate adicionarFiltros(Empreendimento empreendimento) {
 
-		Path<Date> data = rootEmpreendimento.get(Empreendimento_.dataEncerramento);
-
 		Predicate predicados = criteriaBuilder.and();
 
-		// if (empreendimento.isAtivo()) {
-		//
-		// Predicate predicadoResponsavelAtivo = (Predicate)
-		// criteriaBuilder.isNull(data);
-		//
-		// predicados = criteriaBuilder.and(predicados, predicadoResponsavelAtivo);
-		//
-		// }else {
-		//
-		// Predicate predicadoResponsavelAtivo = (Predicate)
-		// criteriaBuilder.isNotNull(data);
-		//
-		// predicados = criteriaBuilder.and(predicados, predicadoResponsavelAtivo);
-		//
-		// }
-
-		if (empreendimento.getRazaoSocial().getCpf() != null && !empreendimento.getRazaoSocial().getCpf().trim().isEmpty()) {
+		if (empreendimento.getRazaoSocial().getCpf() != null
+				&& !empreendimento.getRazaoSocial().getCpf().trim().isEmpty()) {
 
 			Path<RazaoSocial> razaoSocial = rootEmpreendimento.get(Empreendimento_.razaoSocial);
-			
-			
 
-			Predicate predicadoCpf = (Predicate) criteriaBuilder.like(razaoSocial.get(RazaoSocial_.cpf), empreendimento.getRazaoSocial().getCpf());
+			Predicate predicadoCpf = (Predicate) criteriaBuilder.like(razaoSocial.get(RazaoSocial_.cpf),
+					empreendimento.getRazaoSocial().getCpf());
 
 			predicados = criteriaBuilder.and(predicados, predicadoCpf);
 
 		}
 
-		if (empreendimento.getRazaoSocial().getCnpj() != null &&!empreendimento.getRazaoSocial().getCnpj().trim().isEmpty()) {
+		if (empreendimento.getRazaoSocial().getCnpj() != null
+				&& !empreendimento.getRazaoSocial().getCnpj().trim().isEmpty()) {
 
 			Path<RazaoSocial> razaoSocial = rootEmpreendimento.get(Empreendimento_.razaoSocial);
-			
 
-			Predicate predicadoCnpj = (Predicate) criteriaBuilder.like(razaoSocial.get(RazaoSocial_.cnpj), empreendimento.getRazaoSocial().getCnpj());
+			Predicate predicadoCnpj = (Predicate) criteriaBuilder.like(razaoSocial.get(RazaoSocial_.cnpj),
+					empreendimento.getRazaoSocial().getCnpj());
 
 			predicados = criteriaBuilder.and(predicados, predicadoCnpj);
 
 		}
-		
-		if (empreendimento.getTipoEmpreendimento() != null && empreendimento.getTipoEmpreendimento().getCodigo()!=0) {
 
-			Path<EnumTipoEmpreendimento> tipoEmpreendimento = rootEmpreendimento.get(Empreendimento_.tipoEmpreendimento);
+		if (empreendimento.getTipoEmpreendimento() != null && empreendimento.getTipoEmpreendimento().getCodigo() != 0) {
 
-			Predicate predicadoTipoEmpreendimento = (Predicate) criteriaBuilder.equal(tipoEmpreendimento, empreendimento.getTipoEmpreendimento());
+			Path<EnumTipoEmpreendimento> tipoEmpreendimento = rootEmpreendimento
+					.get(Empreendimento_.tipoEmpreendimento);
+
+			Predicate predicadoTipoEmpreendimento = (Predicate) criteriaBuilder.equal(tipoEmpreendimento,
+					empreendimento.getTipoEmpreendimento());
 
 			predicados = criteriaBuilder.and(predicados, predicadoTipoEmpreendimento);
 
@@ -217,22 +200,40 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 			predicados = criteriaBuilder.and(predicados, predicadoNomeFantasia);
 
 		}
-		
-		
-		if (empreendimento.getRazaoSocial().getRazaoSocial() != null &&!empreendimento.getRazaoSocial().getRazaoSocial().trim().isEmpty()) {
 
-			Path<RazaoSocial> razaoSocial = rootEmpreendimento.get(Empreendimento_.razaoSocial);			
+		if (empreendimento.getRazaoSocial().getRazaoSocial() != null
+				&& !empreendimento.getRazaoSocial().getRazaoSocial().trim().isEmpty()) {
 
-			Predicate predicadoRazaoSocial = (Predicate) criteriaBuilder.like(razaoSocial.get(RazaoSocial_.razaoSocial), "%"+empreendimento.getRazaoSocial().getRazaoSocial()+"%");
+			Path<RazaoSocial> razaoSocial = rootEmpreendimento.get(Empreendimento_.razaoSocial);
+
+			Predicate predicadoRazaoSocial = (Predicate) criteriaBuilder.like(razaoSocial.get(RazaoSocial_.razaoSocial),
+					"%" + empreendimento.getRazaoSocial().getRazaoSocial() + "%");
 
 			predicados = criteriaBuilder.and(predicados, predicadoRazaoSocial);
 
 		}
-		
-
-		
 
 		return predicados;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Hidrometro> listarHidrometrosByEmpreendimento(Empreendimento empreendimento) {
+
+		List<Hidrometro> hidrometros;
+
+		try {
+			hidrometros = emService.getEntityManager()
+					.createNamedQuery("Empreendimento.buscaAllHidrometrosByEmpreendimento")
+					.setLockMode(LockModeType.OPTIMISTIC).setFlushMode(FlushModeType.AUTO)
+					.setParameter("seqEmpreendimento", empreendimento.getSeqEmpreendimento()).getResultList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			hidrometros = new ArrayList<Hidrometro>();
+		}
+
+		return hidrometros;
 	}
 
 }

@@ -9,6 +9,10 @@ import javax.persistence.Embeddable;
 public class RazaoSocial implements Serializable {
 
 	
+	
+	public RazaoSocial() {
+		super();
+	}
 	/**
 	 * 
 	 */
@@ -17,10 +21,10 @@ public class RazaoSocial implements Serializable {
 	@Column(name = "razao_social")
 	private String razaoSocial;
 	
-	@Column(name = "cpf", length=11 )
+	@Column(name = "cpf", length=11, nullable=true )
 	private String cpf;
 	
-	@Column(name = "cnpj", length = 14)
+	@Column(name = "cnpj", length = 14, nullable=true)
 	private String cnpj;
 
 	public String getRazaoSocial() {

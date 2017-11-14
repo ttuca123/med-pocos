@@ -21,13 +21,13 @@
 
 	<ui:include src="../ajax/ajax.xhtml" />
 
-	<div class="page-header" align="center">
+	<div class="page-header" align="center" style="margin-right:10px; margin-left:10px;">
 		<h3 class="display-4" style="font-family: 'Montserrat', 'sans-serif'">Lista
 			de Empreendimentos</h3>
 
 	</div>
-	<p:separator style="border-color: white;"></p:separator>
-	<h:form>
+	<p:separator style="border-color: white; margin-right:10px; margin-left:10px;"></p:separator>
+	<h:form style="margin-right:10px; margin-left:10px;">
 		<div align="left">
 
 			<p:commandLink ajax="false" class="btn btn-info"
@@ -36,8 +36,8 @@
 			</p:commandLink>
 		</div>
 	</h:form>
-	<p:separator style="border-color: white;"></p:separator>
-	<h:form id="formEmpreendimentos" styleClass="estiloFiltro">
+	<p:separator style="border-color: white; margin-right:10px; margin-left:10px;"></p:separator>
+	<h:form id="formEmpreendimentos" styleClass="filtro" style="margin-right:10px; margin-left:10px;">
 		<div class="panel panel-default">
 			<div class="panel-body">
 
@@ -59,7 +59,7 @@
 							<div class="row">
 								<div class="col-sm-4">
 									<p:selectOneRadio id="console"
-										value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">										
+										value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">
 										<f:selectItem itemLabel="CPF" itemValue="true" />
 										<f:selectItem itemLabel="CNPJ" itemValue="false" />
 										<f:ajax render="formEmpreendimentos:painelCpfCnpj"></f:ajax>
@@ -67,11 +67,11 @@
 
 								</div>
 								<div class="col-sm-4">
-									<p:inputMask id="cpfNovo" 
+									<p:inputMask id="cpfNovo"
 										rendered="#{empreendimentoBean.escolhaCpfCnpj}"
 										mask="999.999.999-99"
 										style="font-family: 'Montserrat', 'sans-serif'"
-										a:placeholder="Digite o cpf da empresa"
+										a:placeholder="Digite o cpf"
 										value="#{empreendimentoBean.empreendimento.razaoSocial.cpf}">
 										<f:converter for="cpf" converterId="converter.CpfConverter" />
 									</p:inputMask>
@@ -80,8 +80,7 @@
 									<p:inputMask id="cnpj"
 										style="font-family: 'Montserrat', 'sans-serif'"
 										rendered="#{!empreendimentoBean.escolhaCpfCnpj}"
-										mask="99.999.999/9999-99"
-										a:placeholder="Digite cnpj da empresa"
+										mask="99.999.999/9999-99" a:placeholder="Digite cnpj"
 										value="#{empreendimentoBean.empreendimento.razaoSocial.cnpj}">
 										<f:converter converterId="converter.CnpjConverter" />
 									</p:inputMask>
@@ -93,19 +92,17 @@
 						<div class="col-sm-2">
 							<b><h:outputText value="Tipo de Empreendimento:"
 									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-						
+
 							<div class="form-group">
-								<h:selectOneMenu id="lstEmpreendimentos" 
+								<h:selectOneMenu id="lstEmpreendimentos"
 									converter="converter.TipoEmpreendimentoConverter"
 									value="#{empreendimentoBean.empreendimento.tipoEmpreendimento}"
 									class="form-control"
-									style="font-family: 'Montserrat', 'sans-serif'; width: 350px;"
-									>
-									
+									style="font-family: 'Montserrat', 'sans-serif'; width: 350px;">
+
 									<f:selectItems
 										value="#{empreendimentoBean.tiposEmpreendimentos}" var="tipo"
-										itemValue="#{tipo}"
-										itemLabel="#{tipo.descricao}"></f:selectItems>
+										itemValue="#{tipo}" itemLabel="#{tipo.descricao}"></f:selectItems>
 
 								</h:selectOneMenu>
 
@@ -116,36 +113,34 @@
 					<div class="row">
 
 						<div class="col-sm-2">
-							<b><h:outputText value="Razão Social"
+							<b><h:outputText value="Nome"
 									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-						
+
 							<p:inputText id="razaoSocial" class="form-control"
 								style="font-family: 'Montserrat', 'sans-serif'; width: 250px;"
-								a:placeholder="Digite a razão social da empresa"
-								value="#{empreendimentoBean.empreendimento.razaoSocial.razaoSocial}"
-								>
+								a:placeholder="Digite o nome da empresa"
+								value="#{empreendimentoBean.empreendimento.razaoSocial.razaoSocial}">
 							</p:inputText>
 						</div>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<div class="col-sm-4">
-							<b><h:outputText value="Nome Fantasia"
+							<b><h:outputText value="Nome do Empreendimento"
 									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
-						
+
 							<p:inputText id="nome" class="form-control"
 								style="font-family: 'Montserrat', 'sans-serif'; width: 350px;"
-								a:placeholder="Digite o nome fantasia da empresa"
-								value="#{empreendimentoBean.empreendimento.nomeFantasia}"
-								>
+								a:placeholder="Digite o nome do empreendimento"
+								value="#{empreendimentoBean.empreendimento.nomeFantasia}">
 							</p:inputText>
 						</div>
 					</div>
-					
-						
-					
+
+
+
 
 				</div>
-				
-				
+
+
 				<p:separator style="border-color: white;"></p:separator>
 				<p:commandLink id="btnFilter"
 					style="font-family: 'Montserrat', 'sans-serif'"
@@ -180,113 +175,114 @@
 
 
 		<p:dataTable id="tblEmpreendimentos" var="empreendimento"
-			style="font-family: 'Montserrat', 'sans-serif'"
+			style="font-family: 'Montserrat', 'sans-serif'; margin-right:10px; margin-left:10px;"
 			filteredValue="#{empreendimentoBean.filteredEmprendimentos}"
 			value="#{empreendimentoBean.empreendimentos}" rows="10"
 			paginator="true" widgetVar="empreendimentosTable" scrollable="true"
-			styleClass="paginated" rowIndexVar="rowIndex"
+			styleClass="paginated" rowIndexVar="rowIndex" lazy="true"
+			resizableColumns="true"
 			emptyMessage="Nenhum empreendimento encontrado com os critérios selecionados"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h2><h:outputText value="Lista de Empreendimentos:"
-						style="font-family: 'Montserrat', 'sans-serif'" /></h2>
+					<h2>
+						<h:outputText value="Lista de Empreendimentos:"
+							style="font-family: 'Montserrat', 'sans-serif'" />
+					</h2>
+					
+			
+						
+			
+	            
+ 
 				</p:outputPanel>
 
 			</f:facet>
-			<p:column 
-				headerText="#"  
-				style="width:50px" 				
-				>
+			
+			
+			<p:column headerText="#" style="width:50px">
 				<div align="center">
-					
-        			<h:outputText value="#{rowIndex+1}" />
-    			
+
+					<h:outputText value="#{rowIndex+1}" />
+
 				</div>
 			</p:column>
 
+			<p:column style="width:160px" headerText="Descrição">
 
+				<p:rowToggler />
 
-			<p:column 
-				headerText="Razão Social" filterBy="#{empreendimento.razaoSocial.razaoSocial}" 
+			</p:column>
+
+			<p:column headerText="Razão Social"
+				filterBy="#{empreendimento.razaoSocial.razaoSocial}"
 				style="width:300px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px"				
-				>
+				filterStyle="width:200px" width="200px">
 				<div align="center">
 					<h:outputText value="#{empreendimento.razaoSocial.razaoSocial}"
 						style="display:inline-block" />
 				</div>
 			</p:column>
-			
-			<p:column 
-				headerText="Nome Fantasia" 	
-				filterBy="#{empreendimento.nomeFantasia}" 
-				style="width:300px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px"	
-						
-				>
+
+			<p:column headerText="Nome Fantasia"
+				filterBy="#{empreendimento.nomeFantasia}" style="width:300px"
+				filterMatchMode="contains" filterStyle="width:200px" width="200px">
 				<div align="center">
 					<h:outputText value="#{empreendimento.nomeFantasia}"
 						style="display:inline-block" />
 				</div>
 			</p:column>
 
-			<p:column headerText="Cpf" 
-				 style="width:250px"			
-				>
+			<p:column headerText="Cpf" style="width:250px">
 				<div align="center">
 					<h:outputText value="#{empreendimento.razaoSocial.cpf}" />
 				</div>
 			</p:column>
-			
-			
-			<p:column headerText="Cnpj" 
-				 style="width:250px"			
-				>
+
+
+			<p:column headerText="Cnpj" style="width:250px">
 				<div align="center">
 					<h:outputText value="#{empreendimento.razaoSocial.cnpj}" />
 				</div>
-			</p:column>			
-			
+			</p:column>
+
 
 			<p:column headerText="Responsável"
-				 filterBy="#{empreendimento.responsavel.nome}" 
-				style="width:300px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px"		
-				>
+				filterBy="#{empreendimento.responsavel.nome}" style="width:300px"
+				filterMatchMode="contains" filterStyle="width:200px" width="200px">
 				<div align="center">
 					<h:outputText value="#{empreendimento.responsavel.nome}" />
 				</div>
 			</p:column>
-			
+
 			<p:column headerText="Tipo de Empreendimento"
-				 filterBy="#{empreendimento.tipoEmpreendimento.descricao}" 
+				filterBy="#{empreendimento.tipoEmpreendimento.descricao}"
 				style="width:300px" filterMatchMode="contains"
-				filterStyle="width:200px" width="200px"		
-				>
+				filterStyle="width:200px" width="200px">
 				<div align="center">
-					<h:outputText  value="#{empreendimento.tipoEmpreendimento.descricao}" />
+					<h:outputText
+						value="#{empreendimento.tipoEmpreendimento.descricao}" />
 				</div>
 			</p:column>
-			
-			
-			
-			
-			<p:column headerText="Data Encerramento Contrato"  
-				 style="width:250px"			
-				>
+
+			<p:column headerText="Hidrômetros"
+				style="width:120px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
-					<h:outputText value="#{empreendimento.dataEncerramento}" >
-						
-					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
-							timeZone="#{initParam.timezone}" />	
-					</h:outputText>
-					
+					<p:commandLink update="formEditar"
+						oncomplete="PF('hidrometroDialog').show()" title="Detalhar"
+						immediate="true"
+						style="float:left;margin-right:10px">
+						<p:graphicImage value="../images/hidrometro_small.png" 
+							style="padding-left:10px" />
+						<f:setPropertyActionListener value="#{empreendimento}"
+							target="#{empreendimentoBean.empreendimento}" />
+					</p:commandLink>
 				</div>
-			</p:column>
-			
-			<p:column headerText="Editar" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+			</p:column>			
+
+			<p:column headerText="Editar"
+				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<p:commandLink update="formEditar"
 						oncomplete="PF('empreendimentoDialog').show()" title="Detalhar"
@@ -297,10 +293,11 @@
 					</p:commandLink>
 				</div>
 			</p:column>
-			<p:column headerText="Excluir" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+			<p:column headerText="Excluir"
+				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<p:commandLink title="Excluir" update=":formExcluir:Excluir"
-						disabled="#{!empreendimento.operar}" 
+						disabled="#{!empreendimento.operar}"
 						oncomplete="PF('confirmation').show()" immediate="true">
 						<p:graphicImage value="../images/del.png" width="25px"
 							style="padding-left:10px" />
@@ -314,17 +311,71 @@
 
 			</p:column>
 
-			<f:facet name="footer">
-        		<h2><h:outputLabel value="TOTAL: #{empreendimentoBean.total} ."></h:outputLabel></h2>
-    		</f:facet>
-		</p:dataTable>
 
+			<p:rowExpansion>
+
+				<p:panelGrid columns="2" columnClasses="label,value"
+					style="width:700px">				
+					
+					<h:outputText value="Data de Cadastro:" style="width:250px" />
+					
+					<h:outputText value="#{empreendimento.dataCadastro}">
+
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+							timeZone="#{initParam.timezone}" />
+					</h:outputText>
+
+					<h:outputText value="Data de Encerramento:" style="width:250px" />
+					
+					<h:outputText value="#{empreendimento.dataEncerramento}">
+
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+							timeZone="#{initParam.timezone}" />
+					</h:outputText>
+
+					<h:outputText value="Cep" />
+					<h:outputText value="#{empreendimento.endereco.cep}" />
+					
+					<h:outputText value="Logradouro" />
+					<h:outputText value="#{empreendimento.endereco.logradouro}" />
+					
+					<h:outputText value="Complemento" />
+					<h:outputText value="#{empreendimento.endereco.complemento}" />
+					
+					<h:outputText value="Bairro" />
+					<h:outputText value="#{empreendimento.endereco.bairro}" />
+					
+					<h:outputText value="Municipio" />
+					<h:outputText value="#{empreendimento.endereco.municipio}" />
+					
+					<h:outputText value="Estado" />
+					<h:outputText value="#{empreendimento.endereco.estado}" />			
+					
+
+					
+				</p:panelGrid>
+
+
+
+			</p:rowExpansion>
+
+
+
+			<f:facet name="footer">
+				<h2>
+					<h:outputLabel value="TOTAL: #{empreendimentoBean.total} ."></h:outputLabel>
+				</h2>
+			</f:facet>
+		</p:dataTable>
+		
 	</h:form>
-	
+
+	<ui:include src="complemento/hidrometro_dialog.xhtml" />
+
 	<ui:include src="complemento/empreend_novo.xhtml" />
-	
+
 	<ui:include src="complemento/empreend_editar.xhtml" />
-	
+
 	<ui:include src="complemento/empreend_excluir.xhtml" />
 
 </h:body>

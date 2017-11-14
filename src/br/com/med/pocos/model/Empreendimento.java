@@ -1,11 +1,10 @@
 package br.com.med.pocos.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -15,11 +14,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,8 +31,8 @@ import br.com.med.pocos.enu.EnumTipoEmpreendimento;
  */
 
 @NamedQueries(value = {
-		@NamedQuery(name = "Empreendimento.buscaAllEmpreendimentos", query = "select e from Empreendimento e ORDER BY e.nomeFantasia asc ")
-
+		@NamedQuery(name = "Empreendimento.buscaAllEmpreendimentos", query = "select e from Empreendimento e ORDER BY e.nomeFantasia asc "),
+		@NamedQuery(name = "Empreendimento.buscaAllHidrometrosByEmpreendimento", query = "select e from Empreendimento e inner join fetch e.lstHidrometros where e.seqEmpreendimento = :seqEmpreendimento")
 })
 @Entity
 @Table(name = "empreendimento")
@@ -69,14 +67,14 @@ public class Empreendimento implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataEncerramento;
 
-	@Enumerated()
+	@Enumerated
 	@Column(name = "tipo_empreendimento")
 	private EnumTipoEmpreendimento tipoEmpreendimento;
 
-	@OneToOne(optional=false)	
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Responsavel responsavel;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "empreendimento")
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "empreendimento")
 	private List<Hidrometro> lstHidrometros;
 
 	@Transient
@@ -169,9 +167,18 @@ public class Empreendimento implements Serializable {
 	}
 
 	public List<Hidrometro> getLstHidrometros() {
+		
+		if(lstHidrometros == null) {
+			
+			lstHidrometros = new ArrayList<Hidrometro>();
+		}
+		
 		return lstHidrometros;
-	}
-
+	}	
+	
+	
+	
+	
 	public void setLstHidrometros(List<Hidrometro> lstHidrometros) {
 		this.lstHidrometros = lstHidrometros;
 	}

@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+		
+
+	<title></title>
+</h:head>
+<h:body styleClass="filtro" >
+
+	<p:dialog header="Hidrômetros" widgetVar="hidrometroDialog"
+		modal="true" hideEffect="explode" showEffect="bounce" height="500px"
+		width="800px" closeOnEscape="true" maximizable="true" styleClass="filtro" footer="Total: 10 Hidrômetros" style="align: right;"
+		id="dialogHidrometro" resizable="true">
+
+
+
+		<p:panel>
+			<h:form id="formHidrometros" styleClass="estiloFiltro">
+				<div class="panel panel-default">
+					<div class="panel-body">
+
+						<div class="container-fluid">
+							<h2>
+								<i><h:outputText value="Filtros"
+										style="font-family: 'Montserrat', 'sans-serif'" /></i>
+							</h2>
+							<p />
+
+							<div class="row">
+
+
+								<div class="col-sm-2">
+									<b><h:outputText value="Tipo de Hidrômetro:"
+											style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+
+									<div class="form-group">
+										<h:selectOneMenu id="lstHidrometros"
+											converter="converter.TipoEmpreendimentoConverter"
+											value="#{empreendimentoBean.empreendimento.tipoEmpreendimento}"
+											class="form-control"
+											style="font-family: 'Montserrat', 'sans-serif'; width: 350px;">
+
+											<f:selectItems
+												value="#{hidrometroBean.tiposHidrometros}"
+												var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"></f:selectItems>
+
+										</h:selectOneMenu>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+						<p:separator style="border-color: white;"></p:separator>
+						<p:commandLink id="btnFilter"
+							style="font-family: 'Montserrat', 'sans-serif'"
+							class="btn btn-primary btn-lg btn-block"
+							update=":formExibir:tblEmpreendimentos" immediate="false"
+							actionListener="#{empreendimentoBean.filtrar}">
+
+							<b><h:outputText value="Buscar" /> </b>
+
+						</p:commandLink>
+
+
+						<p:commandLink class="btn btn-success btn-lg btn-block"
+							style="font-family: 'Montserrat', 'sans-serif'"
+							update=":formNovo:empreendimentoNovo" immediate="true"
+							oncomplete="PF('empreendimentoDialogNovo').show()"
+							action="#{empreendimentoBean.novo}">
+
+							<b><h:outputText value="Novo *" /> </b>
+
+						</p:commandLink>
+
+					</div>
+				</div>
+			</h:form>
+		</p:panel>
+
+		<p:separator style="border-color: white;"></p:separator>
+		<h:form id="formExibirHidrometros">
+
+			<p:growl id="growl" autoUpdate="true" life="2000" />
+
+
+			<p:dataTable id="tblEmpreendimentos" var="empreendimento"
+				style="font-family: 'Montserrat', 'sans-serif'"
+				filteredValue="#{empreendimentoBean.filteredEmprendimentos}"
+				value="#{empreendimentoBean.empreendimentos}" rows="10"
+				paginator="true" widgetVar="empreendimentosTable" scrollable="true"
+				styleClass="paginated" rowIndexVar="rowIndex" 
+				resizableColumns="true"
+				emptyMessage="Nenhum hidrômetro encontrado com os critérios selecionados"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+				<f:facet name="header">
+					<p:outputPanel>
+						<h2>
+							<h:outputText value="Lista de Hidrômetros:"
+								style="font-family: 'Montserrat', 'sans-serif'" />
+						</h2>
+					</p:outputPanel>
+
+				</f:facet>
+				<p:column headerText="#" style="width:50px">
+					<div align="center">
+
+						<h:outputText value="#{rowIndex+1}" />
+
+					</div>
+				</p:column>
+
+				<p:column headerText="Número Registro"
+					
+					style="width:100px" 
+					 width="100px">
+					<div align="center">
+						<h:outputText value="#{empreendimento.razaoSocial.razaoSocial}"
+							style="display:inline-block" />
+					</div>
+				</p:column>
+				
+				<p:column headerText="Número Lacre"
+					
+					style="width:100px" 
+					 width="100px">
+					<div align="center">
+						<h:outputText value="#{empreendimento.razaoSocial.razaoSocial}"
+							style="display:inline-block" />
+					</div>
+				</p:column>
+				
+				<p:column headerText="Tipo de Hidrômetro"
+					filterBy="#{empreendimento.tipoEmpreendimento.descricao}"
+					style="width:100px" filterMatchMode="contains"
+					filterStyle="width:100px" width="100px">
+					<div align="center">
+						<h:outputText
+							value="#{empreendimento.tipoEmpreendimento.descricao}" />
+					</div>
+				</p:column>
+				
+				<p:column headerText="Latitude"
+					
+					style="width:100px" 
+					 width="100px">
+					<div align="center">
+						<h:outputText value="#{empreendimento.razaoSocial.razaoSocial}"
+							style="display:inline-block" />
+					</div>
+				</p:column>
+				
+				<p:column headerText="Longitude"
+					
+					style="width:100px" 
+					 width="100px">
+					<div align="center">
+						<h:outputText value="#{empreendimento.razaoSocial.razaoSocial}"
+							style="display:inline-block" />
+					</div>
+				</p:column>
+
+				
+				<p:column headerText="Editar"
+					style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+					<div align="center">
+						<p:commandLink update="formEditar"
+							oncomplete="PF('empreendimentoDialog').show()" title="Detalhar"
+							styleClass="ui-icon ui-icon-search" immediate="true"
+							style="float:left;margin-right:10px">
+							<f:setPropertyActionListener value="#{empreendimento}"
+								target="#{empreendimentoBean.empreendimento}" />
+						</p:commandLink>
+					</div>
+				</p:column>
+				<p:column headerText="Excluir"
+					style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+					<div align="center">
+						<p:commandLink title="Excluir" update=":formExcluir:Excluir"
+							disabled="#{!empreendimento.operar}"
+							oncomplete="PF('confirmation').show()" immediate="true">
+							<p:graphicImage value="../images/del.png" width="25px"
+								style="padding-left:10px" />
+							<f:setPropertyActionListener value="#{empreendimento}"
+								target="#{empreendimentoBean.empreendimento}" />							
+						</p:commandLink>
+					</div>
+				</p:column>
+				
+			</p:dataTable>
+
+		</h:form>
+
+	</p:dialog>
+
+
+
+</h:body>
+</html>

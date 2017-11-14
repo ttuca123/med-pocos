@@ -11,29 +11,32 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.model.LazyDataModel;
+
 import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 import br.com.med.pocos.model.Empreendimento;
+import br.com.med.pocos.model.Hidrometro;
 import br.com.med.pocos.services.EmpreendimentoService;
 import br.com.med.pocos.util.Utils;
-
-
-
 
 @ManagedBean(name = "empreendimentoBean")
 @ViewScoped
 public class EmpreendimentoBean implements Serializable {
 
-	
 	private static final long serialVersionUID = -7436327849003146777L;
 
 	private Empreendimento empreendimento;
 
-	
-
 	@ManagedProperty(value = "#{empreendimentos}")
 	private List<Empreendimento> empreendimentos = new ArrayList<Empreendimento>();
 	
+	
+	
+
 	private List<Empreendimento> filteredEmprendimentos;
+	
+	
+	private List<Hidrometro> filteredHidrometros;
 
 	private boolean escolhaCpfCnpj;
 
@@ -45,8 +48,6 @@ public class EmpreendimentoBean implements Serializable {
 
 		novo();
 	}
-	
-	
 
 	public void novo() {
 
@@ -56,18 +57,16 @@ public class EmpreendimentoBean implements Serializable {
 	}
 
 	public int getTotal() {
-		if(empreendimentos!=null) {
-			
-			return empreendimentos.size();	
-		}else {
-			
+		if (empreendimentos != null) {
+
+			return empreendimentos.size();
+		} else {
+
 			return 0;
 		}
-		
-		
+
 	}
-	
-	
+
 	public boolean isEditavel() {
 
 		if (empreendimento.getDataEncerramento() == null) {
@@ -95,28 +94,28 @@ public class EmpreendimentoBean implements Serializable {
 		}
 
 	}
-	
+
 	public void getListar() {
 
 		try {
-			
+
 			empreendimentos = (List<Empreendimento>) empreendimentoService.listar();
-			
+
 		} catch (Exception e) {
-			
+
 			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
 		}
-		
-	}
 
-	public void filtrar() {	
-		
-		
-			empreendimentos = (List<Empreendimento>) empreendimentoService.listar(empreendimento);
-					
-		
 	}
 	
+	
+
+	public void filtrar() {
+
+		empreendimentos = (List<Empreendimento>) empreendimentoService.listar(empreendimento);
+
+	}
+
 	public void excluir(ActionEvent actionEvent) {
 
 		try {
@@ -126,61 +125,59 @@ public class EmpreendimentoBean implements Serializable {
 			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
 
 			getListar();
-			
+
 		} catch (Exception e) {
-			
+
 			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
-			
+
 		}
 	}
-	
-	public EnumTipoEmpreendimento[] getTiposEmpreendimentos(){
-		
+
+	public EnumTipoEmpreendimento[] getTiposEmpreendimentos() {
+
 		EnumTipoEmpreendimento[] enuTiposEmpreendimento = EnumTipoEmpreendimento.values();
-		
-		
-		
+
 		return enuTiposEmpreendimento;
 	}
-	
+
 	public Empreendimento getEmpreendimento() {
 		return empreendimento;
 	}
 
 	public void setEmpreendimento(Empreendimento empreendimento) {
 		this.empreendimento = empreendimento;
-	}	
-	
+	}
+
 	public List<Empreendimento> getEmpreendimentos() {
 		return empreendimentos;
 	}
-
-
 
 	public void setEmpreendimentos(List<Empreendimento> empreendimentos) {
 		this.empreendimentos = empreendimentos;
 	}
 
-
-
 	public List<Empreendimento> getFilteredEmprendimentos() {
 		return filteredEmprendimentos;
 	}
 
-
-
 	public void setFilteredEmprendimentos(List<Empreendimento> filteredEmprendimentos) {
 		this.filteredEmprendimentos = filteredEmprendimentos;
 	}
-	
+
 	public boolean isEscolhaCpfCnpj() {
 		return escolhaCpfCnpj;
 	}
 
-
-
 	public void setEscolhaCpfCnpj(boolean escolhaCpfCnpj) {
 		this.escolhaCpfCnpj = escolhaCpfCnpj;
+	}
+
+	public List<Hidrometro> getFilteredHidrometros() {
+		return filteredHidrometros;
+	}
+
+	public void setFilteredHidrometros(List<Hidrometro> filteredHidrometros) {
+		this.filteredHidrometros = filteredHidrometros;
 	}
 
 }
