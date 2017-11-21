@@ -1,6 +1,8 @@
 package br.com.med.pocos.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,18 +19,12 @@ import javax.persistence.Table;
 
 import br.com.med.pocos.enu.EnumTipoHidrometro;
 
-
-@NamedQueries(value = {
-		@NamedQuery(name = "Hidrometro.buscaAllHidrometros", query = "select h from Hidrometro h"),		
-})
+@NamedQueries(value = { @NamedQuery(name = "Hidrometro.buscaAllHidrometros", query = "select h from Hidrometro h"), })
 @Entity
 @Table(name = "hidrometro")
 @IdClass(value = HidrometroId.class)
 public class Hidrometro implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6310925639705761062L;
 
 	@Id
@@ -38,29 +34,32 @@ public class Hidrometro implements Serializable {
 
 	@Enumerated
 	@Column(name = "tipo_hidrometro")
-	private EnumTipoHidrometro enuTipoHidrometro;
+	private EnumTipoHidrometro tipoHidrometro;
 
 	@Id
-	@Column(name = "numero_registro", length = 10, unique = true)
-	private String numero_registro;
+	@Column(name = "registro", length = 10, unique = true)
+	private String registro;
+
+	
 
 	@Id
 	@Column(name = "lacre", length = 10)
 	private String lacre;
 
 	@Column(name = "latitude")
-	private Long latitude;
+	private String latitude;
 
 	@Column(name = "longitude")
-	private Long longitude;
+	private String longitude;
+	
+	@Column(name = "vazao_maxima")
+	private Double vazaoMaxima;	
 
 	@Column(name = "is_ativo", nullable = false)
 	private boolean isAtivo;
 
-	@Column(name = "observacao", length = 256)
-	private String observacao;
-
-	@ManyToOne
+	
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "empreendimento_poco")
 	private Empreendimento empreendimento;
 
@@ -72,20 +71,20 @@ public class Hidrometro implements Serializable {
 		this.seqHidrometro = seqHidrometro;
 	}
 
-	public EnumTipoHidrometro getEnuTipoHidrometro() {
-		return enuTipoHidrometro;
+	public EnumTipoHidrometro getTipoHidrometro() {
+		return tipoHidrometro;
 	}
 
-	public void setEnuTipoHidrometro(EnumTipoHidrometro enuTipoHidrometro) {
-		this.enuTipoHidrometro = enuTipoHidrometro;
+	public void setTipoHidrometro(EnumTipoHidrometro tipoHidrometro) {
+		this.tipoHidrometro = tipoHidrometro;
 	}
 
-	public String getNumero_registro() {
-		return numero_registro;
+	public String getRegistro() {
+		return registro;
 	}
 
-	public void setNumero_registro(String numero_registro) {
-		this.numero_registro = numero_registro;
+	public void setRegistro(String registro) {
+		this.registro = registro;
 	}
 
 	public String getLacre() {
@@ -96,19 +95,19 @@ public class Hidrometro implements Serializable {
 		this.lacre = lacre;
 	}
 
-	public Long getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Long latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
-	public Long getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Long longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 
@@ -118,15 +117,7 @@ public class Hidrometro implements Serializable {
 
 	public void setAtivo(boolean isAtivo) {
 		this.isAtivo = isAtivo;
-	}
-
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
+	}	
 
 	public Empreendimento getEmpreendimento() {
 		return empreendimento;
@@ -134,5 +125,14 @@ public class Hidrometro implements Serializable {
 
 	public void setEmpreendimento(Empreendimento empreendimento) {
 		this.empreendimento = empreendimento;
+	}	
+	
+	
+	public Double getVazaoMaxima() {
+		return vazaoMaxima;
+	}
+
+	public void setVazaoMaxima(Double vazaoMaxima) {
+		this.vazaoMaxima = vazaoMaxima;
 	}
 }

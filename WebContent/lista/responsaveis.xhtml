@@ -242,13 +242,13 @@
 				</div>
 
 
-			</p:column>
-			
-			 <f:facet name="footer">
-        		<h2><h:outputLabel value="TOTAL: #{responsavelBean.total} ."></h:outputLabel></h2>
-    		</f:facet>
+			</p:column>		 
 			
 		</p:dataTable>
+		
+		<div class="alert alert-info" align="right">
+			  <strong>Total: </strong> <h:outputLabel value="#{responsavelBean.total}" />
+		</div>
 
 	</h:form>
 

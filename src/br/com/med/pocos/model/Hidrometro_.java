@@ -5,16 +5,16 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2017-11-14T16:50:19.776-0300")
+@Generated(value="Dali", date="2017-11-21T16:47:50.964-0300")
 @StaticMetamodel(Hidrometro.class)
 public class Hidrometro_ {
-	public static volatile SingularAttribute<Hidrometro, EnumTipoHidrometro> enuTipoHidrometro;
-	public static volatile SingularAttribute<Hidrometro, String> numero_registro;
-	public static volatile SingularAttribute<Hidrometro, String> lacre;
-	public static volatile SingularAttribute<Hidrometro, Long> latitude;
-	public static volatile SingularAttribute<Hidrometro, Long> longitude;
-	public static volatile SingularAttribute<Hidrometro, Boolean> isAtivo;
-	public static volatile SingularAttribute<Hidrometro, String> observacao;
-	public static volatile SingularAttribute<Hidrometro, Empreendimento> empreendimento;
 	public static volatile SingularAttribute<Hidrometro, Long> seqHidrometro;
+	public static volatile SingularAttribute<Hidrometro, String> lacre;
+	public static volatile SingularAttribute<Hidrometro, String> latitude;
+	public static volatile SingularAttribute<Hidrometro, String> longitude;
+	public static volatile SingularAttribute<Hidrometro, Boolean> isAtivo;
+	public static volatile SingularAttribute<Hidrometro, Empreendimento> empreendimento;
+	public static volatile SingularAttribute<Hidrometro, EnumTipoHidrometro> tipoHidrometro;
+	public static volatile SingularAttribute<Hidrometro, String> registro;
+	public static volatile SingularAttribute<Hidrometro, Double> vazaoMaxima;
 }

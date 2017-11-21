@@ -11,7 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.DualListModel;
 
 import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 import br.com.med.pocos.model.Empreendimento;
@@ -29,13 +29,11 @@ public class EmpreendimentoBean implements Serializable {
 
 	@ManagedProperty(value = "#{empreendimentos}")
 	private List<Empreendimento> empreendimentos = new ArrayList<Empreendimento>();
-	
-	
-	
+
+	private DualListModel<String> cities;
 
 	private List<Empreendimento> filteredEmprendimentos;
-	
-	
+
 	private List<Hidrometro> filteredHidrometros;
 
 	private boolean escolhaCpfCnpj;
@@ -107,8 +105,6 @@ public class EmpreendimentoBean implements Serializable {
 		}
 
 	}
-	
-	
 
 	public void filtrar() {
 

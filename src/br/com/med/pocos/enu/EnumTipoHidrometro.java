@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum EnumTipoHidrometro {
 
-	POCO(1, "Poço"), PIVO(2, "Pivo");
+	NENHUM(0, "Sem Classificação"), POCO(1, "Poço"), PIVO(2, "Pivo");
 
 	private Integer codigo;
 	

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href=".../../css/sigin.css" />
+	<link rel="stylesheet" href="../../css/estilo.css" />
+
+</h:head>
+<h:body styleClass="w3-row-padding">
+
+
+	<h:form id="formHidrometroNovo">
+
+		<p:dialog header="Novo Hidrômetro" widgetVar="hidrometroDialogNovo"
+			modal="true" hideEffect="explode" showEffect="bounce" width="800px"
+			height="320px" closeOnEscape="true" maximizable="true" 
+			id="dialogCadastrar" resizable="true">
+
+
+			<p:outputPanel id="hidrometroNovo"
+				style="text-align:center; width:700px">
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Tipo
+						/ Hidrômetro</label>
+					<div class="col-10">
+						<h:selectOneMenu id="lstHidrometros" class="form-control"
+							converter="converter.TipoHidrometroConverter"
+							value="#{hidrometroBean.hidrometro.tipoHidrometro}"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px;">
+							<f:selectItems value="#{hidrometroBean.tiposHidrometros}"
+								var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"></f:selectItems>
+
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Nº
+						do Hidrômetro</label>
+					<div class="col-10">
+						<p:inputText id="numeroHidrometro" class="form-control"
+							required="true" maxlength="10"
+							requiredMessage="O campo Número de Registro é obrigatório"
+							a:placeholder="Por favor digite o número de registro do hidrômetro"
+							value="#{hidrometroBean.hidrometro.registro}">
+							<p:keyFilter regEx="/[a-z0-9_]/i" />
+							<f:validateLength minimum="10" maximum="10" />
+						</p:inputText>
+					</div>
+				</div>
+				<p:message for="numeroHidrometro" />
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Nº
+						Lacre</label>
+					<div class="col-10">
+						<p:inputText id="numeroLacre" class="form-control" required="true"
+							maxlength="10" value="#{hidrometroBean.hidrometro.lacre}">
+							<p:keyFilter regEx="/[a-z0-9_]/i" />
+						</p:inputText>
+					</div>
+				</div>
+				<p:message for="numeroLacre" />
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Vazão
+						máxima</label>
+					<div class="col-10">
+						<p:inputMask id="vazao_maxima" class="form-control"
+							required="true" maxlength="10" mask="*,99"
+							value="#{hidrometroBean.hidrometro.vazaoMaxima}">
+							<f:convertNumber pattern="#,##"></f:convertNumber>
+							<f:validator validatorId="MoedaValidator"  />
+						</p:inputMask>
+					</div>
+				</div>
+				<p:message for="numeroLacre" />
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Latitude</label>
+					<div class="col-10">
+						<p:inputText id="numeroLatitude" class="form-control"
+							required="true" maxlength="12"
+							value="#{hidrometroBean.hidrometro.latitude}">
+							<p:keyFilter regEx="/[\d\-\.]/" />
+						</p:inputText>
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Longitude</label>
+					<div class="col-10">
+						<p:inputText id="numeroLongitude" class="form-control"
+							required="true" maxlength="12"
+							value="#{hidrometroBean.hidrometro.longitude}">
+							<p:keyFilter regEx="/[\d\-\.]/" />
+						</p:inputText>
+					</div>
+				</div>
+
+
+				<p:separator />
+
+				
+
+				<p:growl id="messages2" />
+			</p:outputPanel>
+
+			<div id="footer">
+			<div class="container">
+				<p align="center">
+					<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
+					action="#{hidrometroBean.salvar}" update="messages2, formExibir"
+					icon="ui-icon-disk" />
+				</p>
+			</div>
+		</div>
+
+
+		</p:dialog>
+		
+	</h:form>
+
+
+
+</h:body>
+</html>
