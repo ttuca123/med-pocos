@@ -74,9 +74,8 @@
 				<p:separator style="border-color: white;"></p:separator>
 				<p:commandLink id="btnFilter"
 					style="font-family: 'Montserrat', 'sans-serif'"
-					class="btn btn-primary btn-lg btn-block"
-					update=":formExibir" immediate="false"
-					actionListener="#{hidrometroBean.filtrar}">
+					class="btn btn-primary btn-lg btn-block" update=":formExibir"
+					immediate="false" actionListener="#{hidrometroBean.filtrar}">
 
 					<b><h:outputText value="Buscar" /> </b>
 
@@ -99,76 +98,135 @@
 	<p:separator style="border-color: white;"></p:separator>
 	<h:form id="formExibir">
 
-			<p:growl id="growl" autoUpdate="true" life="2000" />
+
+		<p:growl id="growl" autoUpdate="true" life="2000" />
 
 
-			<p:dataTable id="tblHidrometros" var="hidrometro"
-				style="font-family: 'Montserrat', 'sans-serif'"
-				filteredValue="#{hidrometroBean.filteredHidrometros}"
-				value="#{hidrometroBean.hidrometros}" rows="10"
-				paginator="true" widgetVar="hidrometrosTable" scrollable="true"
-				styleClass="paginated" rowIndexVar="rowIndex" 
-				resizableColumns="true"
-				emptyMessage="Nenhum hidrômetro encontrado com os critérios selecionados"
-				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+		<p:dataTable id="tblHidrometros" var="hidrometro"
+			style="font-family: 'Montserrat', 'sans-serif'"
+			filteredValue="#{hidrometroBean.filteredHidrometros}"
+			value="#{hidrometroBean.hidrometros}" rows="10" paginator="true"
+			widgetVar="hidrometrosTable" scrollable="true" styleClass="paginated"
+			rowIndexVar="rowIndex" resizableColumns="true"
+			emptyMessage="Nenhum hidrômetro encontrado com os critérios selecionados"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
-				<f:facet name="header">
-					<p:outputPanel>
-						<h2>
-							<h:outputText value="Lista de Hidrômetros:"
-								style="font-family: 'Montserrat', 'sans-serif'" />
-						</h2>
-					</p:outputPanel>
 
-				</f:facet>
-				<p:column headerText="#" style="width:50%">
-					<div align="center">
 
-						<h:outputText value="#{rowIndex+1}" />
 
-					</div>
-				</p:column>
+			<f:facet name="header">
+				<p:outputPanel>
+					<h2>
+						<h:outputText value="Lista de Hidrômetros:"
+							style="font-family: 'Montserrat', 'sans-serif'" />
+					</h2>
+				</p:outputPanel>
 
-				<p:column headerText="Número Registro"					
-					filterBy="#{hidrometro.registro}"
-					style="width:100%" filterMatchMode="contains"
-					filterStyle="width:100%" width="100%">
-					<div align="center">
-						<h:outputText value="#{hidrometro.registro}"
-							style="display:inline-block" />
-					</div>
-				</p:column>
-				
-				<p:column headerText="Número Lacre"					
-					filterBy="#{hidrometro.lacre}"
-					style="width:100%" filterMatchMode="contains"
-					filterStyle="width:100%" width="100%">
-					<div align="center">
-						<h:outputText value="#{hidrometro.lacre}"
-							style="display:inline-block" />
-					</div>
-				</p:column>
-				
-				<p:column headerText="Tipo de Hidrômetro"
-					filterBy="#{hidrometro.tipoHidrometro}"
-					style="width:100%" filterMatchMode="contains"
-					filterStyle="width:100%" width="100%">
-					<div align="center">
-						<h:outputText
-							value="#{hidrometro.tipoHidrometro}" />
-					</div>
-				</p:column>			
-				
-				
-			</p:dataTable>
+			</f:facet>
+			<p:column headerText="#" style="width:50%">
+				<div align="center">
+
+					<h:outputText value="#{rowIndex+1}" />
+
+				</div>
+			</p:column>
+
+
+
+			<p:column headerText="Número Registro"
+				filterBy="#{hidrometro.registro}" style="width:100%"
+				filterMatchMode="contains" filterStyle="width:100%" width="100%">
+
+
+				<h:outputText value="#{hidrometro.registro}" />
+
+
+
+			</p:column>
+
+			<p:column headerText="Número Lacre" filterBy="#{hidrometro.lacre}"
+				style="width:100%" filterMatchMode="contains"
+				filterStyle="width:100%" width="100%">
+				<div align="center">
+					<h:outputText value="#{hidrometro.lacre}"
+						style="display:inline-block" />
+				</div>
+			</p:column>
+
+			<p:column headerText="Empreendimento" width="100%">
+
+
+				<h:outputText value="#{hidrometro.empreendimento.nomeFantasia}" />
+
+
+
+			</p:column>
+
+			<p:column headerText="Tipo" filterBy="#{hidrometro.tipoHidrometro}"
+				style="width:100%" filterMatchMode="contains"
+				filterStyle="width:100%" width="100%">
+
+				<div align="center">
+					<h:outputText value="#{hidrometro.tipoHidrometro}" />
+				</div>
+			</p:column>
+
+			<p:column headerText="Capacidade Máxima - M³/H" width="100%">
+				<div align="center">
+					<h:outputText value="#{hidrometro.vazaoMaxima}">
+						<f:convertNumber minFractionDigits="2"></f:convertNumber>
+					</h:outputText>
+
+
+				</div>
+			</p:column>
+
+
+			<p:column headerText="Editar"
+				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+				<div align="center">
+					<p:commandLink update="formEditar"
+						oncomplete="PF('hidrometroDialogEditar').show()" title="Detalhar"
+						styleClass="ui-icon ui-icon-search" immediate="true"
+						style="float:left;margin-right:10px">
+						<f:setPropertyActionListener value="#{hidrometro}"
+							target="#{hidrometroBean.hidrometro}" />
+					</p:commandLink>
+				</div>
+			</p:column>
 			
-			<div class="alert alert-info" align="right">
-			  <strong>Total: </strong> <h:outputLabel value="#{hidrometroBean.total}" />
-			</div>
-		</h:form>
+			
+			<p:column headerText="Excluir"
+				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+				<div align="center">
+					<p:commandLink title="Excluir" update=":formExcluir:Excluir"						
+						oncomplete="PF('confirmation').show()" immediate="true">
+						<p:graphicImage value="../images/del.png" width="25px"
+							style="padding-left:10px" />
+						<f:setPropertyActionListener value="#{hidrometro}"
+							target="#{hidrometroBean.hidrometro}" />
+					</p:commandLink>
+				</div>
+
+
+			</p:column>
+
+
+
+		</p:dataTable>
+
+		<div class="alert alert-info" align="right">
+			<strong>Total: </strong>
+			<h:outputLabel value="#{hidrometroBean.total}" />
+		</div>
+	</h:form>
 
 	<ui:include src="complemento/hidrometro_novo.xhtml" />
 	
+	<ui:include src="complemento/hidrometro_editar.xhtml" />
+	
+	<ui:include src="complemento/hidrometro_excluir.xhtml" />
+
 
 </h:body>
 </html>

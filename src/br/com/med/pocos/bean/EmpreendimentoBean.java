@@ -17,6 +17,7 @@ import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 import br.com.med.pocos.model.Empreendimento;
 import br.com.med.pocos.model.Hidrometro;
 import br.com.med.pocos.services.EmpreendimentoService;
+import br.com.med.pocos.services.HidrometroService;
 import br.com.med.pocos.util.Utils;
 
 @ManagedBean(name = "empreendimentoBean")
@@ -40,6 +41,9 @@ public class EmpreendimentoBean implements Serializable {
 
 	@EJB
 	private EmpreendimentoService empreendimentoService;
+	
+	@EJB
+	private HidrometroService hidrometroService;
 
 	@PostConstruct
 	public void inicializar() {
@@ -135,6 +139,15 @@ public class EmpreendimentoBean implements Serializable {
 
 		return enuTiposEmpreendimento;
 	}
+	
+	
+//	public Hidrometro[] getTiposEmpreendimentos() {
+//
+//		EnumTipoEmpreendimento[] enuTiposEmpreendimento = EnumTipoEmpreendimento.values();
+//
+//		return enuTiposEmpreendimento;
+//	}
+	
 
 	public Empreendimento getEmpreendimento() {
 		return empreendimento;

@@ -1,9 +1,8 @@
 package br.com.med.pocos.model;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -19,7 +18,8 @@ import javax.persistence.Table;
 
 import br.com.med.pocos.enu.EnumTipoHidrometro;
 
-@NamedQueries(value = { @NamedQuery(name = "Hidrometro.buscaAllHidrometros", query = "select h from Hidrometro h"), })
+@NamedQueries(value = { @NamedQuery(name = "Hidrometro.buscaAllHidrometros", query = "select h from Hidrometro h"),
+		@NamedQuery(name = "Hidrometro.buscaHidrometrosAtivos", query = "select h from Hidrometro h where h.isAtivo = true order by h.registro asc") })
 @Entity
 @Table(name = "hidrometro")
 @IdClass(value = HidrometroId.class)
@@ -40,8 +40,6 @@ public class Hidrometro implements Serializable {
 	@Column(name = "registro", length = 10, unique = true)
 	private String registro;
 
-	
-
 	@Id
 	@Column(name = "lacre", length = 10)
 	private String lacre;
@@ -51,15 +49,14 @@ public class Hidrometro implements Serializable {
 
 	@Column(name = "longitude")
 	private String longitude;
-	
+
 	@Column(name = "vazao_maxima")
-	private Double vazaoMaxima;	
+	private Double vazaoMaxima;
 
 	@Column(name = "is_ativo", nullable = false)
 	private boolean isAtivo;
 
-	
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = true, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "empreendimento_poco")
 	private Empreendimento empreendimento;
 
@@ -117,7 +114,7 @@ public class Hidrometro implements Serializable {
 
 	public void setAtivo(boolean isAtivo) {
 		this.isAtivo = isAtivo;
-	}	
+	}
 
 	public Empreendimento getEmpreendimento() {
 		return empreendimento;
@@ -125,14 +122,44 @@ public class Hidrometro implements Serializable {
 
 	public void setEmpreendimento(Empreendimento empreendimento) {
 		this.empreendimento = empreendimento;
-	}	
-	
-	
+	}
+
 	public Double getVazaoMaxima() {
 		return vazaoMaxima;
 	}
 
 	public void setVazaoMaxima(Double vazaoMaxima) {
 		this.vazaoMaxima = vazaoMaxima;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((empreendimento == null) ? 0 : empreendimento.hashCode());
+		result = prime * result + ((seqHidrometro == null) ? 0 : seqHidrometro.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Hidrometro other = (Hidrometro) obj;
+		if (empreendimento == null) {
+			if (other.empreendimento != null)
+				return false;
+		} else if (!empreendimento.equals(other.empreendimento))
+			return false;
+		if (seqHidrometro == null) {
+			if (other.seqHidrometro != null)
+				return false;
+		} else if (!seqHidrometro.equals(other.seqHidrometro))
+			return false;
+		return true;
 	}
 }

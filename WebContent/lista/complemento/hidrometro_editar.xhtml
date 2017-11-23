@@ -22,15 +22,15 @@
 <h:body>
 
 
-	<h:form id="formHidrometroNovo">
+	<h:form id="formEditar">
 
-		<p:dialog header="Novo Hidrômetro" widgetVar="hidrometroDialogNovo"
+		<p:dialog header="Editar Hidrômetro" widgetVar="hidrometroDialogEditar"
 			modal="true" hideEffect="explode" showEffect="bounce" width="800px"
 			height="320px" closeOnEscape="true" maximizable="true"
 			id="dialogCadastrar" resizable="true">
 
 
-			<p:outputPanel id="hidrometroNovo"
+			<p:outputPanel id="hidrometroEditar"
 				style="text-align:center; width:700px">
 
 
@@ -42,7 +42,8 @@
 
 						<h:selectOneMenu id="lstEmpreendimentos"
 							converter="converter.EmpreendimentoConverter"
-							value="#{hidrometroBean.hidrometro.empreendimento}" class="form-control"
+							value="#{hidrometroBean.hidrometro.empreendimento}"
+							class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">
 
 							<f:selectItems
@@ -80,8 +81,9 @@
 						do Hidrômetro</label>
 					<div class="col-10">
 						<p:inputText id="numeroHidrometro" class="form-control"
-							required="true" maxlength="10" style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 70%"
-							requiredMessage="O campo Número de Registro é obrigatório"							
+							required="true" maxlength="10"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 70%"
+							requiredMessage="O campo Número de Registro é obrigatório"
 							value="#{hidrometroBean.hidrometro.registro}">
 							<p:keyFilter regEx="/[a-z0-9_]/i" />
 							<f:validateLength minimum="10" maximum="10" />
@@ -116,7 +118,7 @@
 							value="#{hidrometroBean.hidrometro.vazaoMaxima}">
 							<p:keyFilter regEx="/[\d\-\,]/" />
 							<f:convertNumber pattern="##.##"></f:convertNumber>
-							
+
 						</p:inputText>
 					</div>
 				</div>
