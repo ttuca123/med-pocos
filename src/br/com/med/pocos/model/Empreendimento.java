@@ -44,8 +44,7 @@ public class Empreendimento implements Serializable {
 		super();
 	}
 
-	@Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "seq_empreendimento", columnDefinition = "serial not null")
 	private Long seqEmpreendimento;
