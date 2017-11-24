@@ -55,19 +55,32 @@
 					<div class="row">
 						<div class="col-sm-2">
 							<b><h:outputText value="Tipo de Hidrômetro:"
-									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" />
+							</b>
 
 							<div class="form-group">
 								<h:selectOneMenu id="lstHidrometros"
 									converter="converter.TipoHidrometroConverter"
 									value="#{hidrometroBean.hidrometro.tipoHidrometro}"
 									class="form-control"
-									style="font-family: 'Montserrat', 'sans-serif'; width: 350px;">
+									style="font-family: 'Montserrat', 'sans-serif'; width: 150px; font-size: 80%">
 									<f:selectItems value="#{hidrometroBean.tiposHidrometros}"
 										var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}"></f:selectItems>
 
 								</h:selectOneMenu>
 							</div>
+						</div>
+
+						<div class="col-sm-2">
+							<b><h:outputText value="Número do Hidrômetro"
+									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" />
+							</b>
+							<p:inputText id="numeroHidrometro" class="form-control"
+								maxlength="10"
+								style="font-family: 'Montserrat', 'sans-serif'; width: 250px; font-size: 80%"
+								value="#{hidrometroBean.hidrometro.registro}">
+								<p:keyFilter regEx="/[a-z0-9_]/i" />
+							</p:inputText>
 						</div>
 					</div>
 				</div>
@@ -130,10 +143,14 @@
 
 				</div>
 			</p:column>
+			<p:column style="width:100px" headerText="Descrição">
+
+				<p:rowToggler />
+
+			</p:column>
 
 
-
-			<p:column headerText="Número Registro"
+			<p:column headerText="Número do Hidrômetro"
 				filterBy="#{hidrometro.registro}" style="width:100%"
 				filterMatchMode="contains" filterStyle="width:100%" width="100%">
 
@@ -144,23 +161,7 @@
 
 			</p:column>
 
-			<p:column headerText="Número Lacre" filterBy="#{hidrometro.lacre}"
-				style="width:100%" filterMatchMode="contains"
-				filterStyle="width:100%" width="100%">
-				<div align="center">
-					<h:outputText value="#{hidrometro.lacre}"
-						style="display:inline-block" />
-				</div>
-			</p:column>
 
-			<p:column headerText="Empreendimento" width="100%">
-
-
-				<h:outputText value="#{hidrometro.empreendimento.nomeFantasia}" />
-
-
-
-			</p:column>
 
 			<p:column headerText="Tipo" filterBy="#{hidrometro.tipoHidrometro}"
 				style="width:100%" filterMatchMode="contains"
@@ -171,15 +172,7 @@
 				</div>
 			</p:column>
 
-			<p:column headerText="Capacidade Máxima - M³/H" width="100%">
-				<div align="center">
-					<h:outputText value="#{hidrometro.vazaoMaxima}">
-						<f:convertNumber minFractionDigits="2"></f:convertNumber>
-					</h:outputText>
 
-
-				</div>
-			</p:column>
 
 
 			<p:column headerText="Editar"
@@ -194,12 +187,12 @@
 					</p:commandLink>
 				</div>
 			</p:column>
-			
-			
+
+
 			<p:column headerText="Excluir"
 				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
-					<p:commandLink title="Excluir" update=":formExcluir:Excluir"						
+					<p:commandLink title="Excluir" update=":formExcluir:Excluir"
 						oncomplete="PF('confirmation').show()" immediate="true">
 						<p:graphicImage value="../images/del.png" width="25px"
 							style="padding-left:10px" />
@@ -210,6 +203,39 @@
 
 
 			</p:column>
+
+			<p:rowExpansion>
+
+				<p:panelGrid columns="2" columnClasses="label,value"
+					style="width:700px">
+
+					<h:outputText value="Número do Hidrômetro:" style="width:250px" />
+
+					<h:outputText value="#{hidrometro.registro}" />
+
+					<h:outputText value="Número do Lacre:" style="width:250px" />
+
+					<h:outputText value="#{hidrometro.lacre}" />
+
+					<h:outputText value="Capacidade máxima M³/H:" style="width:250px" />
+
+					<h:outputText value="#{hidrometro.vazaoMaxima}" />
+
+					<h:outputText value="Latitude:" style="width:250px" />
+
+					<h:outputText value="#{hidrometro.latitude}" />
+
+					<h:outputText value="Longitude:" style="width:250px" />
+
+					<h:outputText value="#{hidrometro.longitude}" />
+
+					<h:outputText value="Associado à:" style="width:250px;" />
+					
+					<h:outputText value="#{hidrometro.empreendimento.nomeFantasia}" />
+
+
+				</p:panelGrid>
+			</p:rowExpansion>
 
 
 
@@ -222,9 +248,9 @@
 	</h:form>
 
 	<ui:include src="complemento/hidrometro_novo.xhtml" />
-	
+
 	<ui:include src="complemento/hidrometro_editar.xhtml" />
-	
+
 	<ui:include src="complemento/hidrometro_excluir.xhtml" />
 
 

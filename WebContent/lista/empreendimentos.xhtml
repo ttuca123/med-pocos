@@ -59,7 +59,7 @@
 
 							<div class="row">
 								<div class="col-sm-4">
-									<p:selectOneRadio id="console"
+									<p:selectOneRadio id="console" style="padding-left:15px; font-size: 80%"
 										value="#{empreendimentoBean.escolhaCpfCnpj}" immediate="true">
 										<f:selectItem itemLabel="CPF" itemValue="true" />
 										<f:selectItem itemLabel="CNPJ" itemValue="false" />
@@ -68,10 +68,10 @@
 
 								</div>
 								<div class="col-sm-4">
-									<p:inputMask id="cpfNovo"
+									<p:inputMask id="cpfNovo" 
 										rendered="#{empreendimentoBean.escolhaCpfCnpj}"
 										mask="999.999.999-99"
-										style="font-family: 'Montserrat', 'sans-serif'"
+										style="font-family: 'Montserrat', 'sans-serif';font-size: 80%"
 										a:placeholder="Digite o cpf"
 										value="#{empreendimentoBean.empreendimento.razaoSocial.cpf}">
 										<f:converter for="cpf" converterId="converter.CpfConverter" />
@@ -79,9 +79,9 @@
 
 
 									<p:inputMask id="cnpj"
-										style="font-family: 'Montserrat', 'sans-serif'"
+										style="font-family: 'Montserrat', 'sans-serif';font-size: 80%"
 										rendered="#{!empreendimentoBean.escolhaCpfCnpj}"
-										mask="99.999.999/9999-99" a:placeholder="Digite cnpj"
+										mask="99.999.999/9999-99" a:placeholder="Digite o cnpj"
 										value="#{empreendimentoBean.empreendimento.razaoSocial.cnpj}">
 										<f:converter converterId="converter.CnpjConverter" />
 									</p:inputMask>
@@ -92,7 +92,7 @@
 
 						<div class="col-sm-2" style="font-size: 80%">
 							<b><h:outputText value="Tipo de Empreendimento:"
-									style="font-family: 'Montserrat', 'sans-serif'" /> </b>
+									style="font-family: 'Montserrat', 'sans-serif';font-size: 80%" /> </b>
 
 							<div class="form-group">
 								<h:selectOneMenu id="lstEmpreendimentos"
@@ -114,7 +114,7 @@
 					<div class="row" >
 
 						<div class="col-sm-2">
-							<b><h:outputText value="Nome da Empresa"
+							<b><h:outputText value="Nome"
 									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" /> </b>
 
 							<p:inputText id="razaoSocial" class="form-control"
@@ -216,19 +216,21 @@
 			<p:column headerText="Hidrômetros"
 				style="width:120px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
-					<p:commandLink update="formEditar"
+					<p:commandLink update="formDetalharHidrometro" 
 						oncomplete="PF('hidrometroDialog').show()" title="Detalhar"
 						immediate="true"
-						style="float:left;margin-right:10px">
+						style="float:left;margin-right:10px" >
+						
 						<p:graphicImage value="../images/hidrometro_small.png" 
 							style="padding-left:10px" />
 						<f:setPropertyActionListener value="#{empreendimento}"
 							target="#{empreendimentoBean.empreendimento}" />
 					</p:commandLink>
+					
 				</div>
 			</p:column>	
 
-			<p:column headerText="Razão Social"
+			<p:column headerText="Nome"
 				filterBy="#{empreendimento.razaoSocial.razaoSocial}"
 				style="width:300px" filterMatchMode="contains"
 				filterStyle="width:200px" width="200px">
@@ -238,7 +240,7 @@
 				</div>
 			</p:column>
 
-			<p:column headerText="Nome Fantasia"
+			<p:column headerText="Nome do Empreendimento"
 				filterBy="#{empreendimento.nomeFantasia}" style="width:300px"
 				filterMatchMode="contains" filterStyle="width:200px" width="200px">
 				<div align="center">
@@ -277,9 +279,7 @@
 					<h:outputText
 						value="#{empreendimento.tipoEmpreendimento.descricao}" />
 				</div>
-			</p:column>
-
-					
+			</p:column>					
 
 			<p:column headerText="Editar"
 				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
@@ -364,7 +364,7 @@
 	</h:form>
 
 	<ui:include src="complemento/hidrometro_dialog.xhtml" />
-
+	
 	<ui:include src="complemento/empreend_novo.xhtml" />
 
 	<ui:include src="complemento/empreend_editar.xhtml" />

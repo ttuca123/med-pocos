@@ -32,7 +32,7 @@ import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 
 @NamedQueries(value = {
 		@NamedQuery(name = "Empreendimento.buscaAllEmpreendimentos", query = "select e from Empreendimento e ORDER BY e.nomeFantasia asc "),
-		@NamedQuery(name = "Empreendimento.buscaAllHidrometrosByEmpreendimento", query = "select e from Empreendimento e inner join fetch e.lstHidrometros where e.seqEmpreendimento = :seqEmpreendimento")
+		//@NamedQuery(name = "Empreendimento.buscaAllHidrometrosByEmpreendimento", query = "select e from Empreendimento e inner join fetch e.lstHidrometros where e.seqEmpreendimento = :seqEmpreendimento")
 })
 @Entity
 @Table(name = "empreendimento")
@@ -74,7 +74,7 @@ public class Empreendimento implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Responsavel responsavel;
 
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "empreendimento")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empreendimento")
 	private List<Hidrometro> lstHidrometros;
 
 	@Transient

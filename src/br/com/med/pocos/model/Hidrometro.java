@@ -19,7 +19,9 @@ import javax.persistence.Table;
 import br.com.med.pocos.enu.EnumTipoHidrometro;
 
 @NamedQueries(value = { @NamedQuery(name = "Hidrometro.buscaAllHidrometros", query = "select h from Hidrometro h"),
-		@NamedQuery(name = "Hidrometro.buscaHidrometrosAtivos", query = "select h from Hidrometro h where h.isAtivo = true order by h.registro asc") })
+		@NamedQuery(name = "Hidrometro.buscaHidrometrosAtivos", query = "select h from Hidrometro h where h.isAtivo = true order by h.registro asc"),
+		@NamedQuery(name = "Hidrometro.buscaHidrometrosByEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento = :seqEmpreendimento order by h.registro asc"),
+		@NamedQuery(name = "Hidrometro.buscaHidrometrosSemEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento is null order by h.registro asc")})
 @Entity
 @Table(name = "hidrometro")
 @IdClass(value = HidrometroId.class)

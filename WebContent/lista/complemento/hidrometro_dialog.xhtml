@@ -12,24 +12,47 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
 		crossorigin="anonymous" />
-		
-		<link rel="stylesheet" href="../../css/sigin.css" />
-		<link rel="stylesheet" href="../../css/estilo.css" />	
+
+	<link rel="stylesheet" href="../../css/sigin.css" />
+	<link rel="stylesheet" href="../../css/estilo.css" />
 
 	<title></title>
 </h:head>
-<h:body  >
+<h:body>
 
-	<p:dialog header="Hidrômetros" widgetVar="hidrometroDialog"
-		modal="true" hideEffect="explode" showEffect="bounce" height="400px" 
-		width="800px" closeOnEscape="true" maximizable="true" styleClass="filtro" footer="Total: 10 Hidrômetros" style="align: right; background-color: #006699"
-		id="dialogHidrometro" resizable="true">
-			<h:form>
-			<p:pickList id="pickList" value="#{empreendimento.lstHidrometros}" var="hidrometros" itemLabel="#{hidrometros}" itemValue="#{hidrometros}" />
+	<h:form id="formDetalharHidrometro">
+		<p:dialog header="Escolha os hidrômetros listados abaixo" widgetVar="hidrometroDialog"
+			modal="true" hideEffect="explode" showEffect="bounce" height="300px"
+			width="500px" closeOnEscape="true" maximizable="true"
+			styleClass="filtro" footer="Total: #{empreendimentoBean.totalHidrometros}"
+			style="align: right; background-color: #006699" id="dialogHidrometro"
+			resizable="true">
 
-		</h:form>
+			<p:pickList id="pickList" effect="bounce" showSourceFilter="true"
+				showTargetFilter="true" filterMatchMode="contains"
+				value="#{empreendimentoBean.hidrometros}" var="hidrometro"
+				itemLabel="#{hidrometro.registro}"
+				converter="converter.HidrometroConverter" itemValue="#{hidrometro}" >
+				
+				<p:ajax event="transfer" listener="#{empreendimentoBean.onTransferHidrometro}" update=":formDetalharHidrometro" />
+				</p:pickList>
+			
+			<p:separator />
+			
+			<div id="footer">
+				<div class="container">
+					<p align="center">
+						<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
+							action="#{empreendimentoBean.salvarHidrometros}" update="formExibir formDetalharHidrometro"
+							icon="ui-icon-disk" />
+					</p>
+				</div>
+			</div>
 
-	</p:dialog>
+
+		</p:dialog>
+
+	</h:form>
 
 
 

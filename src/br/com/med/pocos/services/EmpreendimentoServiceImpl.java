@@ -224,8 +224,7 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 
 		try {
 			hidrometros = emService.getEntityManager()
-					.createNamedQuery("Empreendimento.buscaAllHidrometrosByEmpreendimento")
-					.setLockMode(LockModeType.OPTIMISTIC).setFlushMode(FlushModeType.AUTO)
+					.createNamedQuery("Hidrometro.buscaHidrometrosByEmpreendimento")					
 					.setParameter("seqEmpreendimento", empreendimento.getSeqEmpreendimento()).getResultList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
