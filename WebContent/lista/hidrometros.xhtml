@@ -223,11 +223,16 @@
 
 					<h:outputText value="Latitude:" style="width:250px" />
 
-					<h:outputText value="#{hidrometro.latitude}" />
+					<h:outputText value="#{hidrometro.latitude}" >					
+						<f:converter converterId="converter.GrausConverter" />
+					</h:outputText>
 
 					<h:outputText value="Longitude:" style="width:250px" />
 
-					<h:outputText value="#{hidrometro.longitude}" />
+					<h:outputText value="#{hidrometro.longitude}" >
+					
+						<f:converter converterId="converter.GrausConverter" />
+					</h:outputText>
 
 					<h:outputText value="Associado à:" style="width:250px;" />
 					

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>med-pocos</groupId>
 	<artifactId>med-pocos</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<packaging>war</packaging>
 
 	<dependencies>
@@ -153,137 +153,57 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<finalName>med-pocos</finalName>
+		<sourceDirectory>src</sourceDirectory>
 
-	<profiles>
-		<profile>
-			<id>teste</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 
-			<build>
-				<finalName>med-pocos-teste</finalName>
-				<sourceDirectory>src</sourceDirectory>
+		<plugins>
 
-				<resources>
-					<resource>
-						<directory>src</directory>
-						<filtering>true</filtering>
-					</resource>
-				</resources>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.1.0.Final</version>
+				<configuration>
+					<skip>false</skip>
+					<force>true</force>
+					<hostname>35.192.42.68</hostname>
+					<port>9990</port>
+					<username>manager</username>
+					<password>EFd57mC6ZJ5U</password>
+				</configuration>
+			</plugin>
 
-				<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
 
-					<plugin>
-						<groupId>org.wildfly.plugins</groupId>
-						<artifactId>wildfly-maven-plugin</artifactId>
-						<version>1.1.0.Final</version>
-						<configuration>
-							<skip>false</skip>
-							<force>true</force>
-							<hostname>35.192.42.68</hostname>
-							<port>9990</port>
-							<username>manager</username>
-							<password>EFd57mC6ZJ5U</password>
-						</configuration>
-					</plugin>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<archive>
+						<manifestEntries>
+							<Dependencies>org.slf4j</Dependencies>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.6</version>
-						<configuration>
-
-							<warSourceDirectory>WebContent</warSourceDirectory>
-							<failOnMissingWebXml>false</failOnMissingWebXml>
-							<archive>
-								<manifestEntries>
-									<Dependencies>org.slf4j</Dependencies>
-								</manifestEntries>
-							</archive>
-						</configuration>
-					</plugin>
-
-					<plugin>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.3</version>
-						<configuration>
-							<source>1.6</source>
-							<target>1.6</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-
-
-
-		</profile>
-
-
-		<profile>
-			<id>prod</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-
-			<build>
-				<finalName>med-pocos</finalName>
-				<sourceDirectory>src</sourceDirectory>
-
-				<resources>
-					<resource>
-						<directory>src</directory>
-						<filtering>true</filtering>
-					</resource>
-				</resources>
-
-				<plugins>
-
-					<plugin>
-						<groupId>org.wildfly.plugins</groupId>
-						<artifactId>wildfly-maven-plugin</artifactId>
-						<version>1.1.0.Final</version>
-						<configuration>
-							<skip>false</skip>
-							<force>true</force>
-							<hostname>35.192.42.68</hostname>
-							<port>9990</port>
-							<username>manager</username>
-							<password>EFd57mC6ZJ5U</password>
-						</configuration>
-					</plugin>
-
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.6</version>
-						<configuration>
-
-							<warSourceDirectory>WebContent</warSourceDirectory>
-							<failOnMissingWebXml>false</failOnMissingWebXml>
-							<archive>
-								<manifestEntries>
-									<Dependencies>org.slf4j</Dependencies>
-								</manifestEntries>
-							</archive>
-						</configuration>
-					</plugin>
-
-					<plugin>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.3</version>
-						<configuration>
-							<source>1.6</source>
-							<target>1.6</target>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-
-
-
-		</profile>
-
-	</profiles>
-
-
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

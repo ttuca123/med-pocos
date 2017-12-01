@@ -122,31 +122,32 @@
 					</div>
 				</div>
 				<p:message for="vazao_maxima" />
-
+				
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label"
-						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Latitude</label>
+						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Latitudes</label>
 					<div class="col-10">
-						<p:inputText id="numeroLatitude" class="form-control"
+						<p:inputMask id="latitude" class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							required="true" maxlength="12"
+							 mask="99°99'99''" 
 							value="#{hidrometroBean.hidrometro.latitude}">
-							<p:keyFilter regEx="/[\d\-\.]/" />
-						</p:inputText>
+							<f:converter for="latitude" converterId="converter.GrausConverter" />
+						</p:inputMask>
 					</div>
-				</div>
+				</div>			
+				
 
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label"
 						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Longitude</label>
 					<div class="col-10">
-						<p:inputText id="numeroLongitude" class="form-control"
+						<p:inputMask id="longitude" class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							required="true" maxlength="12"
+							mask="99°99'99''"
 							value="#{hidrometroBean.hidrometro.longitude}">
-							<p:keyFilter regEx="/[\d\-\.]/" />
-						</p:inputText>
+							<f:converter for="longitude" converterId="converter.GrausConverter" />
+						</p:inputMask>
 					</div>
 				</div>
 

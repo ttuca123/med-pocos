@@ -252,14 +252,18 @@
 
 			<p:column headerText="Cpf" style="width:100px">
 				<div align="center">
-					<h:outputText value="#{empreendimento.razaoSocial.cpf}" />
+					<h:outputText value="#{empreendimento.razaoSocial.cpf}" >
+						<f:converter converterId="converter.CpfConverter" />
+					</h:outputText>
 				</div>
 			</p:column>
 
 
 			<p:column headerText="Cnpj" style="width:100px">
 				<div align="center">
-					<h:outputText value="#{empreendimento.razaoSocial.cnpj}" />
+					<h:outputText value="#{empreendimento.razaoSocial.cnpj}" >
+						<f:converter converterId="converter.CnpjConverter" />
+					</h:outputText>
 				</div>
 			</p:column>
 
