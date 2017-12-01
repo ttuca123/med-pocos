@@ -48,9 +48,17 @@ public class Hidrometro implements Serializable {
 
 	@Column(name = "latitude")
 	private String latitude;
+	
+	@Column(name = "compl_latitude", length=1)
+	private Character compLatitude;
 
 	@Column(name = "longitude")
 	private String longitude;
+	
+	
+
+	@Column(name = "compl_longitude", length=1)
+	private Character compLongitude;	
 
 	@Column(name = "vazao_maxima")
 	private Double vazaoMaxima;
@@ -132,6 +140,22 @@ public class Hidrometro implements Serializable {
 
 	public void setVazaoMaxima(Double vazaoMaxima) {
 		this.vazaoMaxima = vazaoMaxima;
+	}
+	
+	public Character getCompLatitude() {
+		return compLatitude;
+	}
+
+	public void setCompLatitude(Character compLatitude) {
+		this.compLatitude = compLatitude;
+	}
+
+	public Character getCompLongitude() {
+		return compLongitude;
+	}
+
+	public void setCompLongitude(Character compLongitude) {
+		this.compLongitude = compLongitude;
 	}
 
 	@Override

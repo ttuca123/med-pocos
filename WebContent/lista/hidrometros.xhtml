@@ -217,21 +217,41 @@
 
 					<h:outputText value="#{hidrometro.lacre}" />
 
-					<h:outputText value="Capacidade máxima M³/H:" style="width:250px" />
+					<h:outputText value="Capacidade máxima M³/H:" style="width:250px" />						
+					
+					
+					
 
-					<h:outputText value="#{hidrometro.vazaoMaxima}" />
+					<h:outputText value="#{hidrometro.vazaoMaxima}" >
+					
+						<f:converter converterId="converter.DecimalConverter" />
+						
+					</h:outputText>
 
 					<h:outputText value="Latitude:" style="width:250px" />
 
 					<h:outputText value="#{hidrometro.latitude}" >					
 						<f:converter converterId="converter.GrausConverter" />
 					</h:outputText>
+					
+					<h:outputText value="Direção - Latitude" />									
 
-					<h:outputText value="Longitude:" style="width:250px" />
+					<h:outputText value="#{hidrometro.compLatitude}" >
+						<f:converter converterId="converter.CoordenadasConverter" />
+					</h:outputText>
+						
+					<h:outputText value="Longitude:" style="width:250px" />			
+					
 
 					<h:outputText value="#{hidrometro.longitude}" >
 					
 						<f:converter converterId="converter.GrausConverter" />
+					</h:outputText>
+
+					<h:outputText value="Direção - Longitude" />
+					
+					<h:outputText value="#{hidrometro.compLongitude}" >
+						<f:converter converterId="converter.CoordenadasConverter" />
 					</h:outputText>
 
 					<h:outputText value="Associado à:" style="width:250px;" />

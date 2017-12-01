@@ -41,7 +41,8 @@
 
 						<h:selectOneMenu id="lstEmpreendimentos"
 							converter="converter.EmpreendimentoConverter"
-							value="#{hidrometroBean.hidrometro.empreendimento}" class="form-control"
+							value="#{hidrometroBean.hidrometro.empreendimento}"
+							class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">
 
 							<f:selectItems
@@ -76,8 +77,9 @@
 						do Hidrômetro</label>
 					<div class="col-10">
 						<p:inputText id="numeroHidrometro" class="form-control"
-							required="true" maxlength="10" style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 70%"
-							requiredMessage="O campo Número de Registro é obrigatório"							
+							required="true" maxlength="10"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 70%"
+							requiredMessage="O campo Número de Registro é obrigatório"
 							value="#{hidrometroBean.hidrometro.registro}">
 							<p:keyFilter regEx="/[a-z0-9_]/i" />
 							<f:validateLength minimum="10" maximum="10" />
@@ -91,7 +93,7 @@
 						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Nº
 						Lacre</label>
 					<div class="col-10">
-						<p:inputText id="numeroLacre" class="form-control" 
+						<p:inputText id="numeroLacre" class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
 							maxlength="10" value="#{hidrometroBean.hidrometro.lacre}">
 							<p:keyFilter regEx="/[a-z0-9_]/i" />
@@ -103,7 +105,8 @@
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label"
-						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Capacidade Máxima (M³/H)</label>
+						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Capacidade
+						Máxima (M³/H)</label>
 					<div class="col-10">
 						<p:inputText id="vazao_maxima" class="form-control"
 							required="true" maxlength="10"
@@ -111,7 +114,7 @@
 							value="#{hidrometroBean.hidrometro.vazaoMaxima}">
 							<p:keyFilter regEx="/[\d\-\,]/" />
 							<f:convertNumber pattern="##.##"></f:convertNumber>
-							
+
 						</p:inputText>
 					</div>
 				</div>
@@ -119,17 +122,27 @@
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label"
-						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Latitudes</label>
+						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Latitude</label>
 					<div class="col-10">
 						<p:inputMask id="latitude" class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							 mask="99°99'99''"
+							mask="99°99'99,99''"
 							value="#{hidrometroBean.hidrometro.latitude}">
-							<f:converter for="latitude" converterId="converter.GrausConverter" />
+							<f:converter for="latitude"
+								converterId="converter.GrausConverter" />
 						</p:inputMask>
+
+						<p:selectOneRadio id="complLatitude"
+							style="padding-left:15px; font-size: 80%" label="Direção"
+							value="#{hidrometroBean.hidrometro.compLatitude}" required="true"
+							requiredMessage="Por Favor, escolhe a direção da Latitude"
+							immediate="true">
+							<f:selectItem itemLabel="Norte" itemValue="N" />
+							<f:selectItem itemLabel="Sul" itemValue="S" />
+
+						</p:selectOneRadio>
 					</div>
 				</div>
-
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label"
@@ -137,10 +150,21 @@
 					<div class="col-10">
 						<p:inputMask id="longitude" class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							mask="99°99'99''"
+							mask="99°99'99,99''"
 							value="#{hidrometroBean.hidrometro.longitude}">
-							<f:converter for="longitude" converterId="converter.GrausConverter" />
+							<f:converter for="longitude"
+								converterId="converter.GrausConverter" />
 						</p:inputMask>
+						<p:selectOneRadio id="complLongitude"
+							style="padding-left:15px; font-size: 80%" label="Direção"
+							value="#{hidrometroBean.hidrometro.compLongitude}"
+							immediate="true" required="true"
+							requiredMessage="Por Favor, escolhe a direção da Longitude">
+
+							<f:selectItem itemLabel="Leste" itemValue="L" />
+							<f:selectItem itemLabel="Oeste" itemValue="O" />
+
+						</p:selectOneRadio>
 					</div>
 				</div>
 
@@ -156,7 +180,7 @@
 				<div class="container">
 					<p align="center">
 						<p:commandLink class="btn btn-success btn-lg btn-block"
-							value="Save" action="#{hidrometroBean.salvar}"							
+							value="Save" action="#{hidrometroBean.salvar}"
 							update="messages2, formExibir" icon="ui-icon-disk" />
 					</p>
 				</div>
