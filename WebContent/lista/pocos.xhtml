@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href="../css/sigin.css" />
+	<link rel="stylesheet" href="../css/estilo.css" />
+	<title>Lista de Poços</title>
+</h:head>
+<h:body styleClass="filtro">
+
+	<ui:include src="../ajax/ajax.xhtml" />
+
+	<div class="page-header" align="center"
+		style="margin-right: 10px; margin-left: 10px;">
+		<h4 class="display-4" style="font-family: 'Montserrat', 'sans-serif'">Lista
+			de Poços</h4>
+
+	</div>
+	<p:separator
+		style="border-color: white; margin-right:10px; margin-left:10px;"></p:separator>
+
+	<h:form style="margin-right:10px; margin-left:10px;">
+		<div align="left">
+
+			<p:commandLink ajax="false" class="btn btn-info"
+				style="color: white;" action="painelPrincipal"
+				value="#{msg['page.back']}" update="display">
+			</p:commandLink>
+		</div>
+	</h:form>
+	<p:separator
+		style="border-color: white; margin-right:10px; margin-left:10px;" />
+	<h:form id="formHidrometros" styleClass="filtro"
+		style="margin-right:10px; margin-left:10px;">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="container-fluid">
+					<h2>
+						<i><h:outputText value="Filtros"
+								style="font-family: 'Montserrat', 'sans-serif'" /></i>
+					</h2>
+					<p />
+					<div class="row">
+						<div class="col-sm-2">
+							<b><h:outputText value="Tipo de Poço:"
+									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" />
+							</b>
+
+							<div class="form-group">
+								<h:selectOneMenu id="lstHidrometros"
+									
+									value="#{hidrometroBean.hidrometro.tipoHidrometro}"
+									class="form-control"
+									style="font-family: 'Montserrat', 'sans-serif'; width: 150px; font-size: 80%">
+									
+									<f:selectItem itemValue="0" itemLabel="Tubular"></f:selectItem>
+									<f:selectItem itemValue="1" itemLabel="Artesiano"></f:selectItem>
+									
+								</h:selectOneMenu>
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-2">
+							<b><h:outputText value="Selecione Empreendimento:"
+									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" />
+							</b>
+
+							<div class="form-group">
+									
+									<h:selectOneMenu id="lstEmpreendimentos"
+							converter="converter.EmpreendimentoConverter"
+							value="#{hidrometroBean.hidrometro.empreendimento}"
+							class="form-control"
+							style="font-family: 'Montserrat', 'sans-serif';  font-size: 80%">
+
+							<f:selectItems
+								value="#{hidrometroBean.listaEmpreendimentosAtivos}" var="emp"
+								itemValue="#{emp}" itemLabel="#{emp.nomeFantasia}"></f:selectItems>
+
+						</h:selectOneMenu>
+							
+							
+							
+							
+								
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-2">
+							<b><h:outputText value="Selecione Poço:"
+									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" />
+							</b>
+
+							<div class="form-group">
+								<h:selectOneMenu id="lstPocos"									
+									value="#"
+									class="form-control"
+									style="font-family: 'Montserrat', 'sans-serif'; width: 150px; font-size: 80%">
+									
+									<f:selectItem itemValue="PT01" itemLabel="PT01"></f:selectItem>
+									<f:selectItem itemValue="PT02" itemLabel="PT01"></f:selectItem>
+									<f:selectItem itemValue="PT03" itemLabel="PT02"></f:selectItem>
+									<f:selectItem itemValue="PT04" itemLabel="PT03"></f:selectItem>
+									<f:selectItem itemValue="PT05" itemLabel="PT04"></f:selectItem>
+									<f:selectItem itemValue="PT06" itemLabel="PT05"></f:selectItem>
+
+								</h:selectOneMenu>
+							</div>
+						</div>
+
+						
+					</div>
+				</div>
+				<p:separator style="border-color: white;"></p:separator>
+				<p:commandLink id="btnFilter"
+					style="font-family: 'Montserrat', 'sans-serif'"
+					class="btn btn-primary btn-lg btn-block" update=":formExibir"
+					immediate="false" actionListener="#{hidrometroBean.filtrar}">
+
+					<b><h:outputText value="Buscar" /> </b>
+
+				</p:commandLink>
+
+
+				<p:commandLink class="btn btn-success btn-lg btn-block"
+					style="font-family: 'Montserrat', 'sans-serif'"
+					update=":formHidrometroNovo:hidrometroNovo" immediate="true"
+					oncomplete="PF('hidrometroDialogNovo').show()"
+					action="#{hidrometroBean.novo}">
+
+					<b><h:outputText value="Novo *" /> </b>
+
+				</p:commandLink>
+
+			</div>
+		</div>
+	</h:form>
+	<p:separator style="border-color: white;"></p:separator>
+	<h:form id="formExibir">
+
+
+		<p:growl id="growl" autoUpdate="true" life="2000" />
+
+
+		<p:dataTable id="tblHidrometros" var="hidrometro"
+			style="font-family: 'Montserrat', 'sans-serif'"
+			filteredValue="#{hidrometroBean.filteredHidrometros}"
+			value="#{hidrometroBean.hidrometros}" rows="10" paginator="true"
+			widgetVar="hidrometrosTable" scrollable="true" styleClass="paginated"
+			rowIndexVar="rowIndex" resizableColumns="true"
+			emptyMessage="Nenhum poço encontrado com os critérios selecionados"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+
+
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h2>
+						<h:outputText value="Lista de Poços:"
+							style="font-family: 'Montserrat', 'sans-serif'" />
+					</h2>
+				</p:outputPanel>
+
+			</f:facet>
+			<p:column headerText="#" style="width:50%">
+				<div align="center">
+
+					<h:outputText value="#{rowIndex+1}" />
+
+				</div>
+			</p:column>
+			<p:column style="width:100%" headerText="Empreendimento">
+
+				<p:rowToggler />
+
+			</p:column>
+
+
+			<p:column headerText="Número do Poço"
+				filterBy="#{hidrometro.registro}" style="width:100%"
+				filterMatchMode="contains" filterStyle="width:100%" width="100%">
+
+
+				<h:outputText value="#{hidrometro.registro}" />
+
+
+
+			</p:column>
+
+
+
+			<p:column headerText="Tipo" filterBy="#{hidrometro.tipoHidrometro}"
+				style="width:100%" filterMatchMode="contains"
+				filterStyle="width:100%" width="100%">
+
+				<div align="center">
+					<h:outputText value="#{hidrometro.tipoHidrometro}" />
+				</div>
+			</p:column>
+
+
+
+
+			<p:column headerText="Editar"
+				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+				<div align="center">
+					<p:commandLink update="formEditar"
+						oncomplete="PF('hidrometroDialogEditar').show()" title="Detalhar"
+						styleClass="ui-icon ui-icon-search" immediate="true"
+						style="float:left;margin-right:10px">
+						<f:setPropertyActionListener value="#{hidrometro}"
+							target="#{hidrometroBean.hidrometro}" />
+					</p:commandLink>
+				</div>
+			</p:column>
+
+
+			<p:column headerText="Excluir"
+				style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+				<div align="center">
+					<p:commandLink title="Excluir" update=":formExcluir:Excluir"
+						oncomplete="PF('confirmation').show()" immediate="true">
+						<p:graphicImage value="../images/del.png" width="25px"
+							style="padding-left:10px" />
+						<f:setPropertyActionListener value="#{hidrometro}"
+							target="#{hidrometroBean.hidrometro}" />
+					</p:commandLink>
+				</div>
+
+
+			</p:column>
+
+			<p:rowExpansion>
+
+				<p:panelGrid columns="2" columnClasses="label,value"
+					style="width:700px">
+
+					<h:outputText value="Número do Hidrômetro:" style="width:250px" />
+
+					<h:outputText value="#{hidrometro.registro}" />
+
+					<h:outputText value="Número do Lacre:" style="width:250px" />
+
+					<h:outputText value="#{hidrometro.lacre}" />
+
+					<h:outputText value="Capacidade máxima M³/H:" style="width:250px" />
+
+
+
+
+					<h:outputText value="#{hidrometro.vazaoMaxima}">
+
+						<f:converter converterId="converter.DecimalConverter" />
+
+					</h:outputText>
+
+
+					<ui:remove>
+						<h:outputText value="Latitude:" style="width:250px" />
+
+						<h:outputText value="#{hidrometro.latitude}">
+							<f:converter converterId="converter.GrausConverter" />
+						</h:outputText>
+
+						<h:outputText value="Direção - Latitude" />
+
+						<h:outputText value="#{hidrometro.compLatitude}">
+							<f:converter converterId="converter.CoordenadasConverter" />
+						</h:outputText>
+
+						<h:outputText value="Longitude:" style="width:250px" />
+
+
+						<h:outputText value="#{hidrometro.longitude}">
+
+							<f:converter converterId="converter.GrausConverter" />
+						</h:outputText>
+
+						<h:outputText value="Direção - Longitude" />
+
+						<h:outputText value="#{hidrometro.compLongitude}">
+							<f:converter converterId="converter.CoordenadasConverter" />
+						</h:outputText>
+					</ui:remove>
+
+
+					<h:outputText value="Associado à:" style="width:250px;" />
+
+					<h:outputText value="#{hidrometro.empreendimento.nomeFantasia}" />
+
+
+				</p:panelGrid>
+			</p:rowExpansion>
+
+
+
+		</p:dataTable>
+
+		<div class="alert alert-info" align="right">
+			<strong>Total: </strong>
+			<h:outputLabel value="#{hidrometroBean.total}" />
+		</div>
+	</h:form>
+
+	<ui:include src="complemento/poco_novo.xhtml" />
+
+	<ui:include src="complemento/poco_editar.xhtml" />
+
+	<ui:include src="complemento/poco_excluir.xhtml" />
+
+
+</h:body>
+</html>

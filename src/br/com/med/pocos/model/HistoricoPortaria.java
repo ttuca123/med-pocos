@@ -13,15 +13,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "historico_monitoramento")
+@Table(name = "historico_portaria")
 
-public class HistoricoMonitoramento implements Serializable {
+public class HistoricoPortaria implements Serializable {
 
 	private static final long serialVersionUID = 6310925639705761062L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "seq_historico_monitoramento", columnDefinition = "serial not null")
+	@Column(name = "seq_historico_portaria", columnDefinition = "serial not null")
 	private Long seqHistoricoMonitoramento;
 
 	@Temporal(TemporalType.DATE)
@@ -43,21 +43,6 @@ public class HistoricoMonitoramento implements Serializable {
 
 	@Column(name = "nr_portaria")
 	private int nrPortaria;
-
-	@Column(name = "nr_poco")
-	private String nrPoco;
-
-	@Column(name = "media_mensal")
-	private Double mediaMensal;
-
-	@Column(name = "mes")
-	private String mes;
-
-	@Column(name = "ano")
-	private String ano;
-
-	@Column(name = "total_dias_mes")
-	private int totalDiasMes;
 
 	public Long getSeqHistoricoMonitoramento() {
 		return seqHistoricoMonitoramento;
@@ -81,6 +66,14 @@ public class HistoricoMonitoramento implements Serializable {
 
 	public void setPeriodoFim(Date periodoFim) {
 		this.periodoFim = periodoFim;
+	}
+
+	public String getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
 	}
 
 	public String getRazaoSocial() {
@@ -107,50 +100,14 @@ public class HistoricoMonitoramento implements Serializable {
 		this.nrPortaria = nrPortaria;
 	}
 
-	public String getNrPoco() {
-		return nrPoco;
-	}
-
-	public void setNrPoco(String nrPoco) {
-		this.nrPoco = nrPoco;
-	}
-
-	public Double getMediaMensal() {
-		return mediaMensal;
-	}
-
-	public void setMediaMensal(Double mediaMensal) {
-		this.mediaMensal = mediaMensal;
-	}
-
-	public String getMes() {
-		return mes;
-	}
-
-	public void setMes(String mes) {
-		this.mes = mes;
-	}
-
-	public String getAno() {
-		return ano;
-	}
-
-	public void setAno(String ano) {
-		this.ano = ano;
-	}
-
-	public int getTotalDiasMes() {
-		return totalDiasMes;
-	}
-
-	public void setTotalDiasMes(int totalDiasMes) {
-		this.totalDiasMes = totalDiasMes;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((nomeFantasia == null) ? 0 : nomeFantasia.hashCode());
+		result = prime * result + nrPortaria;
+		result = prime * result + ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
+		result = prime * result + ((responsavel == null) ? 0 : responsavel.hashCode());
 		result = prime * result + ((seqHistoricoMonitoramento == null) ? 0 : seqHistoricoMonitoramento.hashCode());
 		return result;
 	}
@@ -163,7 +120,24 @@ public class HistoricoMonitoramento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		HistoricoMonitoramento other = (HistoricoMonitoramento) obj;
+		HistoricoPortaria other = (HistoricoPortaria) obj;
+		if (nomeFantasia == null) {
+			if (other.nomeFantasia != null)
+				return false;
+		} else if (!nomeFantasia.equals(other.nomeFantasia))
+			return false;
+		if (nrPortaria != other.nrPortaria)
+			return false;
+		if (razaoSocial == null) {
+			if (other.razaoSocial != null)
+				return false;
+		} else if (!razaoSocial.equals(other.razaoSocial))
+			return false;
+		if (responsavel == null) {
+			if (other.responsavel != null)
+				return false;
+		} else if (!responsavel.equals(other.responsavel))
+			return false;
 		if (seqHistoricoMonitoramento == null) {
 			if (other.seqHistoricoMonitoramento != null)
 				return false;
@@ -172,12 +146,6 @@ public class HistoricoMonitoramento implements Serializable {
 		return true;
 	}
 
-	public String getResponsavel() {
-		return responsavel;
-	}
-
-	public void setResponsavel(String responsavel) {
-		this.responsavel = responsavel;
-	}
+	
 
 }

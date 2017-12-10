@@ -20,27 +20,27 @@ public enum EnumMes {
 		this.descricao = descricao;
 	}
 
-	public static List<String> getLstTipoEmpreendimentos() {
-		List<String> tiposEmpreendimentos = null;
+	public static List<String> getLstMeses() {
+		List<String> tiposMeses = null;
 		
-		if (tiposEmpreendimentos == null) {
+		if (tiposMeses == null) {
 
-			tiposEmpreendimentos = new ArrayList<String>();
+			tiposMeses = new ArrayList<String>();
 
-			for (EnumMes enuTipoEmpreendimento : EnumMes.values()) {
+			for (EnumMes enuMes : EnumMes.values()) {
 				
-				tiposEmpreendimentos.add(enuTipoEmpreendimento.getDescricao());
+				tiposMeses.add(enuMes.getDescricao());
 			}
 		}
 
-		return tiposEmpreendimentos;
+		return tiposMeses;
 	}
 
 	public static String getDescricao(int codigo) {
 
-		for (EnumMes enuTipoEmpreendimento : EnumMes.values()) {
-			if (codigo == enuTipoEmpreendimento.getCodigo()) {
-				return enuTipoEmpreendimento.getDescricao();
+		for (EnumMes enuTipoMes : EnumMes.values()) {
+			if (codigo == enuTipoMes.getCodigo()) {
+				return enuTipoMes.getDescricao();
 			}
 
 		}
@@ -49,9 +49,9 @@ public enum EnumMes {
 
 	public static Integer getCodigo(String descricao) {
 
-		for (EnumMes enuTipoEmpreendimento : EnumMes.values()) {
-			if (enuTipoEmpreendimento.getDescricao().equals(descricao.trim())) {
-				return enuTipoEmpreendimento.getCodigo();
+		for (EnumMes enuTipoMes : EnumMes.values()) {
+			if (enuTipoMes.getDescricao().equals(descricao.trim())) {
+				return enuTipoMes.getCodigo();
 			}
 
 		}

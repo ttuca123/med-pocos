@@ -17,27 +17,27 @@ public enum EnumTipoHidrometro {
 		this.descricao = descricao;
 	}
 
-	public static List<String> getLstTipoEmpreendimentos() {
-		List<String> tiposEmpreendimentos = null;
+	public static List<String> getLstTipoHidrometros() {
+		List<String> tipoHidrometros = null;
 		
-		if (tiposEmpreendimentos == null) {
+		if (tipoHidrometros == null) {
 
-			tiposEmpreendimentos = new ArrayList<String>();
+			tipoHidrometros = new ArrayList<String>();
 
-			for (EnumTipoHidrometro enuTipoEmpreendimento : EnumTipoHidrometro.values()) {
+			for (EnumTipoHidrometro enuTipoHidrometro : EnumTipoHidrometro.values()) {
 				
-				tiposEmpreendimentos.add(enuTipoEmpreendimento.getDescricao());
+				tipoHidrometros.add(enuTipoHidrometro.getDescricao());
 			}
 		}
 
-		return tiposEmpreendimentos;
+		return tipoHidrometros;
 	}
 
 	public static String getDescricao(int codigo) {
 
-		for (EnumTipoHidrometro enuTipoEmpreendimento : EnumTipoHidrometro.values()) {
-			if (codigo == enuTipoEmpreendimento.getCodigo()) {
-				return enuTipoEmpreendimento.getDescricao();
+		for (EnumTipoHidrometro enuTipoHidrometro : EnumTipoHidrometro.values()) {
+			if (codigo == enuTipoHidrometro.getCodigo()) {
+				return enuTipoHidrometro.getDescricao();
 			}
 
 		}
@@ -46,9 +46,9 @@ public enum EnumTipoHidrometro {
 
 	public static Integer getCodigo(String descricao) {
 
-		for (EnumTipoHidrometro enuTipoEmpreendimento : EnumTipoHidrometro.values()) {
-			if (enuTipoEmpreendimento.getDescricao().equals(descricao.trim())) {
-				return enuTipoEmpreendimento.getCodigo();
+		for (EnumTipoHidrometro enuTipoHidrometro : EnumTipoHidrometro.values()) {
+			if (enuTipoHidrometro.getDescricao().equals(descricao.trim())) {
+				return enuTipoHidrometro.getCodigo();
 			}
 
 		}

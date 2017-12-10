@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href=".../../css/sigin.css" />
+	<link rel="stylesheet" href="../../css/estilo.css" />
+
+	<script type="text/javascript" src="../../js/mascaras.js" />
+
+</h:head>
+<h:body>
+
+
+	
+		
+	<h:form id="formHidrometroNovo">
+	
+		<p:dialog header="Novo Poço" widgetVar="hidrometroDialogNovo"
+			modal="true" hideEffect="explode" showEffect="bounce" position="center top"
+			 closeOnEscape="true" maximizable="true"
+			id="dialogCadastrar" resizable="true">
+
+
+			<p:outputPanel id="hidrometroNovo"
+				style="text-align:center; width:700px">
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label"
+						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Empreendimento</label>
+
+					<div class="col-10">
+
+						<h:selectOneMenu id="lstEmpreendimentos"
+							converter="converter.EmpreendimentoConverter"
+							value="#{hidrometroBean.hidrometro.empreendimento}"
+							class="form-control"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">
+
+							<f:selectItems
+								value="#{hidrometroBean.listaEmpreendimentosAtivos}" var="emp"
+								itemValue="#{emp}" itemLabel="#{emp.nomeFantasia}"></f:selectItems>
+
+						</h:selectOneMenu>
+
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label"
+						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 70%">Tipo
+						/ Poço</label>
+					<div class="col-10">
+						<h:selectOneMenu id="lstHidrometros"
+									
+									value="#{hidrometroBean.hidrometro.tipoHidrometro}"
+									class="form-control"
+									style="font-family: 'Montserrat', 'sans-serif'; width: 150px; font-size: 80%">
+									
+									<f:selectItem itemValue="0" itemLabel="Tubular"></f:selectItem>
+									<f:selectItem itemValue="1" itemLabel="Artesiano"></f:selectItem>
+									
+						</h:selectOneMenu>
+					</div>
+				</div>
+
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label"
+						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 70%">Nº
+						do Poço</label>
+					<div class="col-10">
+						<p:inputText id="numeroHidrometro" class="form-control"
+							required="true" maxlength="10"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 70%"
+							requiredMessage="O campo Número de Registro é obrigatório"
+							value="#{hidrometroBean.hidrometro.registro}">
+							<p:keyFilter regEx="/[a-z0-9_]/i" />
+							<f:validateLength minimum="10" maximum="10" />
+						</p:inputText>
+					</div>
+				</div>
+				<p:message for="numeroHidrometro" />
+
+						
+				
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Latitude</label>
+						<div class="col-10">
+							<p:inputMask id="latitude" class="form-control"
+								style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
+								mask="99°99'99,99''"
+								value="#">
+								
+							</p:inputMask>
+
+							<p:selectOneRadio id="complLatitude"
+								style="padding-left:15px; font-size: 80%" label="Direção"
+								value="#"
+								required="true"
+								requiredMessage="Por Favor, escolhe a direção da Latitude"
+								immediate="true">
+								<f:selectItem itemLabel="Norte" itemValue="N" />
+								<f:selectItem itemLabel="Sul" itemValue="S" />
+
+							</p:selectOneRadio>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Longitude</label>
+						<div class="col-10">
+							<p:inputMask id="longitude" class="form-control"
+								style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
+								mask="99°99'99,99''"
+								value="#">
+								
+							</p:inputMask>
+							<p:selectOneRadio id="complLongitude"
+								style="padding-left:15px; font-size: 80%" label="Direção"
+								value="#"
+								immediate="true" required="true"
+								requiredMessage="Por Favor, escolhe a direção da Longitude">
+
+								<f:selectItem itemLabel="Leste" itemValue="L" />
+								<f:selectItem itemLabel="Oeste" itemValue="O" />
+
+							</p:selectOneRadio>
+						</div>
+					</div>
+				
+
+				<p:separator />
+
+
+
+				<p:growl id="messages2" />
+			</p:outputPanel>
+
+			<div id="footer">
+				<div class="container">
+					<p align="center">
+						<p:commandLink class="btn btn-success btn-lg btn-block"
+							value="Save" action="#{hidrometroBean.salvar}"
+							update="messages2, formExibir" icon="ui-icon-disk" />
+					</p>
+				</div>
+			</div>
+
+
+		</p:dialog>
+
+	</h:form>
+
+
+
+</h:body>
+</html>

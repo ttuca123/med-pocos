@@ -61,7 +61,16 @@
 	</navigation-rule>
 	
 	
-		<navigation-rule>
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>listarPocos</from-outcome>
+			<to-view-id>/lista/pocos.xhtml?faces-redirect=true</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
 		<from-view-id>/*</from-view-id>
 		<navigation-case>
 			<from-outcome>listarPortarias</from-outcome>
