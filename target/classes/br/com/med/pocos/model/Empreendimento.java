@@ -76,6 +76,10 @@ public class Empreendimento implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empreendimento")
 	private List<Hidrometro> lstHidrometros;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empreendimento")
+	private List<Poco> lstPocos;
+
+	
 	@Transient
 	private boolean isAtivo;
 	
@@ -176,6 +180,14 @@ public class Empreendimento implements Serializable {
 	}	
 	
 	
+	public List<Poco> getLstPocos() {
+		return lstPocos;
+	}
+
+	public void setLstPocos(List<Poco> lstPocos) {
+		this.lstPocos = lstPocos;
+	}
+	
 	
 	
 	public void setLstHidrometros(List<Hidrometro> lstHidrometros) {
@@ -236,5 +248,7 @@ public class Empreendimento implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }

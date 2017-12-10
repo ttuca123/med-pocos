@@ -44,18 +44,7 @@ public class Hidrometro implements Serializable {
 
 	@Id
 	@Column(name = "lacre", length = 10)
-	private String lacre;
-
-	
-	
-	/*@Column(name = "compl_latitude", length=1)
-	private Character compLatitude;
-
-	@Column(name = "longitude")
-	private String longitude;
-	
-	@Column(name = "latitude")
-	private String latitude;*/
+	private String lacre;	
 	
 
 	@Column(name = "compl_longitude", length=1)
@@ -68,7 +57,7 @@ public class Hidrometro implements Serializable {
 	private boolean isAtivo;
 
 	@ManyToOne(optional = true, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "empreendimento_poco")
+	@JoinColumn(name = "empreendimento_hidrometro")
 	private Empreendimento empreendimento;
 
 	public Long getSeqHidrometro() {

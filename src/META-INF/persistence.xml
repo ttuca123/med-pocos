@@ -10,13 +10,15 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		 <jta-data-source>java:/med-pocos</jta-data-source>
 		
+		 <class>br.com.med.pocos.model.Poco</class>
+		 <class>br.com.med.pocos.model.Hidrometro</class>
 		 <class>br.com.med.pocos.model.Usuario</class>
 		 <class>br.com.med.pocos.model.Empreendimento</class>
 		 <class>br.com.med.pocos.model.Responsavel</class>		 
 		 
 
 		<properties>
-			<property name="hibernate.default_schema" value="producao" />		
+			<property name="hibernate.default_schema" value="desenvolvimento" />		
 			
 			<property name="hibernate.format_sql" value="true" />			
 
