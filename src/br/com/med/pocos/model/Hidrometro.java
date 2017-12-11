@@ -43,7 +43,7 @@ public class Hidrometro implements Serializable {
 	private String registro;
 
 	@Id
-	@Column(name = "lacre", length = 10)
+	@Column(name = "lacre", length = 12)
 	private String lacre;
 
 	@Column(name = "latitude")

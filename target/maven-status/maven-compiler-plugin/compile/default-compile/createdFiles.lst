@@ -18,6 +18,7 @@ br\com\med\pocos\converter\HidrometroConverter.class
 br\com\med\pocos\model\Empreendimento_.class
 br\com\med\pocos\model\Hidrometro_.class
 br\com\med\pocos\util\EmailService.class
+br\com\med\pocos\converter\CoordenadasConverter.class
 br\com\med\pocos\bean\LoginBean.class
 br\com\med\pocos\converter\CnpjConverter.class
 br\com\med\pocos\services\UsuarioService.class
@@ -38,6 +39,7 @@ br\com\med\pocos\model\Endereco.class
 br\com\med\pocos\validator\EmailValidator.class
 br\com\med\pocos\model\Hidrometro.class
 br\com\med\pocos\model\Usuario_.class
+br\com\med\pocos\converter\DecimalConverter.class
 br\com\med\pocos\bean\HidrometroBean.class
 br\com\med\pocos\services\EntityManagerServiceImpl.class
 br\com\med\pocos\validator\MoedaValidator.class
