@@ -154,7 +154,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>med-pocos-teste</finalName>
+		<finalName>med-pocos</finalName>
 		<sourceDirectory>src</sourceDirectory>
 
 		<resources>

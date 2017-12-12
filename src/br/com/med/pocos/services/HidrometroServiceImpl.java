@@ -40,10 +40,10 @@ public class HidrometroServiceImpl implements HidrometroService {
 
 			if(!hidrometro.getRegistro().isEmpty()) {
 				
-				Hidrometro hidrometroDuplicado = (Hidrometro) emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosDuplicados").setParameter("registro", hidrometro.getRegistro())
-				.getSingleResult();
+				List<Hidrometro> duplicados =  emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosDuplicados").setParameter("registro", hidrometro.getRegistro())
+				.getResultList();
 				
-				if(hidrometroDuplicado!=null) {
+				if(duplicados!=null && duplicados.size()>0) {
 					throw new RegistroDuplicadoException();
 					
 				}

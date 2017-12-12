@@ -24,18 +24,18 @@
 	<h:form id="formHidrometroNovo">
 
 		<p:dialog header="Novo Hidrômetro" widgetVar="hidrometroDialogNovo"
-			modal="true" hideEffect="explode" showEffect="bounce" width="800px"
-			height="500px" closeOnEscape="true" maximizable="true"
+			modal="true" hideEffect="explode" showEffect="bounce" width="45%"
+			height="50%" closeOnEscape="true" maximizable="true"
 			id="dialogCadastrar" resizable="true">
 
 
 			<p:outputPanel id="hidrometroNovo"
-				style="text-align:center; width:700px">
+				style="text-align:center; width:100%">
 
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label"
-						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Empreendimento</label>
+						style="font-family: 'Montserrat', 'sans-serif'; width: 35%; font-size: 80%">Empreendimento</label>
 
 					<div class="col-10">
 
@@ -43,7 +43,7 @@
 							converter="converter.EmpreendimentoConverter"
 							value="#{hidrometroBean.hidrometro.empreendimento}"
 							class="form-control"
-							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">
+							style="font-family: 'Montserrat', 'sans-serif'; width: 250px; font-size: 80%">
 
 							<f:selectItems
 								value="#{hidrometroBean.listaEmpreendimentosAtivos}" var="emp"
