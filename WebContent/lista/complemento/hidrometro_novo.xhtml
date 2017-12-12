@@ -21,14 +21,11 @@
 </h:head>
 <h:body>
 
-
-	
-		
-	<h:form id="formHidrometroNovo">
+<h:form id="formHidrometroNovo">
 	
 		<p:dialog header="Novo Hidrômetro" widgetVar="hidrometroDialogNovo"
-			modal="true" hideEffect="explode" showEffect="bounce" position="center top"
-			 closeOnEscape="true" maximizable="true"
+			modal="true" hideEffect="explode" showEffect="bounce" width="800px"
+			height="500px" closeOnEscape="true" maximizable="true"
 			id="dialogCadastrar" resizable="true">
 
 
@@ -98,7 +95,7 @@
 					<div class="col-10">
 						<p:inputText id="numeroLacre" class="form-control"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							maxlength="10" value="#{hidrometroBean.hidrometro.lacre}">
+							maxlength="12" value="#{hidrometroBean.hidrometro.lacre}">
 							<p:keyFilter regEx="/[a-z0-9_]/i" />
 						</p:inputText>
 					</div>

@@ -24,10 +24,10 @@
 
 	<h:form id="formEditar">
 
-		<p:dialog header="Editar Hidrômetro"
-			widgetVar="hidrometroDialogEditar" modal="true" hideEffect="explode"
-			showEffect="bounce" position="center top" closeOnEscape="true"
-			maximizable="true" id="dialogCadastrar" resizable="true">
+		<p:dialog header="Editar Hidrômetro" widgetVar="hidrometroDialogEditar"
+			modal="true" hideEffect="explode" showEffect="bounce" width="800px"
+			height="500px" closeOnEscape="true" maximizable="true"
+			id="dialogCadastrar" resizable="true">
 
 
 			<p:outputPanel id="hidrometroEditar"
@@ -99,7 +99,7 @@
 					<div class="col-10">
 						<p:inputText id="numeroLacre" class="form-control" required="true"
 							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							maxlength="10" value="#{hidrometroBean.hidrometro.lacre}">
+							maxlength="12" value="#{hidrometroBean.hidrometro.lacre}">
 							<p:keyFilter regEx="/[a-z0-9_]/i" />
 						</p:inputText>
 					</div>

@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import br.com.med.pocos.enu.EnumTipoHidrometro;
+import br.com.med.pocos.exception.RegistroDuplicadoException;
 import br.com.med.pocos.model.Empreendimento;
 import br.com.med.pocos.model.Empreendimento_;
 import br.com.med.pocos.model.Hidrometro;
@@ -37,8 +38,19 @@ public class HidrometroServiceImpl implements HidrometroService {
 
 		if (hidrometro != null) {
 
+			if(!hidrometro.getRegistro().isEmpty()) {
+				
+				Hidrometro hidrometroDuplicado = (Hidrometro) emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosDuplicados").setParameter("registro", hidrometro.getRegistro())
+				.getSingleResult();
+				
+				if(hidrometroDuplicado!=null) {
+					throw new RegistroDuplicadoException();
+					
+				}
+			}
+			
 			if (hidrometro.getSeqHidrometro() == null) {
-
+				
 				emService.getEntityManager().persist(hidrometro);
 
 			} else {

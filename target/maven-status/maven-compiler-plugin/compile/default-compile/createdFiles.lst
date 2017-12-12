@@ -21,6 +21,7 @@ br\com\med\pocos\model\Hidrometro_.class
 br\com\med\pocos\util\EmailService.class
 br\com\med\pocos\converter\CoordenadasConverter.class
 br\com\med\pocos\bean\LoginBean.class
+br\com\med\pocos\exception\RegistroDuplicadoException.class
 br\com\med\pocos\converter\CnpjConverter.class
 br\com\med\pocos\services\UsuarioService.class
 br\com\med\pocos\services\GenericService.class
@@ -30,7 +31,6 @@ br\com\med\pocos\enu\EnumTipoEmpreendimento.class
 br\com\med\pocos\services\ResponsavelService.class
 br\com\med\pocos\bean\UsuarioBean.class
 br\com\med\pocos\validator\CpfValidator.class
-br\com\med\pocos\model\HidrometroId.class
 br\com\med\pocos\converter\TipoEmpreendimentoConverter.class
 br\com\med\pocos\model\Usuario.class
 br\com\med\pocos\model\Responsavel_.class
