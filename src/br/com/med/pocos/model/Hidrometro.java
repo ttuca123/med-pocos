@@ -20,12 +20,15 @@ import br.com.med.pocos.enu.EnumTipoHidrometro;
 
 @NamedQueries(value = { @NamedQuery(name = "Hidrometro.buscaAllHidrometros", query = "select h from Hidrometro h"),
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosAtivos", query = "select h from Hidrometro h where h.isAtivo = true order by h.registro asc"),
+		@NamedQuery(name = "Hidrometro.buscaHidrometrosDuplicados", query = "select h from Hidrometro h where h.registro like :registro"),
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosByEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento = :seqEmpreendimento order by h.registro asc"),
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosSemEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento is null	 order by h.registro asc")})
 @Entity
 @Table(name = "hidrometro")
-@IdClass(value = HidrometroId.class)
+
 public class Hidrometro implements Serializable {
+
+	
 
 	private static final long serialVersionUID = 6310925639705761062L;
 
@@ -38,23 +41,13 @@ public class Hidrometro implements Serializable {
 	@Column(name = "tipo_hidrometro")
 	private EnumTipoHidrometro tipoHidrometro;
 
-	@Id
+	
 	@Column(name = "registro", length = 10, unique = true)
 	private String registro;
 
-	@Id
+	
 	@Column(name = "lacre", length = 12)
-	private String lacre;
-
-	@Column(name = "latitude")
-	private String latitude;
-	
-	@Column(name = "compl_latitude", length=1)
-	private Character compLatitude;
-
-	@Column(name = "longitude")
-	private String longitude;
-	
+	private String lacre;	
 	
 
 	@Column(name = "compl_longitude", length=1)
@@ -67,7 +60,7 @@ public class Hidrometro implements Serializable {
 	private boolean isAtivo;
 
 	@ManyToOne(optional = true, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "empreendimento_poco")
+	@JoinColumn(name = "empreendimento_hidrometro")
 	private Empreendimento empreendimento;
 
 	public Long getSeqHidrometro() {
@@ -102,22 +95,19 @@ public class Hidrometro implements Serializable {
 		this.lacre = lacre;
 	}
 
-	public String getLatitude() {
+	/*public String getLatitude() {
 		return latitude;
 	}
-
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-
 	public String getLongitude() {
 		return longitude;
 	}
-
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-
+*/
 	public boolean isAtivo() {
 		return isAtivo;
 	}
@@ -142,14 +132,13 @@ public class Hidrometro implements Serializable {
 		this.vazaoMaxima = vazaoMaxima;
 	}
 	
-	public Character getCompLatitude() {
+/*	public Character getCompLatitude() {
 		return compLatitude;
 	}
-
 	public void setCompLatitude(Character compLatitude) {
 		this.compLatitude = compLatitude;
 	}
-
+*/
 	public Character getCompLongitude() {
 		return compLongitude;
 	}
@@ -188,4 +177,5 @@ public class Hidrometro implements Serializable {
 			return false;
 		return true;
 	}
+	
 }

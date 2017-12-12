@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import br.com.med.pocos.enu.EnumTipoHidrometro;
+import br.com.med.pocos.exception.RegistroDuplicadoException;
 import br.com.med.pocos.model.Empreendimento;
 import br.com.med.pocos.model.Hidrometro;
 import br.com.med.pocos.services.EmpreendimentoService;
@@ -68,7 +69,7 @@ public class HidrometroBean implements Serializable {
 		return hidrometro.isAtivo();
 	}
 
-	public void salvar() {
+	public void salvar() throws Exception {
 
 		try {
 
@@ -78,10 +79,10 @@ public class HidrometroBean implements Serializable {
 
 			getListarAtivos();
 
-		} catch (Exception e) {
+		}catch(RegistroDuplicadoException rd) {
 			
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
-			
+			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.duplicado"));
+		
 		} finally {
 			
 			novo();

@@ -122,54 +122,54 @@
 					</div>
 				</div>
 				<p:message for="vazao_maxima" />
-				
-				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label"
-						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Latitudes</label>
-					<div class="col-10">
-						<p:inputMask id="latitude" class="form-control"
-							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							 mask="99°99'99,99''"
-							value="#{hidrometroBean.hidrometro.latitude}">
-							<f:converter for="latitude" converterId="converter.GrausConverter" />
-						</p:inputMask>
-						
-						<p:selectOneRadio id="complLatitude" style="padding-left:15px; font-size: 80%" label="Direção"
-										value="#{hidrometroBean.hidrometro.compLatitude}"
-										required="true"
-										requiredMessage="Por Favor, escolhe a direção da Latitude"
-										 immediate="true">
-										<f:selectItem itemLabel="Norte" itemValue="N" />
-										<f:selectItem itemLabel="Sul" itemValue="S" />												
-										
-						</p:selectOneRadio>
+			
+			<ui:remove>
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Latitudes</label>
+						<div class="col-10">
+							<p:inputMask id="latitude" class="form-control"
+								style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
+								 mask="99°99'99,99''"
+								value="#{hidrometroBean.hidrometro.latitude}">
+								<f:converter for="latitude" converterId="converter.GrausConverter" />
+							</p:inputMask>
+							
+							<p:selectOneRadio id="complLatitude" style="padding-left:15px; font-size: 80%" label="Direção"
+											value="#{hidrometroBean.hidrometro.compLatitude}"
+											required="true"
+											requiredMessage="Por Favor, escolhe a direção da Latitude"
+											 immediate="true">
+											<f:selectItem itemLabel="Norte" itemValue="N" />
+											<f:selectItem itemLabel="Sul" itemValue="S" />												
+											
+							</p:selectOneRadio>
+						</div>
 					</div>
-				</div>			
-				
-
-
-				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label"
-						style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Longitude</label>
-					<div class="col-10">
-						<p:inputMask id="longitude" class="form-control"
-							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
-							mask="99°99'99,99''"
-							value="#{hidrometroBean.hidrometro.longitude}" required="true"
-							requiredMessage="Por Favor, escolhe a direção da Longitude">
-							<f:converter for="longitude" converterId="converter.GrausConverter" />
-						</p:inputMask>
 						
-						<p:selectOneRadio id="complLongitude" style="padding-left:15px; font-size: 80%" label="Direção"
-										value="#{hidrometroBean.hidrometro.compLongitude}" immediate="true">
-										
-										<f:selectItem itemLabel="Leste" itemValue="L" />
-										<f:selectItem itemLabel="Oeste" itemValue="O" />				
-										
-						</p:selectOneRadio>
+					<div class="form-group row">
+						<label for="example-text-input" class="col-2 col-form-label"
+							style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">Longitude</label>
+						<div class="col-10">
+							<p:inputMask id="longitude" class="form-control"
+								style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%"
+								mask="99°99'99,99''"
+								value="#{hidrometroBean.hidrometro.longitude}" required="true"
+								requiredMessage="Por Favor, escolhe a direção da Longitude">
+								<f:converter for="longitude" converterId="converter.GrausConverter" />
+							</p:inputMask>
+							
+							<p:selectOneRadio id="complLongitude" style="padding-left:15px; font-size: 80%" label="Direção"
+											value="#{hidrometroBean.hidrometro.compLongitude}" immediate="true">
+											
+											<f:selectItem itemLabel="Leste" itemValue="L" />
+											<f:selectItem itemLabel="Oeste" itemValue="O" />				
+											
+							</p:selectOneRadio>
+						</div>
 					</div>
-				</div>
 				
+				</ui:remove>
 				<p:separator />
 
 				<p:growl id="messages2" />

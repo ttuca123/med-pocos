@@ -1,3 +1,4 @@
+D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\exception\RegistroDuplicadoException.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\services\ResponsavelService.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\bean\HidrometroBean.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\bean\LoginBean.java
@@ -19,7 +20,6 @@ D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\model\RazaoSocial_.j
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\services\HidrometroService.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\services\HidrometroServiceImpl.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\model\RazaoSocial.java
-D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\model\HidrometroId.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\converter\ResponsavelConverter.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\bean\EmpreendimentoBean.java
 D:\workspace-web\emergencial\med-pocos\src\br\com\med\pocos\listener\LoginPhaseListener.java
