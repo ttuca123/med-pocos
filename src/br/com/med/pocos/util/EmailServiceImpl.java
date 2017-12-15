@@ -17,7 +17,7 @@ public class EmailServiceImpl implements EmailService {
 	private Session session;
 	
 	final String USUARIO = "medicao.outorga@yahoo.com";	
-	final String SENHA =   "pocostubulares2017";	
+	final String SENHA =   "";	
 	final String EMAIL =   "medicao.outorga@yahoo.com";
 
 	public EmailServiceImpl() {		
