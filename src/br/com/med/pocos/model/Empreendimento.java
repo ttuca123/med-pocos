@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -32,7 +31,9 @@ import br.com.med.pocos.enu.EnumTipoEmpreendimento;
 
 @NamedQueries(value = {
 		@NamedQuery(name = "Empreendimento.buscaAllEmpreendimentos", query = "select e from Empreendimento e ORDER BY e.nomeFantasia asc "),
-		//@NamedQuery(name = "Empreendimento.buscaAllHidrometrosByEmpreendimento", query = "select e from Empreendimento e inner join fetch e.lstHidrometros where e.seqEmpreendimento = :seqEmpreendimento")
+		// @NamedQuery(name = "Empreendimento.buscaAllHidrometrosByEmpreendimento",
+		// query = "select e from Empreendimento e inner join fetch e.lstHidrometros
+		// where e.seqEmpreendimento = :seqEmpreendimento")
 })
 @Entity
 @Table(name = "empreendimento")
@@ -44,12 +45,12 @@ public class Empreendimento implements Serializable {
 		super();
 	}
 
-	@Id	
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "seq_empreendimento", columnDefinition = "serial not null")
 	private Long seqEmpreendimento;
 
-	@Embedded	
+	@Embedded
 	private RazaoSocial razaoSocial;
 
 	@Column(name = "nome_fantasia", nullable = false, unique = true, length = 80)
@@ -60,7 +61,7 @@ public class Empreendimento implements Serializable {
 
 	@Column(name = "data_cadastro", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCadastro;	
+	private Date dataCadastro;
 
 	@Column(name = "data_encerramento", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -79,10 +80,9 @@ public class Empreendimento implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empreendimento")
 	private List<Poco> lstPocos;
 
-	
 	@Transient
 	private boolean isAtivo;
-	
+
 	@Embedded
 	private Endereco endereco;
 
@@ -127,12 +127,12 @@ public class Empreendimento implements Serializable {
 	}
 
 	public Responsavel getResponsavel() {
-		
-		if(responsavel==null) {
-			
+
+		if (responsavel == null) {
+
 			responsavel = new Responsavel();
 		}
-		
+
 		return responsavel;
 	}
 
@@ -147,11 +147,11 @@ public class Empreendimento implements Serializable {
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
 	}
-	
+
 	public RazaoSocial getRazaoSocial() {
-		
-		if(razaoSocial==null) {
-			
+
+		if (razaoSocial == null) {
+
 			razaoSocial = new RazaoSocial();
 		}
 		return razaoSocial;
@@ -170,37 +170,26 @@ public class Empreendimento implements Serializable {
 	}
 
 	public List<Hidrometro> getLstHidrometros() {
-		
-		if(lstHidrometros == null) {
-			
+
+		if (lstHidrometros == null) {
+
 			lstHidrometros = new ArrayList<Hidrometro>();
 		}
-		
+
 		return lstHidrometros;
-	}	
-	
-	
-	public List<Poco> getLstPocos() {
-		return lstPocos;
 	}
 
-	public void setLstPocos(List<Poco> lstPocos) {
-		this.lstPocos = lstPocos;
-	}
-	
-	
-	
 	public void setLstHidrometros(List<Hidrometro> lstHidrometros) {
 		this.lstHidrometros = lstHidrometros;
 	}
-	
+
 	public Endereco getEndereco() {
-		
-		if(endereco==null) {
-			
+
+		if (endereco == null) {
+
 			endereco = new Endereco();
 		}
-		
+
 		return endereco;
 	}
 
@@ -209,14 +198,14 @@ public class Empreendimento implements Serializable {
 	}
 
 	public boolean isOperar() {
-		if(this.dataEncerramento==null) {
+		if (this.dataEncerramento == null) {
 			return true;
-		}else {
+		} else {
 			return false;
-			
+
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -249,6 +238,12 @@ public class Empreendimento implements Serializable {
 		return true;
 	}
 
-	
+	public List<Poco> getLstPocos() {
+		return lstPocos;
+	}
+
+	public void setLstPocos(List<Poco> lstPocos) {
+		this.lstPocos = lstPocos;
+	}
 
 }

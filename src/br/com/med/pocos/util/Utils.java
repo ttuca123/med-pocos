@@ -1,8 +1,12 @@
 package br.com.med.pocos.util;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.text.MessageFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -12,6 +16,13 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 public class Utils {
 
 	public static void addMessage(String summary) {
@@ -19,21 +30,20 @@ public class Utils {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
-	
+
 	public static void addMessageAviso(String summary) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
-	
+
 	public static void addMessageException(String summary) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
-	
-	
+
 	public static String gerarMD5(String texto) {
 		MessageDigest m = null;
-		
+
 		String textoMD5;
 		try {
 			m = MessageDigest.getInstance("MD5");
@@ -42,52 +52,119 @@ public class Utils {
 			e.printStackTrace();
 		}
 		m.update(texto.getBytes(), 0, texto.length());
-		
+
 		textoMD5 = new BigInteger(1, m.digest()).toString();
-		
+
 		return textoMD5;
 	}
-	
-	public static String getMensagem(String chave) {
-		
-		 Locale pt_BR = new Locale("pt", "BR");
 
-		 ResourceBundle bundle = ResourceBundle.getBundle("messages", pt_BR);		    
-		    
-		    
-		 return bundle.getString(chave);
-	}
-	
-	public static void sendEmail() throws EmailException {
-	    
-		   SimpleEmail email = new SimpleEmail();
-		   //Utilize o hostname do seu provedor de email
-		   System.out.println("alterando hostname...");
-		  
-		   email.setHostName("smtp.gmail.com");
-		   
-		   //Quando a porta utilizada não é a padrão (gmail = 465)
-		   email.setSmtpPort(465);
-		   //Adicione os destinatários
-		   email.addTo("ttuca123@gmail.com", "Artur");
-		   //Configure o seu email do qual enviará
-		   email.setFrom("ttuca123@gmail.com", "André");
-		   //Adicione um assunto
-		   email.setSubject("Test message");
-		   //Adicione a mensagem do email
-		   email.setMsg("This is a simple test of commons-email");
-		   //Para autenticar no servidor é necessário chamar os dois métodos abaixo
-		   System.out.println("autenticando...");
-		   email.setSSL(true);
-		   email.setAuthentication("ttuca123@gmail.com", "N12f09Y1988");
-		   
-		   
-		   System.out.println("enviando...");
-		   email.send();
-		   System.out.println("Email enviado!");
+	public static String gerarTokenRandomico() {
+
+		byte[] result = null;
+
+		try {
+			SecureRandom prng = new SecureRandom().getInstance("SHA1PRNG");
+
+			String randomNum = new Integer(prng.nextInt()).toString();
+
+			MessageDigest sha = MessageDigest.getInstance("SHA-1");
+
+			result = sha.digest(randomNum.getBytes());
+
+			// System.out.println("Random Num: " + randomNum);
+
+			// System.out.println("Message Digest: " + hexEncode(result));
+
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	
-	
-	
-	
+
+		return hexEncode(result);
+
+	}
+
+	static private String hexEncode(byte[] aInput) {
+		StringBuilder result = new StringBuilder();
+		char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+		for (int idx = 0; idx < aInput.length; ++idx) {
+			byte b = aInput[idx];
+			result.append(digits[(b & 0xf0) >> 4]);
+			result.append(digits[b & 0x0f]);
+		}
+		return result.toString();
+	}
+
+	public static String getMensagem(String chave) {
+
+		Locale local = new Locale("pt", "BR");
+
+		ResourceBundle bundle = ResourceBundle.getBundle("messages", local);
+
+		return bundle.getString(chave);
+	}
+
+	/**
+	 * Método que retorna uma String com a mensagem internacionalizada com
+	 * parametros.<br />
+	 * 
+	 * @param key
+	 *            - chave de identificação da mensagem.<br />
+	 * @param params
+	 *            - parametros que possui na mensagem. <br />
+	 * @return
+	 */
+
+	public static String getMensagem(String key, Object... params) {
+
+		Locale local = new Locale("pt", "BR");
+
+		ResourceBundle bundle = ResourceBundle.getBundle("messages", local);
+
+		String mensagemParametrizada = MessageFormat.format(bundle.getString(key), params);
+
+		return mensagemParametrizada;
+	}
+
+	public static String criarTokenJWT(String email) {
+
+		String token = null;
+
+		long nowMillis = System.currentTimeMillis();
+
+		// Configura a expiração para 20 minutos após a geração do token
+		long ttlMillis = 1200000;
+
+		long expMillis = nowMillis + ttlMillis;
+		Date dataExpiracao = new Date(expMillis);
+
+		try {
+
+			Algorithm algorithm = Algorithm.HMAC256("secret");
+			token = JWT.create().withIssuer(email.trim()).withExpiresAt(dataExpiracao).sign(algorithm);
+
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JWTCreationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return token;
+	}
+
+	public static String verificarTokenJWT(String token, String email)
+			throws IllegalArgumentException, UnsupportedEncodingException {
+
+		Algorithm algorithm = Algorithm.HMAC256("secret");
+		JWTVerifier verifier = JWT.require(algorithm).withIssuer(email.trim()).build();
+		DecodedJWT jwt = verifier.verify(token);
+
+		return jwt.getIssuer();
+	}
+
 }

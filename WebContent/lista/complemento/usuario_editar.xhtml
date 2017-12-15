@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+		crossorigin="anonymous" />
+
+	<link rel="stylesheet" href=".../../css/sigin.css" />
+	<link rel="stylesheet" href="../../css/estilo.css" />
+	
+</h:head>
+<h:body styleClass="w3-row-padding">
+	
+	
+	<h:form id="form">
+	
+	<p:dialog header="Novo Usuário" widgetVar="usuarioDetail"
+			modal="true" hideEffect="explode" showEffect="bounce"
+			closeOnEscape="true" maximizable="true" id="dialogEditar" 
+			resizable="true">
+
+
+			<p:outputPanel id="usuarioEditar" 
+				style="text-align:center; width:600px;">
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
+					<div class="col-10">
+						<p:inputText id="nome" class="form-control"
+							required="true" 
+							requiredMessage="O campo Nome é obrigatório"
+							a:placeholder="Por favor digite seu nome"
+							value="#{usuarioBean.usuario.nome}" />
+					</div>
+				</div>
+				<p:message for="nome" />
+				
+
+				<div class="form-group row">
+					<label for="example-text-input" class="col-2 col-form-label">Sobrenome</label>
+					<div class="col-10">
+						<p:inputText id="sobrenome" class="form-control"
+							required="true"
+							requiredMessage="O campo Sobrenome é obrigatório"
+							a:placeholder="Por favor digite seu sobrenome"
+							value="#{usuarioBean.usuario.sobrenome}" >							 
+							</p:inputText>
+					</div>
+				</div>
+					<p:message for="sobrenome" />
+				
+				<div class="form-group row">
+					<label for="example-email-input" class="col-2 col-form-label">Email</label>
+					<div class="col-10">
+						<p:inputText id="email" class="form-control"
+							a:placeholder="Por favor digite seu email"
+							value="#{usuarioBean.usuario.email}" 
+							required="true"
+						    requiredMessage="O campo Email é obrigatório" >
+						     <f:validator for="email" validatorId="validator.EmailValidator" />
+						    </p:inputText>
+					</div>
+				</div>
+				<p:message for="email" />			
+				
+				
+				<div class="form-group row">
+					<label for="phone" class="col-2 col-form-label">Celular</label>
+					<div class="col-10">
+						<p:inputMask id="fone" class="form-control" value="#{usuarioBean.usuario.telefone}"
+							mask="(999)99999-9999" size="30" required="true"
+						   requiredMessage="O campo Telefone é obrigatório" >						   
+						   <f:converter converterId="converter.FoneConverter" />
+						   </p:inputMask>
+					</div>
+				</div>
+					<p:message for="fone" />
+				
+
+				<p:separator />			
+
+				<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
+					action="#{usuarioBean.salvar}" 
+					update="messages2, formExibir" icon="ui-icon-disk" />
+
+				<p:growl id="messages2" />
+			</p:outputPanel>
+
+		</p:dialog>
+	
+	</h:form>
+
+
+
+</h:body>
+</html>

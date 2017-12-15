@@ -42,15 +42,13 @@ public class Responsavel implements Serializable {
 	public Responsavel() {
 		super();
 	}	
-
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)	
 	@Column(name = "seq_responsavel", columnDefinition = "serial not null")
 	private Long seqResponsavel;
 
-	@Column(name = "nome", length=80, nullable=false, unique = true)
+	@Column(name = "nome", length=80, nullable=false)
 	private String nome;
 
 	@Column(name = "cpf", length=11, nullable=false, unique = true )

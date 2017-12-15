@@ -9,11 +9,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.med.pocos.enu.EnumTipoHidrometro;
@@ -22,13 +22,11 @@ import br.com.med.pocos.enu.EnumTipoHidrometro;
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosAtivos", query = "select h from Hidrometro h where h.isAtivo = true order by h.registro asc"),
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosDuplicados", query = "select h from Hidrometro h where h.registro like :registro"),
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosByEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento = :seqEmpreendimento order by h.registro asc"),
-		@NamedQuery(name = "Hidrometro.buscaHidrometrosSemEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento is null	 order by h.registro asc")})
+		@NamedQuery(name = "Hidrometro.buscaHidrometrosSemEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento is null	 order by h.registro asc") })
 @Entity
 @Table(name = "hidrometro")
 
 public class Hidrometro implements Serializable {
-
-	
 
 	private static final long serialVersionUID = 6310925639705761062L;
 
@@ -41,18 +39,11 @@ public class Hidrometro implements Serializable {
 	@Column(name = "tipo_hidrometro")
 	private EnumTipoHidrometro tipoHidrometro;
 
-	
 	@Column(name = "registro", length = 10, unique = true)
 	private String registro;
 
-	
-		@Column(name = "lacre", length = 12)
-	private String lacre;	
-	
-	
-
-	@Column(name = "compl_longitude", length=1)
-	private Character compLongitude;	
+	@Column(name = "lacre", length = 12)
+	private String lacre;
 
 	@Column(name = "vazao_maxima")
 	private Double vazaoMaxima;
@@ -63,6 +54,10 @@ public class Hidrometro implements Serializable {
 	@ManyToOne(optional = true, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "empreendimento_hidrometro")
 	private Empreendimento empreendimento;
+
+	@OneToOne
+	@JoinColumn(name = "hidrometro_poco")
+	private Poco poco;
 
 	public Long getSeqHidrometro() {
 		return seqHidrometro;
@@ -96,22 +91,6 @@ public class Hidrometro implements Serializable {
 		this.lacre = lacre;
 	}
 
-	/*public String getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-*/
 	public boolean isAtivo() {
 		return isAtivo;
 	}
@@ -135,21 +114,13 @@ public class Hidrometro implements Serializable {
 	public void setVazaoMaxima(Double vazaoMaxima) {
 		this.vazaoMaxima = vazaoMaxima;
 	}
-	
-/*	public Character getCompLatitude() {
-		return compLatitude;
+
+	public Poco getPoco() {
+		return poco;
 	}
 
-	public void setCompLatitude(Character compLatitude) {
-		this.compLatitude = compLatitude;
-	}
-*/
-	public Character getCompLongitude() {
-		return compLongitude;
-	}
-
-	public void setCompLongitude(Character compLongitude) {
-		this.compLongitude = compLongitude;
+	public void setPoco(Poco poco) {
+		this.poco = poco;
 	}
 
 	@Override
@@ -182,4 +153,5 @@ public class Hidrometro implements Serializable {
 			return false;
 		return true;
 	}
+
 }

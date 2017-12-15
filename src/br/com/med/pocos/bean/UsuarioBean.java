@@ -6,16 +6,26 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import br.com.med.pocos.exception.UsuarioNaoEncontradoException;
 import br.com.med.pocos.model.Usuario;
+import br.com.med.pocos.services.LoginService;
 import br.com.med.pocos.services.UsuarioService;
+import br.com.med.pocos.util.EmailService;
 import br.com.med.pocos.util.Utils;
+
+/**
+ * 
+ * @author Artur
+ * @version 1.0
+ * 
+ *          Página responsável pelo crud dos usuários do sistema
+ *
+ */
 
 @ManagedBean(name = "usuarioBean")
 @ViewScoped
@@ -23,7 +33,9 @@ public class UsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = -4970294226807286353L;
 
-	private Usuario usuario = new Usuario();
+	private Usuario usuario;
+
+	private boolean todos;
 
 	@ManagedProperty(value = "#{usuarios}")
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -33,68 +45,112 @@ public class UsuarioBean implements Serializable {
 	@EJB
 	private UsuarioService usuarioService;
 
+	@EJB
+	private LoginService loginService;
+
+	@EJB
+	private EmailService emailService;
+
 	public void novo() {
 
-		usuario = new Usuario();
-	
+		usuario = new Usuario();		
 	}
 
 	@PostConstruct
 	public void inicializar() {
 
-		getListar();
-		
+		novo();
 	}
+
+	
 
 	public void salvar() {
 
 		try {
 			usuarioService.salvar(usuario);
+
+			loginService.enviarTokenEmail(usuario);			
 			
 			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
+			
+			Utils.addMessage(Utils.getMensagem("page.login.btn.forgot.password.send.success"));
 
-			novo();
-			
 			getListar();
+		} catch (UsuarioNaoEncontradoException e) {
+
+			Utils.addMessageException(e.getMessage());
+		
 		} catch (Exception e) {
-			
-			addMessageException(Utils.getMensagem("page.cadastro.salvar.erro"));
-			e.printStackTrace();
+			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
 		}
 
 	}
-	
-	
+
 	public void excluir(ActionEvent actionEvent) {
 
 		try {
 
-			usuarioService.deletar(usuario);			
-			
-			addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
-			
+			usuarioService.deletar(usuario);
+
+			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
+
 			getListar();
 
 		} catch (Exception e) {
-			
-			addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
-			e.printStackTrace();
+
+			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
+
 		}
 	}
 
-	public String getListar() {
+	public void getListar() {
 
-		usuarios = (List<Usuario>) usuarioService.listar();
+		try {
 
-		return "listar_usuarios";
+			usuarios = (List<Usuario>) usuarioService.listar();
+
+		} catch (Exception e) {
+
+			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+		}
+
 	}
 
-	public List<Usuario> getUsuarios() {
+	public List<Usuario> getListarUsuariosAtivos() {
+
+		try {
+
+			usuarios = (List<Usuario>) usuarioService.listar();
+
+		} catch (Exception e) {
+
+			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+		}
+
 		return usuarios;
+
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public int getTotal() {
+		if (usuarios != null) {
+
+			return usuarios.size();
+		} else {
+
+			return 0;
+		}
+
+	}
+
+	public void filtrar() {
+
+		if (todos) {
+			getListar();
+		} else {
+
+			usuarios = (List<Usuario>) usuarioService.listar(usuario);
+
+		}
 	}
 
 	public Usuario getUsuario() {
@@ -105,36 +161,36 @@ public class UsuarioBean implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public List<String> getFilterUsuario() {
+	public boolean isTodos() {
+		return todos;
+	}
 
-		List<String> filtro = new ArrayList<String>();
+	public void setTodos(boolean todos) {
+		this.todos = todos;
+	}
 
-		for (Usuario usuario : usuarios) {
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
 
-			filtro.add(usuario.getNome());
-
-		}
-
-		return filtro;
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	public List<Usuario> getFilteredUsuarios() {
 		return filteredUsuarios;
 	}
 
-	public void setFilteredBandas(List<Usuario> filteredUsuarios) {
+	public void setFilteredUsuarios(List<Usuario> filteredUsuarios) {
 		this.filteredUsuarios = filteredUsuarios;
 	}
 
-	public void addMessage(String summary) {
-
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
 	}
 
-	public void addMessageException(String summary) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 
 }

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:include src="header.xhtml"></ui:include>
+	<h:head>	
+		<title>Med-Poços - Login</title>
+	</h:head>
+<h:body styleClass="estiloLogin">		
+		
+		<div class="container">
+			<p:growl id="growl" life="3000" />
+		<ui:include src="ajax/ajax.xhtml" />
+
+		<f:metadata>
+			<f:viewParam name="token" value="#{resetPasswordBean.token}" />			
+		</f:metadata>	
+			
+			
+
+			<h:form class="form-signin">
+
+
+				<h2 align="center">
+					<div class="form-signin-heading">
+						<h:outputLabel value="#{msg['page.login.btn.forgot.password.title']}" style="font-family: 'Montserrat', 'sans-serif'" />
+					</div>
+				</h2>
+				<p:panel >					
+
+					<div class="form-group row">
+						
+						<div class="col-10">
+							<p:inputText id="email" class="form-control" style="font-family: 'Montserrat', 'sans-serif'"
+								a:placeholder="#{msg['page.login.email.confirm']}"
+								value="#{resetPasswordBean.usuario.email}" />	
+						</div>
+					</div>
+					<div class="form-group row">						
+						<div class="col-10">
+							<p:password id="senha" class="form-control" size="12"
+								maxlength="12" a:placeholder="#{msg['page.login.password.confirm']}" 
+								value="#{resetPasswordBean.usuario.senha}" 
+								required="true"	requiredMessage="O campo Senha é obrigatório"/>								
+						</div>
+					</div>
+					<p:message for="senha" />			
+
+					<p:commandLink class="btn btn-primary btn-lg btn-block"
+						ajax="true" action="#{resetPasswordBean.verificarToken}"
+						value="#{msg['page.save']}" update="growl" style="font-family: 'Montserrat', 'sans-serif'"/>						
+					
+				</p:panel>
+			</h:form>
+			
+			<h:form name="formPrincipal">
+				<p:commandLink ajax="false" class="btn btn-info" style="color: white; "
+							action="loginPage" value="#{msg['page.back']}"
+							update="display">
+					</p:commandLink>
+				
+			</h:form>
+			<ui:include src="menu/rodape.xhtml"></ui:include>
+			
+		</div>
+
+	
+
+</h:body>
+
+</html>

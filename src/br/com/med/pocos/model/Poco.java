@@ -26,7 +26,11 @@ public class Poco implements Serializable {
 	private String nrPoco;
 
 	@OneToOne
-	@JoinColumn(name = "empreendimento_poco", nullable = false)
+	@JoinColumn(name = "hidrometro_poco")
+	private Hidrometro hidrometro;
+	
+	@OneToOne
+	@JoinColumn(name = "empreendimento_poco")
 	private Empreendimento empreendimento;
 
 	@Column(name = "longitude")
@@ -99,19 +103,19 @@ public class Poco implements Serializable {
 		this.nrPoco = nrPoco;
 	}
 
-	public Empreendimento getEmpreendimento() {
-		return empreendimento;
+	public Hidrometro getHidrometro() {
+		return hidrometro;
 	}
 
-	public void setEmpreendimento(Empreendimento empreendimento) {
-		this.empreendimento = empreendimento;
+	public void setHidrometro(Hidrometro hidrometro) {
+		this.hidrometro = hidrometro;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((empreendimento == null) ? 0 : empreendimento.hashCode());
+		result = prime * result + ((hidrometro == null) ? 0 : hidrometro.hashCode());
 		result = prime * result + ((seqPoco == null) ? 0 : seqPoco.hashCode());
 		return result;
 	}
@@ -125,10 +129,10 @@ public class Poco implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Poco other = (Poco) obj;
-		if (empreendimento == null) {
-			if (other.empreendimento != null)
+		if (hidrometro == null) {
+			if (other.hidrometro != null)
 				return false;
-		} else if (!empreendimento.equals(other.empreendimento))
+		} else if (!hidrometro.equals(other.hidrometro))
 			return false;
 		if (seqPoco == null) {
 			if (other.seqPoco != null)
@@ -138,6 +142,15 @@ public class Poco implements Serializable {
 		return true;
 	}
 
+	public Empreendimento getEmpreendimento() {
+		return empreendimento;
+	}
+
+	public void setEmpreendimento(Empreendimento empreendimento) {
+		this.empreendimento = empreendimento;
+	}
+
+	
 	
 
 	

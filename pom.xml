@@ -8,6 +8,14 @@
 
 	<dependencies>
 
+
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -156,7 +164,6 @@
 	<build>
 		<finalName>med-pocos-teste</finalName>
 		<sourceDirectory>src</sourceDirectory>
-
 		<resources>
 			<resource>
 				<directory>src</directory>

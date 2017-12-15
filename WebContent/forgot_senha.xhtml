@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:include src="header.xhtml"></ui:include>
+	<h:head>	
+		<title>Med-Poços - Login</title>
+	</h:head>
+<h:body styleClass="estiloLogin">	
+
+		<f:metadata>
+			<f:viewParam name="token" value="#{resetPasswordBean.token}" />			
+		</f:metadata>	
+		
+		<div class="container">
+		<p:growl id="growl" life="2000" />
+		<ui:include src="ajax/ajax.xhtml" />	
+
+
+			<h:form class="form-signin">
+			
+			
+
+			
+
+
+				<h2 align="center">
+					<div class="form-signin-heading">
+						<h:outputLabel value="#{msg['page.login.btn.forgot.password.title']}" style="font-family: 'Montserrat', 'sans-serif'" />
+					</div>
+				</h2>
+				<p:panel >					
+					
+					<p:inputText id="email" class="form-control" style="font-family: 'Montserrat', 'sans-serif'"
+						a:placeholder="#{msg['page.login.user.desc']}" value="#{resetPasswordBean.usuario.email}"
+						required="true"	requiredMessage="O campo Email é obrigatório">						
+						<f:validator for="email" validatorId="validator.EmailValidator" />						
+					</p:inputText>				
+					
+					<p:commandLink class="btn btn-primary btn-lg btn-block"
+						ajax="true" action="#{resetPasswordBean.enviarTokenEmail}"
+						value="#{msg['page.login.btn.forgot.password.send']}" update="growl" style="font-family: 'Montserrat', 'sans-serif'"/>	
+						
+										
+					
+				</p:panel>
+			</h:form>
+			
+			<h:form name="formPrincipal">
+				<p:commandLink ajax="false" class="btn btn-info" style="color: white; "
+							action="loginPage" value="#{msg['page.back']}"
+							update="display">
+					</p:commandLink>
+				
+			</h:form>
+			
+			<ui:include src="menu/rodape.xhtml"></ui:include>
+			
+		</div>
+
+	
+
+</h:body>
+
+</html>

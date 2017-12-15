@@ -21,14 +21,15 @@ import javax.persistence.TemporalType;
 @NamedQueries(value = {
 		@NamedQuery(name = "Usuario.buscaUsuarios", query = "select u from Usuario u where u.isAtivo = true "),
 
-		@NamedQuery(name = "Usuario.verificaUsuario", query = "select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true") })
+		@NamedQuery(name = "Usuario.verificaUsuario", query = "select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true"),
+		@NamedQuery(name = "Usuario.findUserByEmail", query = "select u from Usuario u where u.email = :email")
+		})
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 	@Id
 	// @GeneratedValue(strategy = GenerationType.AUTO)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	@Column(name = "seq_usuario", columnDefinition = "serial not null")
 	private Long seqUsuario;
 

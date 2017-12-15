@@ -13,224 +13,164 @@
 		integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
 		crossorigin="anonymous" />
 
-	<link rel="stylesheet" href="css/sigin.css" />
-	<title>Lista de Usuários</title>
+	<link rel="stylesheet" href="../css/sigin.css" />
+	<link rel="stylesheet" href="../css/estilo.css" />
+	<title>Lista de Responsáveis</title>
 </h:head>
-<h:body styleClass="w3-row-padding ">
+<h:body styleClass="filtro">
 
-<ui:include src="../ajax.xhtml" />
+	<ui:include src="../ajax/ajax.xhtml" />
 
-<div class="page-header" align="center">
+	<div class="page-header" align="center">
+		<h3 class="display-4" style="font-family: 'Montserrat', 'sans-serif'">Lista de Usuários</h3>
 
-</div>
-	<div class="jumbotron">
-
-		<h3 align="center" class="display-4"><h:outputLabel value="#{msg['page.lista.usuarios']}" /></h3>
 	</div>
+	<p:separator style="border-color: white;"></p:separator>
+	<h:form>
+		<div align="left">
 
-	<h:form>		
-			
-			<div class="container-fluid">
-			<div class="form-group row">				
-					<div class="col-2 col-form-label">
-						
-						<h:commandLink  styleClass="btn btn-link" ajax="false"
-									action="painelPrincipal" value="#{msg['page.back']}"
-									update="display" />
-													
-					</div>						
-					<div class="col-2 col-form-label">
-							<p:commandLink class="btn btn-success btn-lg" 
-							update=":form:usuarioDetail" immediate="true"
-							oncomplete="PF('usuarioDialog').show()"
-							action="#{usuarioBean.novo}">
-
-							<b><h:outputText value="Novo *" /> </b>
-
-						</p:commandLink>
-					</div>
-						
-				</div>
-			</div>		
-			<div class="form-group">
-				<div class="control-label col-sm-2">
-					
-					<p class="lead">
-						
-					
-						
-					</p>
-				</div>
-			</div>
-		
+			<p:commandLink ajax="false" class="btn btn-info" style="color: white; "
+				action="painelPrincipal" value="#{msg['page.back']}"
+				update="display">
+			</p:commandLink>
+		</div>
 	</h:form>
-<p:separator />
+	<p:separator style="border-color: white;"></p:separator>
+	<h:form id="formUsuarios" styleClass="estiloFiltro">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="container-fluid">
+					<h2 style="font-family: 'Montserrat', 'sans-serif'">Filtros</h2>
+					<p />
+					<p:outputPanel id="painel">
+						<div class="row">
+							
+
+						</div>
+					</p:outputPanel>
+				</div>
+
+				
+					<p:separator style="border-color: white;"></p:separator>
+					<p:commandLink id="btnFilter"
+						class="btn btn-primary btn-lg btn-block"
+						update=":formExibir:tblUsuarios" immediate="true"
+						actionListener="#{usuarioBean.listar}">
+	
+						<b><h:outputText value="Buscar" /> </b>
+	
+					</p:commandLink>
+
+				
+				<p:commandLink class="btn btn-success btn-lg btn-block"
+					update=":formNovo:usuarioNovo" immediate="true"
+					oncomplete="PF('usuarioDialogNovo').show()"
+					action="#{usuarioBean.novo}">
+
+					<b><h:outputText value="Novo *" style="font-family: 'Montserrat', 'sans-serif'"/> </b>
+
+				</p:commandLink>
+
+			</div>
+		</div>
+	</h:form>
+
+
+	<p:separator style="border-color: white;"></p:separator>
 	<h:form id="formExibir">
 
 		<p:growl id="growl" autoUpdate="true" life="2000" />
 
 
-		<p:dataTable id="tblUsuarios" var="usuario"
+		<p:dataTable id="tblUsuarios" var="responsavel"
+			style="font-family: 'Montserrat', 'sans-serif'"
 			filteredValue="#{usuarioBean.filteredUsuarios}"
-			value="#{usuarioBean.usuarios}" rows="20" paginator="true"
-			widgetVar="usuariosTable" scrollable="true" styleClass="paginated"
+			value="#{usuarioBean.usuarios}" rows="10" paginator="true"
+			widgetVar="usuariosTable" scrollable="true"
+			styleClass="paginated" rowIndexVar="rowIndex"
 			emptyMessage="Nenhum usuário encontrado com os critérios selecionados"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
 			<f:facet name="header">
 				<p:outputPanel>
-					<h:outputText value="Usuários:" />
+					<h2><h:outputText value="Lista de Usuários:"
+						style="font-family: 'Montserrat', 'sans-serif'" /></h2>
 				</p:outputPanel>
 
 			</f:facet>
-
-			<p:column headerText="Nome" style="width:200px"
-				filterMatchMode="contains" filterStyle="width:200px" width="200px">
-				<h:outputText value="#{usuario.nome}" style="display:inline-block" />
-
-			</p:column>
-
-			<p:column headerText="Sobrenome">
-				<h:outputText value="#{usuario.sobrenome}" />
-			</p:column>
-
-			<p:column headerText="Telefone">
-				<h:outputText value="#{usuario.telefone}" />
-			</p:column>
-			<p:column headerText="Email">
-				<h:outputText value="#{usuario.email}" />
-			</p:column>
-
-			<p:column headerText="#{msg['page.editar']}" style="width:100px" width="100px">
-				<p:commandLink update=":form:usuarioDetail"
-					oncomplete="PF('usuarioDialog').show()" title="Detalhar"
-					styleClass="ui-icon ui-icon-search"
-					style="float:left;margin-right:10px">
-					<f:setPropertyActionListener value="#{usuario}"
-						target="#{usuarioBean.usuario}" />
-				</p:commandLink>
-			</p:column>
-
-			<p:column headerText="#{msg['page.excluir']}" style="width:100px" width="100px">
-
-				<p:commandLink title="#{msg['page.excluir']}" update=":formExcluir:Excluir"
-					oncomplete="PF('confirmation').show()" immediate="true">
-					<p:graphicImage value="../images/del.png" width="25px"
-						style="padding-left:10px" />
-					<f:setPropertyActionListener value="#{usuario}"
-						target="#{usuarioBean.usuario}" />
-				</p:commandLink>
-
-
-			</p:column>
-		</p:dataTable>
-	</h:form>
-
-	<h:form id="formExcluir">
-
-		<p:confirmDialog id="Excluir" closeOnEscape="true"
-			message="Confirma exclusão do usuário #{usuarioBean.usuario.nome} #{usuarioBean.usuario.sobrenome}?"
-			header="Excluir" severity="alert" widgetVar="confirmation">
-
-			
-			
-			<p:commandLink value="Sim" 
-				styleClass="btn btn-danger btn-lg btn-block" 
-				actionListener="#{usuarioBean.excluir}"
-				onclick="PF('confirmation').hide()" update=":formExibir:tblUsuarios"
-				immediate="true" />
-
-			<p:commandLink value="Não" 
-				styleClass="btn btn-primary btn-lg btn-block" 
-				onclick="PF('confirmation').hide()" />			
-
-		</p:confirmDialog>
-	</h:form>
-
-
-	<h:form id="form">
-		<p:dialog header="Usuário" widgetVar="usuarioDialog"
-			modal="true" hideEffect="explode" showEffect="bounce"
-			closeOnEscape="true" maximizable="true" id="dialogCadastrar"
-			resizable="true">	
-			
-			
-			<p:outputPanel id="usuarioDetail" style="text-align:center; width:600px;">
-				
-				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
-					<div class="col-10">
-						<p:inputText id="nome" class="form-control"
-							required="true" 
-							requiredMessage="O campo Nome é obrigatório"
-							a:placeholder="Por favor digite seu nome"
-							value="#{usuarioBean.usuario.nome}" />
-					</div>
-				</div>
-				<p:message for="nome" />
-				
-				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label">Sobrenome</label>
-					<div class="col-10">
-						<p:inputText id="sobrenome" class="form-control"
-							required="true"
-							requiredMessage="O campo Sobrenome é obrigatório"
-							a:placeholder="Por favor digite seu sobrenome"
-							value="#{usuarioBean.usuario.sobrenome}" >							 
-							</p:inputText>
-					</div>
-				</div>
-					<p:message for="sobrenome" />
-				
-				<div class="form-group row">
-					<label for="example-email-input" class="col-2 col-form-label">Email</label>
-					<div class="col-10">
-						<p:inputText id="email" class="form-control"
-							a:placeholder="Por favor digite seu email"
-							value="#{usuarioBean.usuario.email}" 
-							required="true"
-						    requiredMessage="O campo Email é obrigatório" >
-						     <f:validator for="email" validatorId="validator.EmailValidator" />
-						    </p:inputText>
-					</div>
-				</div>
-				<p:message for="email" />
-
-				<div class="form-group row">
-					<label for="example-tel-input" class="col-2 col-form-label">Senha</label>
-					<div class="col-10">
-						<p:password id="senha" class="form-control" size="12"
-							maxlength="12" a:placeholder="Por favor digite uma senha"
-							value="#{usuarioBean.usuario.senha}" 
-							required="true"	requiredMessage="O campo Senha é obrigatório"/>
-					</div>
-				</div>
-					<p:message for="senha" />
+				<p:column 
+				headerText="#"  
+				style="width:50px" 				
+				>
+				<div align="center">
 					
-				<div class="form-group row">
-					<label for="phone" class="col-2 col-form-label">Celular</label>
-					<div class="col-10">
-						<p:inputMask id="fone" class="form-control" value="#{usuarioBean.usuario.telefone}"
-							mask="(999)99999-9999" size="30" required="true"
-						   requiredMessage="O campo Telefone é obrigatório" >						   
-						   <f:converter converterId="converter.FoneConverter" />
-						   </p:inputMask>
-					</div>
+        			<h:outputText value="#{rowIndex+1}" />
+    			
 				</div>
-					<p:message for="fone" />
-			<p:separator />		
-			
-			<p:growl id="messages" />		
-			
-			<p:commandLink class="btn btn-success btn-lg btn-block"  value="Save" actionListener="#{usuarioBean.salvar}"
-						update="messages, formExibir" icon="ui-icon-disk" />	
-				
+			</p:column>
 
-			</p:outputPanel>
 
-		</p:dialog>
+			<p:column filterBy="#{usuario.nome}" headerText="Nome"
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px" sortBy="#{usuario.nome}">
+				<div align="center">
+					<h:outputText value="#{usuario.nome}"
+						style="display:inline-block" />
+				</div>
+
+			</p:column>			
+
+			<p:column headerText="Email" filterBy="#{usuario.email}" 
+				style="width:400px font-family: 'Montserrat', 'sans-serif'" filterMatchMode="contains"
+				filterStyle="width:400px" width="400px"
+				sortBy="#{usuario.email}" >
+				<div align="center">
+					<h:outputText value="#{usuario.email}" style="font-family: 'Montserrat', 'sans-serif'"/>
+				</div>
+			</p:column>
+			
+			<p:column headerText="Editar" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+				<div align="center">
+					<p:commandLink update=":form:usuarioEditar"
+						oncomplete="PF('usuarioDialog').show()" title="Detalhar"
+						styleClass="ui-icon ui-icon-search" immediate="true"
+						style="float:left;margin-right:10px">
+						<f:setPropertyActionListener value="#{usuario}"
+							target="#{usuarioBean.usuario}" />
+					</p:commandLink>
+				</div>
+			</p:column>
+
+			<p:column headerText="Excluir" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
+				<div align="center">
+					<p:commandLink title="Excluir" update=":formExcluir:Excluir"						
+						oncomplete="PF('confirmation').show()" immediate="true">
+						<p:graphicImage value="../images/del.png" width="25px"
+							style="padding-left:10px" />
+						<f:setPropertyActionListener value="#{usuario}"
+							target="#{usuarioBean.usuario}" />
+						
+					</p:commandLink>
+				</div>
+
+
+			</p:column>		 
+			
+		</p:dataTable>
+		
+		<div class="alert alert-info" align="right">
+			  <strong>Total: </strong> <h:outputLabel value="#{responsavelBean.total}" />
+		</div>
 
 	</h:form>
+
+	<ui:include src="complemento/usuario_excluir.xhtml" />
+
+	<ui:include src="complemento/usuario_editar.xhtml" />
+
+	<ui:include src="complemento/usuario_novo.xhtml" />
+
 
 
 

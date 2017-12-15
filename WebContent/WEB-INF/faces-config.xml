@@ -98,6 +98,17 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>resetarSenha</from-outcome>
+			<to-view-id>/forgot_senha.xhtml?faces-redirect=true</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	
 
 
 	<navigation-rule>
