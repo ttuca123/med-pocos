@@ -1,3 +1,4 @@
+D:\workspace-web\med-pocos\src\br\com\med\pocos\filter\LoginFilter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Responsavel_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Responsavel.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\HidrometroServiceImpl.java
@@ -16,11 +17,11 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Poco.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\UsuarioServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Empreendimento_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EntityManagerServiceImpl.java
-D:\workspace-web\med-pocos\src\br\com\med\pocos\listener\LoginPhaseListener.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Outorga.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\util\EmailService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EmpreendimentoServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Hidrometro_.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\ResetPasswordBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\EmpreendimentoConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Monitoramento.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumMes.java
@@ -29,6 +30,7 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\ResponsavelBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\HidrometroService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\TipoHidrometroConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Empresa.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumPermissao.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EmpreendimentoService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\RazaoSocial_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Usuario_.java
@@ -38,7 +40,9 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\services\UsuarioService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Usuario.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\DecimalConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\filter\AcessoFilter.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\PermissaoConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EntityManagerService.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\exception\UsuarioNaoEncontradoException.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\validator\MoedaValidator.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Endereco_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\CoordenadasConverter.java
@@ -49,6 +53,7 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\util\DataUtils.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\GrausConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\EmpreendimentoBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\CepConverter.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Permissao.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\GenericService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\util\Utils.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\HidrometroConverter.java
@@ -56,10 +61,11 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\model\HistoricoMonitoramento.jav
 D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\HidrometroBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumTipoMonitoramento.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Portaria.java
-D:\workspace-web\med-pocos\src\br\com\med\pocos\model\PasswordResetToken.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\LoginServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\RazaoSocial.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\validator\CnpjValidator.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Hidrometro.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\exception\RegistroDuplicadoException.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Empreendimento.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\LoginService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\validator\CpfValidator.java

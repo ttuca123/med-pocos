@@ -26,7 +26,7 @@ public class Poco implements Serializable {
 	private String nrPoco;
 
 	@OneToOne
-	@JoinColumn(name = "hidrometro_poco")
+	@JoinColumn(name = "hidrometro_poco", nullable = true)
 	private Hidrometro hidrometro;
 	
 	@OneToOne

@@ -55,8 +55,8 @@
 					<p:separator style="border-color: white;"></p:separator>
 					<p:commandLink id="btnFilter"
 						class="btn btn-primary btn-lg btn-block"
-						update=":formExibir:tblUsuarios" immediate="true"
-						actionListener="#{usuarioBean.listar}">
+						update=":formExibir" immediate="true"
+						actionListener="#{usuarioBean.getListar}">
 	
 						<b><h:outputText value="Buscar" /> </b>
 	
@@ -83,7 +83,7 @@
 		<p:growl id="growl" autoUpdate="true" life="2000" />
 
 
-		<p:dataTable id="tblUsuarios" var="responsavel"
+		<p:dataTable id="tblUsuarios" var="usuario"
 			style="font-family: 'Montserrat', 'sans-serif'"
 			filteredValue="#{usuarioBean.filteredUsuarios}"
 			value="#{usuarioBean.usuarios}" rows="10" paginator="true"
@@ -130,10 +130,18 @@
 				</div>
 			</p:column>
 			
+			<p:column headerText="Permissões" 
+				style="width:400px font-family: 'Montserrat', 'sans-serif'"				
+				 >
+				<div align="center">
+					<h:outputText value="#{usuario.lstPermissaoDesc}" style="font-family: 'Montserrat', 'sans-serif'"/>
+				</div>
+			</p:column>
+			
 			<p:column headerText="Editar" style="width:100px; font-family: 'Montserrat', 'sans-serif'">
 				<div align="center">
 					<p:commandLink update=":form:usuarioEditar"
-						oncomplete="PF('usuarioDialog').show()" title="Detalhar"
+						oncomplete="PF('usuarioDetail').show()" title="Detalhar"
 						styleClass="ui-icon ui-icon-search" immediate="true"
 						style="float:left;margin-right:10px">
 						<f:setPropertyActionListener value="#{usuario}"
@@ -160,7 +168,7 @@
 		</p:dataTable>
 		
 		<div class="alert alert-info" align="right">
-			  <strong>Total: </strong> <h:outputLabel value="#{responsavelBean.total}" />
+			  <strong>Total: </strong> <h:outputLabel value="#{usuarioBean.total}" />
 		</div>
 
 	</h:form>

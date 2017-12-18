@@ -67,13 +67,11 @@ public class UsuarioBean implements Serializable {
 	public void salvar() {
 
 		try {
-			usuarioService.salvar(usuario);
-
-			loginService.enviarTokenEmail(usuario);			
+			usuarioService.salvar(usuario);					
 			
 			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
 			
-			Utils.addMessage(Utils.getMensagem("page.login.btn.forgot.password.send.success"));
+			enviarEmailNovoCadastro();
 
 			getListar();
 		} catch (UsuarioNaoEncontradoException e) {
@@ -84,6 +82,17 @@ public class UsuarioBean implements Serializable {
 			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
 		}
 
+	}
+	
+	private void enviarEmailNovoCadastro() throws UsuarioNaoEncontradoException {
+		
+		if(usuario.getSeqUsuario()==null) {
+			
+			loginService.enviarTokenEmail(usuario);	
+			
+			Utils.addMessage(Utils.getMensagem("page.login.btn.forgot.password.send.success"));
+		}
+		
 	}
 
 	public void excluir(ActionEvent actionEvent) {
@@ -113,7 +122,8 @@ public class UsuarioBean implements Serializable {
 
 			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
 		}
-
+		
+		
 	}
 
 	public List<Usuario> getListarUsuariosAtivos() {

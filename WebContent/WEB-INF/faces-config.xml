@@ -19,9 +19,7 @@
 	</application>
 
 
-	<lifecycle>
-		<phase-listener>br.com.med.pocos.listener.LoginPhaseListener</phase-listener>
-	</lifecycle>	
+		
 	
 	<navigation-rule>
 		<from-view-id>/*</from-view-id>

@@ -1,18 +1,23 @@
 package br.com.med.pocos.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * Entity implementation class for Entity: Usuario
@@ -20,15 +25,13 @@ import javax.persistence.TemporalType;
  */
 @NamedQueries(value = {
 		@NamedQuery(name = "Usuario.buscaUsuarios", query = "select u from Usuario u where u.isAtivo = true "),
-
 		@NamedQuery(name = "Usuario.verificaUsuario", query = "select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true"),
-		@NamedQuery(name = "Usuario.findUserByEmail", query = "select u from Usuario u where u.email = :email")
-		})
+		@NamedQuery(name = "Usuario.findUserByEmail", query = "select u from Usuario u where u.email = :email") })
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
+
 	@Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "seq_usuario", columnDefinition = "serial not null")
 	private Long seqUsuario;
@@ -54,6 +57,12 @@ public class Usuario implements Serializable {
 
 	@Column(name = "is_ativo", nullable = false)
 	private Boolean isAtivo;
+
+	@Transient
+	private List<String> lstPermissaoDesc;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Regra> regras;
 
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -127,6 +136,22 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public void setLstPermissaoDesc(List<String> lstPermissaoDesc) {
+		this.lstPermissaoDesc = lstPermissaoDesc;
+	}
+
+	public List<Regra> getRegras() {
+		return regras;
+	}
+
+	public void setRegras(List<Regra> regras) {
+		this.regras = regras;
+	}
+
+	public List<String> getLstPermissaoDesc() {
+		return lstPermissaoDesc;
 	}
 
 }

@@ -1,21 +1,14 @@
 package br.com.med.pocos.bean;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import br.com.med.pocos.exception.UsuarioNaoEncontradoException;
 import br.com.med.pocos.model.Usuario;
-import br.com.med.pocos.services.LoginService;
 import br.com.med.pocos.services.UsuarioService;
-import br.com.med.pocos.util.EmailService;
 import br.com.med.pocos.util.SessionUtils;
 import br.com.med.pocos.util.Utils;
 
@@ -27,12 +20,8 @@ public class LoginBean implements Serializable {
 
 	private Usuario usuario = new Usuario();
 
-	
-
 	@EJB
 	private UsuarioService usuarioService;
-
-	
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -62,10 +51,6 @@ public class LoginBean implements Serializable {
 		return "";
 	}
 
-	
-
-	
-
 	public String logout() {
 
 		HttpSession session = SessionUtils.getSession();
@@ -73,7 +58,5 @@ public class LoginBean implements Serializable {
 
 		return "loginPage";
 	}
-
-	
 
 }

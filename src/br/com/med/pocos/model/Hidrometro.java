@@ -55,9 +55,7 @@ public class Hidrometro implements Serializable {
 	@JoinColumn(name = "empreendimento_hidrometro")
 	private Empreendimento empreendimento;
 
-	@OneToOne
-	@JoinColumn(name = "hidrometro_poco")
-	private Poco poco;
+	
 
 	public Long getSeqHidrometro() {
 		return seqHidrometro;
@@ -113,15 +111,7 @@ public class Hidrometro implements Serializable {
 
 	public void setVazaoMaxima(Double vazaoMaxima) {
 		this.vazaoMaxima = vazaoMaxima;
-	}
-
-	public Poco getPoco() {
-		return poco;
-	}
-
-	public void setPoco(Poco poco) {
-		this.poco = poco;
-	}
+	}	
 
 	@Override
 	public int hashCode() {

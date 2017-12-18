@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import br.com.med.pocos.exception.UsuarioNaoEncontradoException;
+import br.com.med.pocos.model.Regra;
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.util.DataUtils;
 import br.com.med.pocos.util.EmailService;
@@ -33,14 +34,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public void salvar(Object object) throws Exception {
 
 		Usuario usuario = (Usuario) object;
-
-		usuario.setIsAtivo(true);
+		
+		usuario.setIsAtivo(true);		
 
 		if (usuario != null) {
 
 			if (usuario.getSeqUsuario() == null) {
 
-				usuario.setSenha(Utils.gerarTokenRandomico());
+				usuario.setSenha(Utils.gerarTokenRandomico());			
 
 				Date data = DataUtils.converterDataTimeZone();
 
@@ -85,7 +86,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<Usuario> listar() {
 
 		List<Usuario> usuarios = emService.getEntityManager().createNamedQuery("Usuario.buscaUsuarios").getResultList();
-
+		
+		List<Regra> regras = emService.getEntityManager().createNamedQuery("Regra.buscaRegras").getResultList();
+		
 		return usuarios == null ? new ArrayList<Usuario>() : usuarios;
 	}
 

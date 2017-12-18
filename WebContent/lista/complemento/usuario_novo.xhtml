@@ -84,6 +84,21 @@
 				</div>
 					<p:message for="fone" />
 				
+				
+				<div class="form-group row">
+					<label for="phone" class="col-2 col-form-label">Permissões</label>
+					<div class="col-10">						
+						<p:selectBooleanCheckbox value="#{usuario.isAdministrador}"  />
+						<h:outputText value="Administrador: "  />
+						<p></p>						
+						<p:selectBooleanCheckbox value="#{usuario.isResponsavel}" />
+						<h:outputText value="Responsavel: "  />
+					</div>
+					
+				</div>
+				
+				
+				
 
 				<p:separator />			
 
