@@ -52,20 +52,31 @@ public class AcessoFilter implements Filter{
 			e.printStackTrace();
 		}
 		
+		boolean condicao=false;
+		
+		
 		for(Regra regra: usuario.getRegras()) {		
 			
-			if (!regra.getPermissao().getDescricao().equals("Administrador")) {
-	
-				String contextPath = ((HttpServletRequest) request).getContextPath();
-	
-				((HttpServletResponse) response).sendRedirect(contextPath + "/painel_principal.xhtml");
-	
-			} else {
-	
+			if (regra.getPermissao().getDescricao().equals("Administrador")) {
+				
 				chain.doFilter(request, response);
+				
+				condicao = true;
+							
+				break;
 	
-			}
+			} 
 		}
+		
+		if(!condicao) {
+			String contextPath = ((HttpServletRequest) request).getContextPath();
+			
+			((HttpServletResponse) response).sendRedirect(contextPath + "/painel_principal.xhtml");
+		
+			
+		}
+		
+		
 	}
 
 	@Override

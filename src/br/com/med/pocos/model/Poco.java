@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import br.com.med.pocos.enu.EnumTipoPoco;
 
 @Entity
 @Table(name = "poco")
@@ -47,6 +50,10 @@ public class Poco implements Serializable {
 
 	@Column(name = "is_ativo", nullable = false)
 	private boolean isAtivo;
+	
+	@Enumerated
+	@Column(name="tipo_poco")
+	private EnumTipoPoco tipoPoco;
 
 	public String getLongitude() {
 		return longitude;
@@ -148,6 +155,14 @@ public class Poco implements Serializable {
 
 	public void setEmpreendimento(Empreendimento empreendimento) {
 		this.empreendimento = empreendimento;
+	}
+
+	public EnumTipoPoco getTipoPoco() {
+		return tipoPoco;
+	}
+
+	public void setTipoPoco(EnumTipoPoco tipoPoco) {
+		this.tipoPoco = tipoPoco;
 	}
 
 	

@@ -22,87 +22,38 @@
 		</div>
 
 
+		<p:growl id="messages"/>
+ 
+    <p:menubar>
+    	 <p:menuitem value="#{msg['page.home']}" icon="fa fa-home" actionListener="painelPrincipal">
+    	 
+    	 </p:menuitem>
+    
+        <p:submenu label="#{msg['page.cadastro']}" icon="ui-icon-document" >  
+        	<p:submenu label="Administrativo" icon="ui-icon-document" rendered="#{loginBean.verificarAcessoAdministrativo}">             
+	            <p:menuitem value="#{msg['page.usuario']}" url="/lista/usuarios.xhtml" />
+	            <p:menuitem value="#{msg['page.responsavel']}" url="/lista/responsaveis.xhtml" />
+	            <p:menuitem value="#{msg['page.empreendimento']}" url="/lista/empreendimentos.xhtml" />
+	            <p:menuitem value="#{msg['page.hidrometro']}" url="/lista/hidrometros.xhtml" />
+	            <p:menuitem value="#{msg['page.poco']}" url="/lista/pocos.xhtml" rendered="false"/>
+	         </p:submenu>
+	         <p:menuitem value="Lançar Medição" url="#" />
+            <p:separator />
+            
+        </p:submenu>       
+ 
+        
+ 
+        <f:facet name="options">
+            <p:outputLabel style="margin-right:10px" value="#{loginBean.usuario.email}"/>
+            <p:commandButton type="submit" value="#{msg['page.exit']}" icon="ui-icon-extlink" action="#{loginBean.logout}"/>
+        </f:facet>
+    </p:menubar>
 
-		<nav class="navbar navbar-light bg-faded">
-			<div class="container-fluid">
-				
-				<ul class="nav navbar-nav" >
-					<li class="active">
-					
-					<p:commandLink title="Home" value="Home" style="color: white"
-							action="#" ajax="false">													
-						</p:commandLink>
-						
-						</li>				
-					 <li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#" style="color: white">Cadastro <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li>
-								<p:commandLink title="Usuários" value="Usuários" disabled="false"
-									action="listarUsuarios" ajax="false" style="color: black" />												
-										
-							</li>
-							<li> <p:commandLink title="Responsáveis" value="Responsáveis"
-									action="listarResponsaveis" ajax="false" style="color: black">												
-								</p:commandLink>					
-								</li>
-							<li><p:commandLink title="Empreendimentos" value="Empreendimentos" disabled="false"
-									action="listarEmpreendimentos" ajax="false" style="color: black">												
-								</p:commandLink></li>	
-							<li><p:commandLink title="Hidrômetros" value="Hidrômetros" disabled="false"
-									action="listarHidrometros" ajax="false" style="color: black">												
-								</p:commandLink></li>
-							<li><p:commandLink title="Poços" value="Poços" disabled="false"
-									action="listarPocos" ajax="false" style="color: black">												
-								</p:commandLink></li>						
-							<li><p:commandLink title="Portarias" value="Portarias" disabled="true"
-									action="listarPortarias" ajax="false" style="color: black">												
-								</p:commandLink></li>
-						</ul></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#" style="color: white">Medição <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Hidrômetros Pivôs</a></li>
-							<li><a href="#">Hidrômetros Poços</a></li>						
-							<li><a href="#">Medição de Vazão</a></li>
-						</ul></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#" style="color: white">Relatórios <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Responsável / Empreendimento</a></li>
-							<li><a href="#">Monitoramento de Poços</a></li>
-							<li><a href="#">Grandes Consumidores</a></li>
-						</ul></li>	
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" href="#" style="color: white">Monitoramento <span class="caret"></span></a>
-						<ul class="dropdown-menu">	
-					
-							
-							
-							
-							
-							<li><a href="#">Poços</a></li>						
-							<li><a href="#">Medição de Vazão</a></li>
-						</ul></li>			
-					
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					
-					<li><a href="#" style="color: white"><span class="glyphicon glyphicon-user"></span> <h:outputLabel value="#{loginBean.usuario.email}"/></a></li>
-					<li>
-					<h:commandLink ajax="false" style="color: white"
-									action="#{loginBean.logout}" value="#{msg['page.exit']}"
-									class="glyphicon glyphicon-log-in" />
-									</li>	      		      
-					
-			    </ul>
-				<br />			
-			</div>
-			
-		</nav>
-		<div class="page-header" align="center">
+
+	<div class="page-header" align="center">
   			
-		</div>	
+	</div>	
 	</h:form>
 	
 	

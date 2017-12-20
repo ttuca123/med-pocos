@@ -53,26 +53,8 @@
 					</h2>
 					<p />
 					<div class="row">
-						<div class="col-sm-2">
-							<b><h:outputText value="Tipo de Poço:"
-									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" />
-							</b>
-
-							<div class="form-group">
-								<h:selectOneMenu id="lstHidrometros"
-									
-									value="#{hidrometroBean.hidrometro.tipoHidrometro}"
-									class="form-control"
-									style="font-family: 'Montserrat', 'sans-serif'; width: 150px; font-size: 80%">
-									
-									<f:selectItem itemValue="0" itemLabel="Tubular"></f:selectItem>
-									<f:selectItem itemValue="1" itemLabel="Artesiano"></f:selectItem>
-									
-								</h:selectOneMenu>
-							</div>
-						</div>
-						
-						
+					
+					
 						<div class="col-sm-2">
 							<b><h:outputText value="Selecione Empreendimento:"
 									style="font-family: 'Montserrat', 'sans-serif'; font-size: 80%" />
@@ -81,24 +63,17 @@
 							<div class="form-group">
 									
 									<h:selectOneMenu id="lstEmpreendimentos"
-							converter="converter.EmpreendimentoConverter"
-							value="#{hidrometroBean.hidrometro.empreendimento}"
-							class="form-control"
-							style="font-family: 'Montserrat', 'sans-serif';  font-size: 80%">
+										converter="converter.EmpreendimentoConverter"
+										value="#{hidrometroBean.hidrometro.empreendimento}"
+										class="form-control"
+										style="font-family: 'Montserrat', 'sans-serif';  font-size: 80%">
 
-							<f:selectItems
-								value="#{hidrometroBean.listaEmpreendimentosAtivos}" var="emp"
-								itemValue="#{emp}" itemLabel="#{emp.nomeFantasia}"></f:selectItems>
-
-						</h:selectOneMenu>
-							
-							
-							
-							
-								
+										<f:selectItems
+											value="#{hidrometroBean.listaEmpreendimentosAtivos}" var="emp"
+											itemValue="#{emp}" itemLabel="#{emp.nomeFantasia}"></f:selectItems>
+									</h:selectOneMenu>								
 							</div>
-						</div>
-						
+						</div>				
 						
 						<div class="col-sm-2">
 							<b><h:outputText value="Selecione Poço:"

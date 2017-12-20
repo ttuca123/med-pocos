@@ -56,6 +56,19 @@
 
 					</div>
 				</div>
+				
+				
+				<h:selectOneMenu id="lstPocos"
+									converter="converter.TipoPocoConverter"
+									value="#{pocoBean.poco.tipoPoco}"
+									class="form-control"
+									style="font-family: 'Montserrat', 'sans-serif'; width: 350px; font-size: 80%">
+
+									<f:selectItems
+										value="#{pocoBean.tiposPocos}" var="tipo"
+										itemValue="#{tipo}" itemLabel="#{tipo.descricao}"></f:selectItems>
+
+				</h:selectOneMenu>
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label"
