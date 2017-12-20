@@ -52,7 +52,7 @@ public class LoginFilter implements Filter {
 
 	private boolean verificarPaginasSemLogin(ServletRequest request) {	
 		
-		String contextPath = ((HttpServletRequest) request).getContextPath(); 
+		//String contextPath = ((HttpServletRequest) request).getContextPath(); 
 		
 		String paginaAtual = ((HttpServletRequest) request).getRequestURI();
 		

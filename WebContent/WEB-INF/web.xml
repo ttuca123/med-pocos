@@ -25,15 +25,10 @@
   </filter>
   <filter-mapping>
       <filter-name>AcessoFilter</filter-name>
-      <url-pattern>/lista/*</url-pattern>
-      <url-pattern>/painel_principal.xhtml</url-pattern>
-      <url-pattern>/header.xhtml</url-pattern>      
+      <url-pattern>/lista/*</url-pattern>           
   </filter-mapping>
   
-  
-  
-
-	<context-param>
+  	<context-param>
 		<param-name>facelets.SKIP_COMMENTS</param-name>
 		<param-value>false</param-value>
 	</context-param>

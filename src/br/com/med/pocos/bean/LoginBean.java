@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
+import br.com.med.pocos.model.Regra;
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.services.UsuarioService;
 import br.com.med.pocos.util.SessionUtils;
@@ -38,6 +39,16 @@ public class LoginBean implements Serializable {
 		if (valid) {
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("user", usuario.getEmail());
+			
+			StringBuilder permissao = new StringBuilder();
+			
+			for(Regra regra: usuario.getRegras()) {
+				
+				permissao.append(regra.getPermissao().getDescricao());
+				permissao.append(", ");
+			}
+			
+			session.setAttribute("permissao", permissao);
 
 			Utils.addMessage(Utils.getMensagem("page.login.sucesso"));
 
@@ -51,6 +62,9 @@ public class LoginBean implements Serializable {
 		return "";
 	}
 
+	
+	
+	
 	public String logout() {
 
 		HttpSession session = SessionUtils.getSession();
