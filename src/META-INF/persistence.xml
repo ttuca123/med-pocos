@@ -8,13 +8,7 @@
 	
 	<!--  <persistence-unit name="PostgresDS" transaction-type="JTA"> -->
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		 <jta-data-source>java:/med-pocos</jta-data-source>
-		
-		 <class>br.com.med.pocos.model.Poco</class>
-		 <class>br.com.med.pocos.model.Hidrometro</class>
-		 <class>br.com.med.pocos.model.Usuario</class>
-		 <class>br.com.med.pocos.model.Empreendimento</class>
-		 <class>br.com.med.pocos.model.Responsavel</class>		 
+		 <jta-data-source>java:/med-pocos</jta-data-source> 
 		 
 
 		<properties>
@@ -25,7 +19,7 @@
 
 			<property name="hibernate.show_sql" value="true" />
 
-			<property name="hibernate.hbm2ddl.auto" value="none" /> 
+			<property name="hibernate.hbm2ddl.auto" value="update" /> 
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 

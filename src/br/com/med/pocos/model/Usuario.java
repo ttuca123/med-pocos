@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,7 @@ import javax.persistence.Transient;
  *
  */
 @NamedQueries(value = {
-		@NamedQuery(name = "Usuario.buscaUsuarios", query = "select u from Usuario u where u.isAtivo = true "),
+		@NamedQuery(name = "Usuario.buscaUsuariosAtivos", query = "select u from Usuario u where u.isAtivo = true "),
 		@NamedQuery(name = "Usuario.verificaUsuario", query = "select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true"),
 		@NamedQuery(name = "Usuario.findUserByEmail", query = "select u from Usuario u where u.email = :email") })
 @Entity
@@ -60,8 +61,11 @@ public class Usuario implements Serializable {
 
 	@Transient
 	private List<String> lstPermissaoDesc;
+	
+	@Transient
+	private List<Permissao> lstPermissao;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	private List<Regra> regras;
 
 	public Date getDataCadastro() {
@@ -143,6 +147,13 @@ public class Usuario implements Serializable {
 	}
 
 	public List<Regra> getRegras() {
+		
+		if(regras == null) {
+			
+			regras = new ArrayList<Regra>();
+		}
+			
+		
 		return regras;
 	}
 
@@ -152,6 +163,14 @@ public class Usuario implements Serializable {
 
 	public List<String> getLstPermissaoDesc() {
 		return lstPermissaoDesc;
+	}
+
+	public List<Permissao> getLstPermissao() {
+		return lstPermissao;
+	}
+
+	public void setLstPermissao(List<Permissao> lstPermissao) {
+		this.lstPermissao = lstPermissao;
 	}
 
 }

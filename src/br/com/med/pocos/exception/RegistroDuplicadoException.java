@@ -1,5 +1,7 @@
 package br.com.med.pocos.exception;
 
+import br.com.med.pocos.util.Utils;
+
 public class RegistroDuplicadoException extends Exception{
 
 	
@@ -10,7 +12,7 @@ public class RegistroDuplicadoException extends Exception{
 
 	public RegistroDuplicadoException() {
 		
-		super();	
+		super(Utils.getMensagem("erro.registro.duplicado"));	
 	}
 	
 }

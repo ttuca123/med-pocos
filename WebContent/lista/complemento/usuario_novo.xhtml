@@ -87,17 +87,14 @@
 				
 				<div class="form-group row">
 					<label for="phone" class="col-2 col-form-label">Permissões</label>
-					<div class="col-10">						
-						<p:selectBooleanCheckbox value="#{usuario.isAdministrador}"  />
-						<h:outputText value="Administrador: "  />
-						<p></p>						
-						<p:selectBooleanCheckbox value="#{usuario.isResponsavel}" />
-						<h:outputText value="Responsavel: "  />
-					</div>
 					
-				</div>
-				
-				
+					<p:selectManyCheckbox id="lstPermissao" value="#{usuarioBean.permissoes}" layout="grid" columns="2" >
+        				 <f:selectItem itemLabel="Administrador" itemValue="1" />
+       					 <f:selectItem itemLabel="Responsável" itemValue="2" />   
+    				</p:selectManyCheckbox>			
+					
+					
+				</div>	
 				
 
 				<p:separator />			

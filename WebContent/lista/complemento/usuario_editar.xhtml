@@ -15,102 +15,154 @@
 
 	<link rel="stylesheet" href=".../../css/sigin.css" />
 	<link rel="stylesheet" href="../../css/estilo.css" />
-	
+
 </h:head>
 <h:body styleClass="w3-row-padding">
-	
-	
+
+
 	<h:form id="form">
-	
-	<p:dialog header="Novo Usuário" widgetVar="usuarioDetail"
-			modal="true" hideEffect="explode" showEffect="bounce"
-			closeOnEscape="true" maximizable="true" id="dialogEditar" 
-			resizable="true">
+
+		<p:dialog header="Editar Usuário" widgetVar="usuarioDetail" modal="true"
+			hideEffect="explode" showEffect="bounce" closeOnEscape="true"
+			maximizable="true" id="dialogEditar" resizable="true">
 
 
-			<p:outputPanel id="usuarioEditar" 
+			<p:outputPanel id="usuarioEditar"
 				style="text-align:center; width:600px;">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
 					<div class="col-10">
-						<p:inputText id="nome" class="form-control"
-							required="true" 
+						<p:inputText id="nome" class="form-control" required="true"
 							requiredMessage="O campo Nome é obrigatório"
 							a:placeholder="Por favor digite seu nome"
 							value="#{usuarioBean.usuario.nome}" />
 					</div>
 				</div>
 				<p:message for="nome" />
-				
+
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Sobrenome</label>
 					<div class="col-10">
-						<p:inputText id="sobrenome" class="form-control"
-							required="true"
+						<p:inputText id="sobrenome" class="form-control" required="true"
 							requiredMessage="O campo Sobrenome é obrigatório"
 							a:placeholder="Por favor digite seu sobrenome"
-							value="#{usuarioBean.usuario.sobrenome}" >							 
-							</p:inputText>
+							value="#{usuarioBean.usuario.sobrenome}">
+						</p:inputText>
 					</div>
 				</div>
-					<p:message for="sobrenome" />
-				
+				<p:message for="sobrenome" />
+
 				<div class="form-group row">
 					<label for="example-email-input" class="col-2 col-form-label">Email</label>
 					<div class="col-10">
 						<p:inputText id="email" class="form-control"
 							a:placeholder="Por favor digite seu email"
-							value="#{usuarioBean.usuario.email}" 
-							required="true"
-						    requiredMessage="O campo Email é obrigatório" >
-						     <f:validator for="email" validatorId="validator.EmailValidator" />
-						    </p:inputText>
+							value="#{usuarioBean.usuario.email}" required="true"
+							requiredMessage="O campo Email é obrigatório">
+							<f:validator for="email" validatorId="validator.EmailValidator" />
+						</p:inputText>
 					</div>
 				</div>
-				<p:message for="email" />			
-				
-				
+				<p:message for="email" />
+
+
 				<div class="form-group row">
 					<label for="phone" class="col-2 col-form-label">Celular</label>
 					<div class="col-10">
-						<p:inputMask id="fone" class="form-control" value="#{usuarioBean.usuario.telefone}"
-							mask="(999)99999-9999" size="30" required="true"
-						   requiredMessage="O campo Telefone é obrigatório" >						   
-						   <f:converter converterId="converter.FoneConverter" />
-						   </p:inputMask>
+						<p:inputMask id="fone" class="form-control"
+							value="#{usuarioBean.usuario.telefone}" mask="(999)99999-9999"
+							size="30" required="true"
+							requiredMessage="O campo Telefone é obrigatório">
+							<f:converter converterId="converter.FoneConverter" />
+						</p:inputMask>
 					</div>
 				</div>
-					<p:message for="fone" />
-				
-				
+				<p:message for="fone" />
+
 				<div class="form-group row">
-					<label for="phone" class="col-2 col-form-label">Permissões</label>
-					<div class="col-10">						
-						<p:selectBooleanCheckbox value="1"  />
-						<h:outputText value="Administrador: "  />
-						<p></p>						
-						<p:selectBooleanCheckbox value="2" />
-						<h:outputText value="Responsavel: "  />
+					<label  class="col-2 col-form-label">Permissões
+						concedidas</label>
+					<div class="col-10">
+						<p:outputLabel id="perm_desc" class="form-control"
+							value="#{usuarioBean.usuario.lstPermissaoDesc}" />
 					</div>
-					
+
+				</div>
+				
+				<div class="form-group row" style="color:red;">
+					<label  class="col-2 col-form-label" >Novas Permissões </label>
+					<div class="col-10">
+						<p:outputLabel id="perm_novo" class="form-control" style="color:red;"
+							value="#{usuarioBean.permissoesDecifradas}" />
+					</div>
+
+				</div>
+				
+			<div class="form-group row">
+					<label for="phone" class="col-2 col-form-label">Editar Permissões
+						</label>
+					<div class="col-10">
+					<p:commandLink update=":formPerm:permissaoEditar"
+						oncomplete="PF('permissoesDetail').show()" title="Detalhar"
+						styleClass="ui-icon ui-icon-search" immediate="true" 
+						style="float:left;margin-right:10px">	
+						<f:setPropertyActionListener value="#{permissoes}"
+							target="#{usuarioBean.permissoes}" />					
+					</p:commandLink>
+					</div>
 				</div>
 
-				<p:separator />			
+				<p:separator />
 
-				<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
-					action="#{usuarioBean.salvar}" 
-					update="messages2, formExibir" icon="ui-icon-disk" />
+				<p:commandLink class="btn btn-success btn-lg btn-block" value="Salvar"
+					action="#{usuarioBean.salvar}" update="messages2, formExibir"
+					icon="ui-icon-disk" />
 
 				<p:growl id="messages2" />
 			</p:outputPanel>
 
-		</p:dialog>
-	
+		</p:dialog>	
+		
+		
+
 	</h:form>
+	
+	<h:form id="formPerm">
+	
+		<p:dialog header="Editar Permissões" widgetVar="permissoesDetail" modal="true"
+				hideEffect="explode" showEffect="bounce" closeOnEscape="true"
+				maximizable="true" id="dialogPermissoes" resizable="true">
+	
+				<p:outputPanel id="permissaoEditar"
+					style="text-align:center; width:600px;">
+					
+					<div class="form-group row">
+						<label for="phone" class="col-2 col-form-label">Permissões</label>
+						<div class="col-10">
+							<p:selectManyCheckbox id="lstPermissao" 
+								value="#{usuarioBean.permissoes}" >
+								<f:selectItem itemLabel="Administrador" itemValue="1" />
+								<f:selectItem itemLabel="Responsável" itemValue="2" />
+							</p:selectManyCheckbox>
+						</div>
+					</div>
+					
+					<p:separator />
+	
+					<p:commandLink class="btn btn-success btn-lg btn-block" value="Salvar Permissões"
+						action="#{usuarioBean.salvarPermissoes}" update="messages3, form:usuarioEditar"
+						onclick="PF('permissoesDetail').hide()"	immediate="false" 
+						icon="ui-icon-disk" />
+					
+					<p:growl id="messages3" />
+					
+				</p:outputPanel>
+				
+			</p:dialog>
 
-
-
+	</h:form>	 
+	
 </h:body>
 </html>

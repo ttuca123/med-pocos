@@ -2,7 +2,6 @@ package br.com.med.pocos.filter;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,8 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import br.com.med.pocos.model.Usuario;
 
 public class LoginFilter implements Filter {
 

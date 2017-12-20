@@ -45,7 +45,6 @@ public class LoginServiceImpl implements LoginService {
 		String token = Utils.criarTokenJWT(usuarioEncontrado.getEmail());
 
 		enviarResetSenha(usuarioEncontrado, token);
-
 		
 	}
 
