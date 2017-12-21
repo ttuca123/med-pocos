@@ -1,5 +1,6 @@
 package br.com.med.pocos.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,66 +12,51 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import br.com.med.pocos.exception.RegistroDuplicadoException;
 import br.com.med.pocos.exception.UsuarioNaoEncontradoException;
 import br.com.med.pocos.model.Permissao;
 import br.com.med.pocos.model.Regra;
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.services.LoginService;
 import br.com.med.pocos.services.PermissaoService;
-import br.com.med.pocos.services.RegraService;
-import br.com.med.pocos.services.UsuarioService;
-import br.com.med.pocos.util.EmailService;
 import br.com.med.pocos.util.Utils;
 
 /**
  * 
  * @author Artur
- * @version 1.0
- * 
- *          Página responsável pelo crud dos usuários do sistema
+ * @version 1.0 Página responsável pelo crud dos usuários do sistema
  *
  */
 
 @ManagedBean(name = "usuarioBean")
 @ViewScoped
-public class UsuarioBean implements Serializable {
+public class UsuarioBean extends GenericBean implements Serializable {
 
-	private static final long serialVersionUID = -4970294226807286353L;
-	
-	@ManagedProperty(value = "#{usuario}")
-	private Usuario usuario;
-
-	private boolean todos;
-
-	@ManagedProperty(value = "#{permissoes}")
-	private List<String> permissoes;
-	
-	private List<String> permissoesDecifradas;
-
-	@ManagedProperty(value = "#{usuarios}")
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
-
-	private List<Usuario> filteredUsuarios;
-
-	@EJB
-	private UsuarioService usuarioService;
+	private static final long serialVersionUID = 1L;
 
 	@EJB
 	private PermissaoService permissaoService;
 
 	@EJB
-	private RegraService regraService;
-
-	@EJB
 	private LoginService loginService;
 
-	@EJB
-	private EmailService emailService;
+	@ManagedProperty(value = "#{usuario}")
+	private Usuario usuario;
+
+	@ManagedProperty(value = "#{permissoes}")
+	private List<String> permissoes;
+
+	@ManagedProperty(value = "#{usuarios}")
+	private List<Usuario> usuarios;
+
+	private List<String> permissoesDecifradas;
+
+	private List<Usuario> filteredUsuarios;
 
 	public void novo() {
-		permissoes = new ArrayList<String>();
-		usuario = new Usuario();
 
+		usuario = new Usuario();
+		permissoes = new ArrayList<String>();
 	}
 
 	@PostConstruct
@@ -79,102 +65,122 @@ public class UsuarioBean implements Serializable {
 		novo();
 	}
 
-	public void salvar() {
+	public void salvarNovo() throws Exception {
 
-		try {	
-			
+		alterarPermissoes();
+
+		salvar();
+	}
+
+	public void salvar() throws Exception {
+
+		try {
+
 			usuarioService.salvar(usuario);
 
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
+			Utils.addMessage(Utils.getMensagem(MSG_SAVE_SUCESSO));
 
 			enviarEmailNovoCadastro();
 
-			getListar();
+			getListarTodos();
 
 		} catch (UsuarioNaoEncontradoException e) {
 
 			Utils.addMessageException(e.getMessage());
 
+			String info = logThrowable(e);
+
+			log.info(info);
+
+		} catch (RegistroDuplicadoException e) {
+
+			Utils.addMessageAviso(e.getMessage());
+			String info = logThrowable(e);
+
+			log.info(info);
+		} catch (IOException e) {
+
+			Utils.addMessageException(Utils.getMensagem(MSG_EMAIL_ERRO));
+
+			String erro = logThrowable(e);
+
+			log.error(erro);
+
+			enviarEmailErro(erro);
 		} catch (Exception e) {
-			
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
-			
+
+			Utils.addMessageException(Utils.getMensagem(MSG_SAVE_ERRO));
+
+			String erro = logThrowable(e);
+
+			log.error(erro);
+
+			enviarEmailErro(erro);
+
 		} finally {
 
 			novo();
 		}
 
 	}
-	
-	public void salvarNovo() {
-		
-		salvarPermissoes();
-		
-		salvar();
-	}
-	
-	public void salvarPermissoes() {
-		
-		
+
+	public void alterarPermissoes() {
+
 		usuario.getRegras().clear();
-		
-		atribuirPermissao();			
-					
+
+		atribuirPermissao();
+
 	}
 
-	private void atribuirPermissao() {
+	public void atribuirPermissao() {
 
-		List<Regra> regrasUsuario = usuario.getRegras();
-
-		Regra regra;
+		List<Regra> regras = new ArrayList<Regra>();
 
 		for (String permissao : permissoes) {
 
-			regra = new Regra();
-
 			Permissao novaPermissao = (Permissao) permissaoService.getObject(Long.parseLong(permissao));
 
-			regra.setUsuario(usuario);
-
-			regra.setPermissao(novaPermissao);
-
-			regrasUsuario.add(regra);
+			regras.add(new Regra(usuario, novaPermissao));
 
 		}
 
-		usuario.setRegras(regrasUsuario);
+		usuario.setRegras(regras);
 
 	}
 
-	private void enviarEmailNovoCadastro() throws UsuarioNaoEncontradoException {
+	public void enviarEmailNovoCadastro() throws UsuarioNaoEncontradoException, IOException {
 
 		if (usuario.getSeqUsuario() == null) {
 
 			loginService.enviarTokenEmail(usuario);
 
-			Utils.addMessage(Utils.getMensagem("page.login.btn.forgot.password.send.success"));
+			Utils.addMessage(Utils.getMensagem(MSG_LINK_ENVIADO));
 		}
 
 	}
 
-	public void excluir(ActionEvent actionEvent) {
+	public void excluir(ActionEvent actionEvent) throws Exception {
 
 		try {
 
 			usuarioService.deletar(usuario);
 
-			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
+			Utils.addMessage(Utils.getMensagem(MSG_EXCLUIDO_SUCESSO));
 
-			getListar();
+			getListarTodos();
 
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
+			Utils.addMessageException(Utils.getMensagem(MSG_EXCLUIDO_ERRO));
+			String erro = logThrowable(e);
 
+			log.error(erro);
+
+			enviarEmailErro(erro);
 		}
 	}
 
-	public void getListar() {
+	public void getListarTodos() throws Exception {
 
 		try {
 
@@ -182,20 +188,33 @@ public class UsuarioBean implements Serializable {
 
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+			Utils.addMessageException(Utils.getMensagem(MSG_LISTAGEM_ERRO));
+
+			String erro = logThrowable(e);
+
+			log.error(erro);
+			
+			enviarEmailErro(e.getMessage());
+
 		}
 
 	}
 
-	public List<Usuario> getListarUsuariosAtivos() {
+	public List<Usuario> getListar() throws Exception {
 
 		try {
 
 			usuarios = (List<Usuario>) usuarioService.listar();
-
+			
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+			Utils.addMessageException(Utils.getMensagem(MSG_LISTAGEM_ERRO));
+
+			String erro = logThrowable(e);
+
+			log.error(erro);
+
+			enviarEmailErro(erro);
 		}
 
 		return usuarios;
@@ -215,13 +234,8 @@ public class UsuarioBean implements Serializable {
 
 	public void filtrar() {
 
-		if (todos) {
-			getListar();
-		} else {
+		usuarios = (List<Usuario>) usuarioService.listar(usuario);
 
-			usuarios = (List<Usuario>) usuarioService.listar(usuario);
-
-		}
 	}
 
 	public Usuario getUsuario() {
@@ -232,15 +246,13 @@ public class UsuarioBean implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public boolean isTodos() {
-		return todos;
-	}
-
-	public void setTodos(boolean todos) {
-		this.todos = todos;
-	}
-
 	public List<Usuario> getUsuarios() {
+
+		if (usuarios == null) {
+
+			usuarios = new ArrayList<Usuario>();
+		}
+
 		return usuarios;
 	}
 
@@ -256,15 +268,13 @@ public class UsuarioBean implements Serializable {
 		this.filteredUsuarios = filteredUsuarios;
 	}
 
-	public UsuarioService getUsuarioService() {
-		return usuarioService;
-	}
-
-	public void setUsuarioService(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
-	}
-
 	public List<String> getPermissoes() {
+
+		if (permissoes == null) {
+
+			permissoes = new ArrayList<String>();
+
+		}
 		return permissoes;
 	}
 
@@ -273,23 +283,38 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public List<String> getPermissoesDecifradas() {
-		
-		if(permissoesDecifradas == null) {
-			
+
+		if (permissoesDecifradas == null) {
+
 			permissoesDecifradas = new ArrayList<String>();
 		}
-		
+
 		permissoesDecifradas.clear();
-		
-		for(String permissao: permissoes) {
-			
-			if(permissao.equals("1")) {
+
+		for (String permissao : getPermissoes()) {
+
+			switch (Integer.parseInt(permissao)) {
+			case 1:
+
 				permissoesDecifradas.add("Administrador");
-			}else if(permissao.equals("2")) {
+
+				break;
+			case 2:
+
 				permissoesDecifradas.add("Responsável");
+
+				break;
+			case 3:
+
+				permissoesDecifradas.add("Suporte");
+
+				break;
+			default:
+				break;
 			}
+
 		}
-		
+
 		return permissoesDecifradas;
 	}
 

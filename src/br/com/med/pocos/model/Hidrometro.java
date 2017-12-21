@@ -2,6 +2,7 @@ package br.com.med.pocos.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.med.pocos.enu.EnumTipoHidrometro;
@@ -23,6 +23,7 @@ import br.com.med.pocos.enu.EnumTipoHidrometro;
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosDuplicados", query = "select h from Hidrometro h where h.registro like :registro"),
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosByEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento = :seqEmpreendimento order by h.registro asc"),
 		@NamedQuery(name = "Hidrometro.buscaHidrometrosSemEmpreendimento", query = "select h from Hidrometro h where h.empreendimento.seqEmpreendimento is null	 order by h.registro asc") })
+@Cacheable
 @Entity
 @Table(name = "hidrometro")
 
@@ -54,8 +55,6 @@ public class Hidrometro implements Serializable {
 	@ManyToOne(optional = true, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "empreendimento_hidrometro")
 	private Empreendimento empreendimento;
-
-	
 
 	public Long getSeqHidrometro() {
 		return seqHidrometro;
@@ -111,7 +110,7 @@ public class Hidrometro implements Serializable {
 
 	public void setVazaoMaxima(Double vazaoMaxima) {
 		this.vazaoMaxima = vazaoMaxima;
-	}	
+	}
 
 	@Override
 	public int hashCode() {

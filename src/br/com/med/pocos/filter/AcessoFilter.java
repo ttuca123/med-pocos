@@ -21,7 +21,7 @@ import br.com.med.pocos.services.UsuarioService;
 
 public class AcessoFilter implements Filter{
 
-	private String[] paginasSemLogin = { "forgot_senha.xhtml", "reset_senha.xhtml" };
+	
 	
 	@EJB
 	private UsuarioService usuarioService;

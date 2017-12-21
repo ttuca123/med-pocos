@@ -25,8 +25,18 @@ import javax.persistence.Table;
 @Table(name = "regra")
 public class Regra implements Serializable {
 
-	private static final long serialVersionUID = 6310925639705761062L;
-
+	private static final long serialVersionUID = 6310925639705761062L;	
+	
+	public Regra() {
+		
+	}
+	
+	public Regra(Usuario usuario, Permissao permissao) {
+		
+		this.usuario = usuario;
+		this.permissao = permissao;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "seq_regra", columnDefinition = "serial not null")

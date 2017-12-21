@@ -44,9 +44,10 @@
 						ajax="false" action="#{loginBean.logar}"
 						value="#{msg['page.login.btn.login']}" update="growl" style="font-family: 'Montserrat', 'sans-serif'"/>
 						
-					<p:commandLink class="btn btn-secundary btn-lg btn-block"
+					
+					<p:commandLink class="btn btn-link btn-lg btn-block"
 						ajax="false" action="forgot_senha" 
-						value="#{msg['page.login.btn.forgot.password']}" update="growl" style="font-family: 'Montserrat', 'sans-serif'"/>
+						value="#{msg['page.login.btn.forgot.password']}" update="growl" style="font-family: 'Montserrat', 'sans-serif'; text-decoration: underline"/>
 				</p:panel>
 			</h:form>
 			

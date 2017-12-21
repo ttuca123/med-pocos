@@ -6,10 +6,6 @@ public interface GenericService {
 	
 	public Object getObject(Long seqId);
 	
-	public void deletar (Object object);
-	
-	
-	
-	
+	public void deletar (Object object);	
 
 }

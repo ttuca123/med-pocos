@@ -11,4 +11,5 @@ public interface PermissaoService extends GenericService{
 
 	public List<Permissao> getAll();
 
+	public List<String> getPermissoesDecifradas(List<String>  permissoesDecifradas);
 }

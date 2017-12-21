@@ -36,40 +36,31 @@ public class HidrometroServiceImpl implements HidrometroService {
 
 		Hidrometro hidrometro = (Hidrometro) object;
 
-		if (hidrometro != null) {
-
+		
+			
+		if (hidrometro.getSeqHidrometro() == null) {
+			
 			if(!hidrometro.getRegistro().isEmpty()) {
 				
-				Hidrometro hidrometroDuplicado = (Hidrometro) emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosDuplicados").setParameter("registro", hidrometro.getRegistro())
-				.getSingleResult();
+				int registroDuplicado =  emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosDuplicados").setParameter("registro", hidrometro.getRegistro())
+				.getResultList().size();
 				
-				if(hidrometroDuplicado!=null) {
+				if(registroDuplicado > 0) {
 					throw new RegistroDuplicadoException();
 					
 				}
 			}
 			
-			if (hidrometro.getSeqHidrometro() == null) {
-				
-				emService.getEntityManager().persist(hidrometro);
+			hidrometro.setAtivo(true);
+			emService.getEntityManager().persist(hidrometro);
 
-			} else {
-
-				editar(hidrometro);
-			}
 		} else {
-			throw new Exception();
+
+			emService.getEntityManager().merge(hidrometro);
 		}
 
 	}
-
-	private void editar(Hidrometro hidrometro) {
-
-		
-		emService.getEntityManager().merge(hidrometro);
-		
-
-	}
+	
 
 	@Override
 	public Object getObject(Long seqId) {
@@ -94,16 +85,10 @@ public class HidrometroServiceImpl implements HidrometroService {
 	@Override
 	public List<Hidrometro> listarTodos() {
 
-		List<Hidrometro> hidrometros;
-
-		try {
-			hidrometros = emService.getEntityManager().createNamedQuery("Hidrometro.buscaAllHidrometros")
-					.getResultList();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			hidrometros = new ArrayList<Hidrometro>();
-		}
+		List<Hidrometro> hidrometros = new ArrayList<Hidrometro>();
+		
+		hidrometros = emService.getEntityManager().createNamedQuery("Hidrometro.buscaAllHidrometros")
+				.getResultList();	
 
 		return hidrometros;
 	}
@@ -112,16 +97,10 @@ public class HidrometroServiceImpl implements HidrometroService {
 	@Override
 	public List<Hidrometro> listarAtivos() {
 
-		List<Hidrometro> hidrometros;
-
-		try {
-			hidrometros = emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosAtivos")
-					.getResultList();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			hidrometros = new ArrayList<Hidrometro>();
-		}
+		List<Hidrometro> hidrometros = new ArrayList<Hidrometro>();
+		
+		hidrometros = emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosAtivos")
+				.getResultList();		
 
 		return hidrometros;
 	}
@@ -199,19 +178,11 @@ public class HidrometroServiceImpl implements HidrometroService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Hidrometro> listarSemEmpreendimentoAssociado() {
-		List<Hidrometro> hidrometros;
-
-		try {
-			
-			hidrometros = emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosSemEmpreendimento")
-					.getResultList();
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			hidrometros = new ArrayList<Hidrometro>();
-		}
-
+		List<Hidrometro> hidrometros = new ArrayList<Hidrometro>();
+		
+		hidrometros = emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosSemEmpreendimento")
+				.getResultList();		
+		
 		return hidrometros;
 	}
 

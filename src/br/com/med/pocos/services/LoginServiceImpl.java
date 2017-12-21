@@ -1,6 +1,9 @@
 package br.com.med.pocos.services;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -36,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
 	private LoginService loginService;
 
 	@Override
-	public void enviarTokenEmail(Usuario usuario) throws UsuarioNaoEncontradoException {
+	public void enviarTokenEmail(Usuario usuario) throws UsuarioNaoEncontradoException, IOException {
 
 		Usuario usuarioEncontrado = usuarioService.findUserByEmail(usuario.getEmail());
 
@@ -50,7 +53,6 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public void validarToken(Usuario usuario, String token) throws IllegalArgumentException, UnsupportedEncodingException, UsuarioNaoEncontradoException {
-
 		
 		Utils.verificarTokenJWT(token, usuario.getEmail());
 
@@ -61,12 +63,12 @@ public class LoginServiceImpl implements LoginService {
 		usuarioService.atualizarSenha(usuarioEncontrado);
 	}
 
-	private void enviarResetSenha(Usuario usuario, String token) throws UsuarioNaoEncontradoException {
+	private void enviarResetSenha(Usuario usuario, String token) throws UsuarioNaoEncontradoException, IOException {
 
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
 				.getRequest();
 
-		String servidorLocal = req.getLocalName();
+		String servidorRemoto = req.getLocalName();
 
 		String aplicacao = req.getContextPath();
 
@@ -74,19 +76,21 @@ public class LoginServiceImpl implements LoginService {
 
 		parametrosTitulo[0] = usuario.getNome();
 
-		String parametrosBody[] = new String[3];
+		String parametrosBody[] = new String[2];		
 
-		parametrosBody[0] = servidorLocal;
+		parametrosBody[0] = aplicacao;
 
-		parametrosBody[1] = aplicacao;
-
-		parametrosBody[2] = token;
+		parametrosBody[1] = token;
 
 		String titulo = Utils.getMensagem("page.cadastro.email.salvar.titulo.sucesso", parametrosTitulo);
 
 		String body = Utils.getMensagem("page.cadastro.email.salvar.body.sucesso", parametrosBody);
-
-		emailService.enviarEmail(titulo, body, usuario.getEmail());
+		
+		List<String> emails = new ArrayList<String>();
+		
+		emails.add(usuario.getEmail());
+		
+		emailService.enviarEmail(titulo, body, emails);
 
 	}
 

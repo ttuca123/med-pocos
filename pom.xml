@@ -3,10 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>med-pocos</groupId>
 	<artifactId>med-pocos</artifactId>
-	<version>1.0.4.1</version>
+	<version>1.0.4.2</version>
 	<packaging>war</packaging>
 
 	<dependencies>
+
+		<dependency>
+		    <groupId>com.sendgrid</groupId>
+		    <artifactId>sendgrid-java</artifactId>
+		    <version>4.1.2</version>
+		</dependency>
 
 
 		<dependency>
@@ -63,13 +69,12 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-
-
+	<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.17</version>
+	</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>

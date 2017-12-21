@@ -1,3 +1,4 @@
+D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumTipoPoco.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\filter\LoginFilter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Responsavel_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Responsavel.java
@@ -6,6 +7,7 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\util\SessionUtils.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\validator\EmailValidator.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Empresa_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\ResponsavelService.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\PocoBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\CnpjConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\ResponsavelConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\TipoEmpreendimentoConverter.java
@@ -18,6 +20,7 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\services\UsuarioServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Empreendimento_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EntityManagerServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Outorga.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Regra.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\util\EmailService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EmpreendimentoServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Hidrometro_.java
@@ -27,14 +30,19 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Monitoramento.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumMes.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\util\EmailServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\ResponsavelBean.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\RegraService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\HidrometroService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\TipoHidrometroConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Empresa.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumPermissao.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\PocoService.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\PocoServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EmpreendimentoService.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\PermissaoServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\RazaoSocial_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Usuario_.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\HistoricoPortaria.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\util\EmailServiceImplOld.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\LoginBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\UsuarioService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Usuario.java
@@ -45,6 +53,7 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\services\EntityManagerService.ja
 D:\workspace-web\med-pocos\src\br\com\med\pocos\exception\UsuarioNaoEncontradoException.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\validator\MoedaValidator.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Endereco_.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\RegraServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\CoordenadasConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumTipoEmpreendimento.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumTipoHidrometro.java
@@ -57,7 +66,9 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Permissao.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\GenericService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\util\Utils.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\HidrometroConverter.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\TipoPocoConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\HistoricoMonitoramento.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\services\PermissaoService.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\HidrometroBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumTipoMonitoramento.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Portaria.java

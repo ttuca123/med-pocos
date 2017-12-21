@@ -1,5 +1,6 @@
 package br.com.med.pocos.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
@@ -43,6 +44,9 @@ public class ResetPasswordBean implements Serializable {
 
 			Utils.addMessageException(e.getMessage());
 
+		} catch (IOException e) {
+			
+			Utils.addMessageException(e.getMessage());
 		}
 
 	}

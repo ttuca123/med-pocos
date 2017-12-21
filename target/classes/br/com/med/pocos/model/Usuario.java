@@ -27,7 +27,9 @@ import javax.persistence.Transient;
 @NamedQueries(value = {
 		@NamedQuery(name = "Usuario.buscaUsuariosAtivos", query = "select u from Usuario u where u.isAtivo = true "),
 		@NamedQuery(name = "Usuario.verificaUsuario", query = "select u from Usuario u where u.email = :email AND u.senha = :senha AND u.isAtivo = true"),
-		@NamedQuery(name = "Usuario.findUserByEmail", query = "select u from Usuario u where u.email = :email") })
+		@NamedQuery(name = "Usuario.findUserByEmail", query = "select u from Usuario u where u.email = :email"),
+		@NamedQuery(name = "Usuario.findEmailsByTipo", query = "select u.email from Usuario u inner join u.regras r inner join r.permissao"
+				+ " p where p.seqPermissao = :permissao")})
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {

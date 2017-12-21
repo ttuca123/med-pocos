@@ -1,7 +1,6 @@
 package br.com.med.pocos.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,16 +16,16 @@ import br.com.med.pocos.util.Utils;
 
 @ManagedBean(name = "responsavelBean")
 @ViewScoped
-public class ResponsavelBean implements Serializable {
+public class ResponsavelBean extends GenericBean implements Serializable {
 
 	private static final long serialVersionUID = -4970294226807286353L;
-	
-	private Responsavel responsavel;
-	
-	private boolean todos;	
-	
+
+	private Responsavel responsavel = new Responsavel();
+
+	private boolean todos;
+
 	@ManagedProperty(value = "#{responsaveis}")
-	private List<Responsavel> responsaveis = new ArrayList<Responsavel>();
+	private List<Responsavel> responsaveis;
 
 	private List<Responsavel> filteredResponsaveis;
 
@@ -36,46 +35,51 @@ public class ResponsavelBean implements Serializable {
 	public void novo() {
 
 		responsavel = new Responsavel();
-		responsavel.setAtivo(true);
+		todos = true;
 
-	}	
+	}
 
 	@PostConstruct
 	public void inicializar() {
 
 		novo();
-//		getListar();
-		
 
 	}
 
 	public boolean isEditavel() {
-		
-		if(responsavel.getDataEncerramentoContrato()== null) {			
-			return true;
-		}else {
-			return false;
-		}
+
+		return responsavel.getDataEncerramentoContrato() == null ? true : false;
+
 	}
-	
-	public void salvar() {
+
+	public void salvar() throws Exception {
 
 		try {
+
 			responsavelService.salvar(responsavel);
 
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
+			Utils.addMessage(Utils.getMensagem(MSG_SAVE_SUCESSO));
 
-			getListar();
+			filtrar();
+
 		} catch (Exception e) {
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
+
+			Utils.addMessageException(Utils.getMensagem(MSG_SAVE_ERRO));
+
+			String erro = logThrowable(e);
+
+			log.error(erro);
+
+			enviarEmailErro(erro);
+
 		} finally {
+
 			novo();
 		}
 
-	}	
+	}
 
-
-	public void excluir(ActionEvent actionEvent) {
+	public void excluir(ActionEvent actionEvent) throws Exception {
 
 		try {
 
@@ -83,70 +87,46 @@ public class ResponsavelBean implements Serializable {
 
 			Utils.addMessage(Utils.getMensagem("page.cadastro.excluir.sucesso"));
 
-			getListar();
-			
-		} catch (Exception e) {
-			
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
-			
-		}
-	}
+			filtrar();
 
-	public void getListar() {
-
-		try {
-			
-			responsaveis = (List<Responsavel>) responsavelService.listar();
-		
 		} catch (Exception e) {
-			
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
-		}
-		
-	}
-	
-	public List<Responsavel> getListarResponsaveisAtivos() {
 
-		try {
-			
-			responsaveis = (List<Responsavel>) responsavelService.listarResponsaveisAtivos();
-		
-		} catch (Exception e) {
-			
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+			Utils.addMessageException(Utils.getMensagem(MSG_EXCLUIDO_ERRO));
+
+			String erro = logThrowable(e);
+
+			log.error(erro);
+
+			enviarEmailErro(erro);
+
 		}
-		
-		return responsaveis;
-		
 	}
 
 	public int getTotal() {
-		if(responsaveis!=null) {
-			
-			return responsaveis.size();	
-		}else {
-			
-			return 0;
+
+		return responsaveis == null ? 0 : responsaveis.size();
+
+	}
+
+	public void filtrar() {
+
+		if (todos) {
+
+			responsaveis = (List<Responsavel>) responsavelService.listar();
+
+		} else {
+
+			responsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
+
 		}
-		
-		
+
 	}
 	
-	public void filtrar() {	
+	public List<Responsavel> getListarResponsaveisAtivos() {
 		
-		if(todos) {
-			getListar();
-		}else {
-		
-			responsaveis = (List<Responsavel>) responsavelService.listar(responsavel);
-					
-		}
+		return responsavelService.listarResponsaveisAtivos();
 	}
-
-
-	public List<Responsavel> getresponsaveis() {
-		return responsaveis;
-	}
+	
 
 	public void setresponsaveis(List<Responsavel> responsaveis) {
 		this.responsaveis = responsaveis;
@@ -158,9 +138,10 @@ public class ResponsavelBean implements Serializable {
 
 	public void setResponsavel(Responsavel responsavel) {
 		this.responsavel = responsavel;
-	}	
+	}
 
 	public List<Responsavel> getFilteredResponsaveis() {
+
 		return filteredResponsaveis;
 	}
 
@@ -168,9 +149,8 @@ public class ResponsavelBean implements Serializable {
 		this.filteredResponsaveis = filteredresponsaveis;
 	}
 
-	
-	
 	public List<Responsavel> getResponsaveis() {
+
 		return responsaveis;
 	}
 
@@ -185,16 +165,13 @@ public class ResponsavelBean implements Serializable {
 	public void setResponsavelService(ResponsavelService responsavelService) {
 		this.responsavelService = responsavelService;
 	}
-	
+
 	public boolean isTodos() {
 		return todos;
 	}
 
-
-
 	public void setTodos(boolean todos) {
 		this.todos = todos;
-	}	
-
+	}
 
 }

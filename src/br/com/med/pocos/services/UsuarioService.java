@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import br.com.med.pocos.enu.EnumPermissao;
 import br.com.med.pocos.exception.UsuarioNaoEncontradoException;
 import br.com.med.pocos.model.Usuario;
 
@@ -19,5 +20,7 @@ public interface UsuarioService extends GenericService {
 	public void atualizarSenha(Usuario usuario);
 	
 	public Usuario findUserByEmail(String email) throws UsuarioNaoEncontradoException;
+	
+	public List<String> buscarEmailsByTipo(EnumPermissao tipoPermissao);
 	
 }

@@ -1,5 +1,6 @@
 package br.com.med.pocos.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -44,6 +45,28 @@ public class PermissaoServiceImpl implements PermissaoService {
 	public void deletar(Object object) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<String> getPermissoesDecifradas(List<String> permissoes) {
+		
+		if (permissoes == null) {
+
+			permissoes = new ArrayList<String>();
+		}
+
+		permissoes.clear();
+
+		for (String permissao : permissoes) {
+
+			if (permissao.equals("1")) {
+				permissoes.add("Administrador");
+			} else if (permissao.equals("2")) {
+				permissoes.add("Responsável");
+			}
+		}
+
+		return permissoes;
 	}
 
 }

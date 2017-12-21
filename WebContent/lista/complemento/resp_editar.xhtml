@@ -24,10 +24,11 @@
 		<p:dialog header="Responsável" widgetVar="responsavelDialog"
 			modal="true" hideEffect="explode" showEffect="bounce"
 			closeOnEscape="true" maximizable="true" id="dialogEditar" 
-			resizable="true">
+			resizable="true" width="50%"
+			height="60%">
 
 			<p:outputPanel id="responsavelDetail" 
-				style="text-align:center; width:600px;">
+				style="text-align:center;">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
@@ -111,7 +112,7 @@
 
 				<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
 					actionListener="#{responsavelBean.salvar}" disabled="#{!responsavelBean.editavel}"
-					update="messages, formExibir" icon="ui-icon-disk" onclick="PF('responsavelDialog').hide()" />
+					update="messages, formExibir" icon="ui-icon-disk"  />
 
 
 			</p:outputPanel>

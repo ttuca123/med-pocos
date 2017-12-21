@@ -7,6 +7,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import br.com.med.pocos.enu.EnumPermissao;
+import br.com.med.pocos.exception.RegistroDuplicadoException;
 import br.com.med.pocos.exception.UsuarioNaoEncontradoException;
 import br.com.med.pocos.model.Permissao;
 import br.com.med.pocos.model.Regra;
@@ -16,10 +18,9 @@ import br.com.med.pocos.util.EmailService;
 import br.com.med.pocos.util.Utils;
 
 /**
- * Class responsável pelo gerenciamento de usuários do sistema
- * 
  * @author Artur
- *
+ * 
+ * Class responsável pelas regras de gerenciamento de usuários do sistema 
  */
 
 @Stateless(name = "UsuarioService")
@@ -40,15 +41,23 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		if (usuario != null) {
 
-			if (usuario.getSeqUsuario() == null) {
+			if (usuario.getSeqUsuario() == null) {	
+								
+				int qtdRegistro  = getRegistrosDuplicados(usuario.getEmail());				
+				
+				if(qtdRegistro==0) {
 
-				usuario.setSenha(Utils.gerarTokenRandomico());
-
-				Date data = DataUtils.converterDataTimeZone();
-
-				usuario.setDataCadastro(data);
-
-				emService.getEntityManager().persist(usuario);
+					usuario.setSenha(Utils.gerarTokenRandomico());
+	
+					Date data = DataUtils.converterDataTimeZone();
+	
+					usuario.setDataCadastro(data);
+	
+					emService.getEntityManager().persist(usuario);
+				}else {
+					
+					throw new RegistroDuplicadoException();
+				}
 
 			} else {
 
@@ -57,6 +66,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		}
 
+	}
+	
+	private int getRegistrosDuplicados(String email) {
+		
+		int qtdRegistro = emService.getEntityManager().createNamedQuery("Usuario.findUserByEmail")
+				.setParameter("email", email.toLowerCase()).getResultList().size();
+		
+		return qtdRegistro;
 	}
 
 	@Override
@@ -156,6 +173,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		emService.getEntityManager().merge(usuario);
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> buscarEmailsByTipo(EnumPermissao tipoPermissao) {
+		
+		List<String> emails;
+		
+		emails = emService.getEntityManager().createNamedQuery("Usuario.findEmailsByTipo")
+				.setParameter("permissao", tipoPermissao.getCodigo().longValue()).getResultList();
+				
+		return emails==null?new ArrayList<String>():emails;
 	}
 
 }

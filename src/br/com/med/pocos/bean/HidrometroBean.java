@@ -21,7 +21,7 @@ import br.com.med.pocos.util.Utils;
 
 @ManagedBean(name = "hidrometroBean")
 @ViewScoped
-public class HidrometroBean implements Serializable {
+public class HidrometroBean extends GenericBean implements Serializable {
 
 	private static final long serialVersionUID = -603503157967797802L;
 
@@ -47,7 +47,7 @@ public class HidrometroBean implements Serializable {
 	public void novo() {
 
 		hidrometro = new Hidrometro();
-		hidrometro.setAtivo(true);
+		
 
 	}
 
@@ -79,10 +79,16 @@ public class HidrometroBean implements Serializable {
 
 			getListarAtivos();
 
-		}catch(RegistroDuplicadoException rd) {
+		}catch(RegistroDuplicadoException e) {
 			
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.duplicado"));
-		
+			Utils.addMessageAviso(e.getMessage());
+			log.error(e.getMessage());			
+		}catch(Exception e) {
+			
+			Utils.addMessageException(Utils.getMensagem(MSG_SAVE_ERRO));
+			log.error(e.getMessage());
+			enviarEmailErro(e.getMessage());
+			
 		} finally {
 			
 			novo();
@@ -99,7 +105,7 @@ public class HidrometroBean implements Serializable {
 
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+			Utils.addMessageAviso(Utils.getMensagem(MSG_LISTAGEM_ERRO));
 		}
 
 	}
@@ -112,20 +118,18 @@ public class HidrometroBean implements Serializable {
 
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+			Utils.addMessageAviso(Utils.getMensagem(MSG_LISTAGEM_ERRO));
 		}
 
 	}
 
 	public void filtrar() {
 
-		 hidrometros = (List<Hidrometro>) hidrometroService.listar(hidrometro);
-
-		//hidrometros = (List<Hidrometro>) hidrometroService.listarAtivos();
+		 hidrometros = (List<Hidrometro>) hidrometroService.listar(hidrometro);		
 
 	}
 
-	public void excluir(ActionEvent actionEvent) {
+	public void excluir(ActionEvent actionEvent) throws Exception {
 
 		try {
 
@@ -137,7 +141,9 @@ public class HidrometroBean implements Serializable {
 
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
+			Utils.addMessageException(Utils.getMensagem(MSG_EXCLUIDO_ERRO));
+			log.error(e.getMessage());
+			enviarEmailErro(e.getMessage());
 
 		}
 	}

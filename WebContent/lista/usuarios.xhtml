@@ -68,7 +68,7 @@
 
 				
 				<p:commandLink class="btn btn-success btn-lg btn-block"
-					update=":formNovo:usuarioNovo" immediate="true"
+					update=":formNovo:usuarioNovo" immediate="false"
 					oncomplete="PF('usuarioDialogNovo').show()"
 					action="#{usuarioBean.novo}">
 
@@ -120,6 +120,16 @@
 				filterStyle="width:200px" width="200px" sortBy="#{usuario.nome}">
 				<div align="center">
 					<h:outputText value="#{usuario.nome}"
+						style="display:inline-block" />
+				</div>
+
+			</p:column>	
+			
+			<p:column filterBy="#{usuario.sobrenome}" headerText="Sobrenome"
+				style="width:200px" filterMatchMode="contains"
+				filterStyle="width:200px" width="200px" sortBy="#{usuario.sobrenome}">
+				<div align="center">
+					<h:outputText value="#{usuario.sobrenome}"
 						style="display:inline-block" />
 				</div>
 

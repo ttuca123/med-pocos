@@ -51,7 +51,7 @@
 							<div class="col-sm-4">
 								<p:selectBooleanCheckbox id="status"
 									value="#{responsavelBean.responsavel.ativo}" title="Ativo?"
-									immediate="true" tabindex="1">
+									 tabindex="1">
 									<f:ajax render="formResponsaveis:painel"></f:ajax>
 								</p:selectBooleanCheckbox>
 
@@ -69,7 +69,7 @@
 							<div class="col-sm-4">
 								<p:selectBooleanCheckbox id="proprietario" 
 									value="#{responsavelBean.responsavel.proprietario}"
-									title="Proprietário?" immediate="true" tabindex="1">
+									title="Proprietário?"  tabindex="1">
 									<f:ajax render="formResponsaveis:painel"></f:ajax>
 								</p:selectBooleanCheckbox>
 								
@@ -83,9 +83,9 @@
 								<b><h:outputText value="Todos?" style="font-family: 'Montserrat', 'sans-serif'"/> </b>
 							</div>
 							<div class="col-sm-4">
-								<p:selectBooleanCheckbox id="todos"
+								<p:selectBooleanCheckbox id="todos" 
 									value="#{responsavelBean.todos}" title="Ativo?"
-									immediate="true" tabindex="1">
+									tabindex="1">
 									<f:ajax render="formResponsaveis:painel"></f:ajax>
 								</p:selectBooleanCheckbox>
 
@@ -104,7 +104,7 @@
 				<p:separator style="border-color: white;"></p:separator>
 				<p:commandLink id="btnFilter"
 					class="btn btn-primary btn-lg btn-block"
-					update=":formExibir:tblResponsaveis" immediate="true"
+					update=":formExibir" 
 					actionListener="#{responsavelBean.filtrar}">
 
 					<b><h:outputText value="Buscar" /> </b>
@@ -178,16 +178,7 @@
 						<f:converter for="cpf" converterId="converter.CpfConverter" />
 					</h:outputText>
 				</div>
-			</p:column>
-
-			<p:column headerText="Email" filterBy="#{responsavel.email}" 
-				style="width:400px font-family: 'Montserrat', 'sans-serif'" filterMatchMode="contains"
-				filterStyle="width:400px" width="400px"
-				sortBy="#{responsavel.email}" >
-				<div align="center">
-					<h:outputText value="#{responsavel.email}" style="font-family: 'Montserrat', 'sans-serif'"/>
-				</div>
-			</p:column>
+			</p:column>		
 
 			<p:column headerText="Data de Cadastro" style="width:100px">
 				<div align="center">

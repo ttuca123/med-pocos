@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -30,7 +28,7 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 	private CriteriaBuilder criteriaBuilder;
 
 	private Root<Empreendimento> rootEmpreendimento;
-
+	
 	@EJB
 	public EntityManagerService emService;
 
@@ -41,38 +39,28 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 	public void salvar(Object object) throws Exception {
 
 		Empreendimento empreendimento = (Empreendimento) object;
+		Responsavel responsavel = empreendimento.getResponsavel();
 
-		if (empreendimento != null) {
+		if (responsavel.getSeqResponsavel() != null) {
 
-			Responsavel responsavel = empreendimento.getResponsavel();
+			empreendimento.setResponsavel(responsavel);
 
-			if (responsavel.getSeqResponsavel() != null) {
-				
-				empreendimento.setResponsavel(responsavel);
-
-				emService.getEntityManager().detach(responsavel);
-			}
-
-			if (empreendimento.getSeqEmpreendimento() == null) {
-
-				Date data = DataUtils.converterDataTimeZone();
-
-				empreendimento.setDataCadastro(data);
-
-				emService.getEntityManager().persist(object);
-
-			} else {
-				editar(empreendimento);
-
-			}
-		} else {
-			throw new Exception();
+			emService.getEntityManager().detach(responsavel);
 		}
-	}
 
-	private void editar(Empreendimento empreendimento) {
+		if (empreendimento.getSeqEmpreendimento() == null) {
 
-		emService.getEntityManager().merge(empreendimento);
+			Date data = DataUtils.converterDataTimeZone();
+
+			empreendimento.setDataCadastro(data);
+			
+			empreendimento.setAtivo(true);
+
+			emService.getEntityManager().persist(object);
+
+		} else {
+			emService.getEntityManager().merge(empreendimento);
+		}
 
 	}
 
@@ -85,35 +73,23 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 	@Override
 	public void deletar(Object object) {
 
-		try {
+		Empreendimento empreendimento = (Empreendimento) object;
 
-			Empreendimento empreendimento = (Empreendimento) object;
+		Date data = DataUtils.converterDataTimeZone();
 
-			Date data = DataUtils.converterDataTimeZone();
+		empreendimento.setDataEncerramento(data);
 
-			empreendimento.setDataEncerramento(data);
+		emService.getEntityManager().merge(empreendimento);
 
-			emService.getEntityManager().merge(empreendimento);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Empreendimento> listar() {
-		List<Empreendimento> empreendimentos;
+		List<Empreendimento> empreendimentos = new ArrayList<Empreendimento>();
 
-		try {
-			empreendimentos = emService.getEntityManager().createNamedQuery("Empreendimento.buscaAllEmpreendimentos")
-					.getResultList();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			empreendimentos = new ArrayList<Empreendimento>();
-		}
+		empreendimentos = emService.getEntityManager().createNamedQuery("Empreendimento.buscaAllEmpreendimentos")
+				.getResultList();
 
 		return empreendimentos;
 	}
@@ -222,15 +198,8 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 
 		List<Hidrometro> hidrometros;
 
-		try {
-			hidrometros = emService.getEntityManager()
-					.createNamedQuery("Hidrometro.buscaHidrometrosByEmpreendimento")					
-					.setParameter("seqEmpreendimento", empreendimento.getSeqEmpreendimento()).getResultList();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			hidrometros = new ArrayList<Hidrometro>();
-		}
+		hidrometros = emService.getEntityManager().createNamedQuery("Hidrometro.buscaHidrometrosByEmpreendimento")
+				.setParameter("seqEmpreendimento", empreendimento.getSeqEmpreendimento()).getResultList();
 
 		return hidrometros;
 	}

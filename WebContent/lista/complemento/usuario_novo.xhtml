@@ -25,11 +25,12 @@
 	<p:dialog header="Novo Usuário" widgetVar="usuarioDialogNovo"
 			modal="true" hideEffect="explode" showEffect="bounce"
 			closeOnEscape="true" maximizable="true" id="dialogCadastrar" 
-			resizable="true">
+			resizable="true" width="50%"
+			height="60%">
 
 
 			<p:outputPanel id="usuarioNovo" 
-				style="text-align:center; width:600px;">
+				style="text-align:center;">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
@@ -45,7 +46,7 @@
 				
 
 				<div class="form-group row">
-					<label for="example-text-input" class="col-2 col-form-label">Sobrenome</label>
+					<label for="example-text-input" class="col-2 col-form-label">Sobrenome </label>
 					<div class="col-10">
 						<p:inputText id="sobrenome" class="form-control"
 							required="true"
@@ -86,11 +87,12 @@
 				
 				
 				<div class="form-group row">
-					<label for="phone" class="col-2 col-form-label">Permissões</label>
+					<label for="phone" class="col-5 col-form-label">Permissões</label>
 					
 					<p:selectManyCheckbox id="lstPermissao" value="#{usuarioBean.permissoes}" layout="grid" columns="2" >
         				 <f:selectItem itemLabel="Administrador" itemValue="1" />
        					 <f:selectItem itemLabel="Responsável" itemValue="2" />   
+       					 <f:selectItem itemLabel="Suporte" itemValue="3" />
     				</p:selectManyCheckbox>			
 					
 					
@@ -99,8 +101,8 @@
 
 				<p:separator />			
 
-				<p:commandLink class="btn btn-success btn-lg btn-block" value="Save"
-					action="#{usuarioBean.salvar}" 
+				<p:commandLink class="btn btn-success btn-lg btn-block" value="Salvar"
+					action="#{usuarioBean.salvarNovo}" 
 					update="messages2, formExibir" icon="ui-icon-disk" />
 
 				<p:growl id="messages2" />

@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.TransferEvent;
@@ -25,32 +23,32 @@ import br.com.med.pocos.util.Utils;
 
 @ManagedBean(name = "empreendimentoBean")
 @ViewScoped
-public class EmpreendimentoBean implements Serializable {
+public class EmpreendimentoBean extends GenericBean implements Serializable {
 
 	private static final long serialVersionUID = -7436327849003146777L;
-
-	private DualListModel<Hidrometro> hidrometros;
-
-	private List<Hidrometro> hidrometrosSelecionados;
-
-	private List<Hidrometro> hidrometrosNaoSelecionados;
-
-	private Empreendimento empreendimento;
-
-	@ManagedProperty(value = "#{empreendimentos}")
-	private List<Empreendimento> empreendimentos = new ArrayList<Empreendimento>();
-
-	private List<Empreendimento> filteredEmprendimentos;
-
-	private List<Hidrometro> filteredHidrometros;
-
-	private boolean escolhaCpfCnpj;
 
 	@EJB
 	private EmpreendimentoService empreendimentoService;
 
 	@EJB
 	private HidrometroService hidrometroService;
+	
+	@ManagedProperty(value = "#{empreendimentos}")
+	private List<Empreendimento> empreendimentos = new ArrayList<Empreendimento>();
+	
+	private DualListModel<Hidrometro> hidrometros;
+
+	private List<Hidrometro> hidrometrosSelecionados;
+
+	private List<Hidrometro> hidrometrosNaoSelecionados;
+
+	private List<Empreendimento> filteredEmprendimentos;
+
+	private List<Hidrometro> filteredHidrometros;
+	
+	private Empreendimento empreendimento;
+
+	private boolean escolhaCpfCnpj;
 
 	@PostConstruct
 	public void inicializar() {
@@ -60,10 +58,8 @@ public class EmpreendimentoBean implements Serializable {
 
 	public void novo() {
 
-		empreendimento = new Empreendimento();
-
-		empreendimento.setAtivo(true);
-
+		empreendimento = new Empreendimento();	
+		
 	}
 
 	public int getTotal() {
@@ -77,13 +73,13 @@ public class EmpreendimentoBean implements Serializable {
 		}
 
 	}
-	
+
 	public int getTotalHidrometros() {
 
-		if (empreendimento !=null && empreendimento.getLstHidrometros() != null) {
+		if (empreendimento != null && empreendimento.getLstHidrometros() != null) {
 
 			return empreendimento.getLstHidrometros().size();
-			
+
 		} else {
 
 			return 0;
@@ -103,58 +99,78 @@ public class EmpreendimentoBean implements Serializable {
 		}
 	}
 
-	public void salvar() {
+	public void salvar() throws Exception {
 
 		try {
-
+			
 			empreendimentoService.salvar(empreendimento);
 
 			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
 
 			getListar();
 		} catch (Exception e) {
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
+			Utils.addMessageException(Utils.getMensagem(MSG_SAVE_ERRO));
+			log.error(e.getMessage());
+			enviarEmailErro(e.getMessage());
 		} finally {
 			novo();
 		}
 
 	}
 
-	public void salvarHidrometros() {
+	public void salvarHidrometros() throws Exception {
 
 		hidrometrosSelecionados = hidrometros.getTarget();
 
 		hidrometrosNaoSelecionados = hidrometros.getSource();
 
 		try {
-			for (Hidrometro hidrometro : hidrometrosNaoSelecionados) {
+			
+			salvarHidrometrosNaoSelecionados();
+			
+			salvarHidrometrosSelecionados();
 
-				if (hidrometro.getEmpreendimento() != null) {
-
-					hidrometro.setEmpreendimento(null);
-
-					hidrometroService.salvar(hidrometro);
-
-				}
-			}
-
-			for (Hidrometro hidrometro : hidrometrosSelecionados) {
-
-				if (hidrometro.getEmpreendimento() == null) {
-
-					hidrometro.setEmpreendimento(empreendimento);
-
-					hidrometroService.salvar(hidrometro);
-
-				}
-			}
-
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.sucesso"));
+			Utils.addMessage(Utils.getMensagem(MSG_SAVE_SUCESSO));
 
 		} catch (Exception e) {
-			Utils.addMessage(Utils.getMensagem("page.cadastro.salvar.erro"));
+			
+			Utils.addMessageException(Utils.getMensagem(MSG_SAVE_ERRO));
+			log.error(e.getMessage());
+			enviarEmailErro(e.getMessage());
+			
 		}
 
+	}
+	
+	
+	private void salvarHidrometrosSelecionados() throws Exception {
+		
+		for (Hidrometro hidrometro : hidrometrosSelecionados) {
+
+			if (hidrometro.getEmpreendimento() == null) {
+
+				hidrometro.setEmpreendimento(empreendimento);
+
+				hidrometroService.salvar(hidrometro);
+
+			}
+		}
+		
+	}
+	
+	private void salvarHidrometrosNaoSelecionados() throws Exception {
+		
+		for (Hidrometro hidrometro : hidrometrosNaoSelecionados) {
+
+			if (hidrometro.getEmpreendimento() != null) {
+
+				hidrometro.setEmpreendimento(null);
+
+				hidrometroService.salvar(hidrometro);
+
+			}
+		}
+		
 	}
 
 	public void getListar() {
@@ -165,7 +181,7 @@ public class EmpreendimentoBean implements Serializable {
 
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.listar.erro"));
+			Utils.addMessageAviso(Utils.getMensagem(MSG_LISTAGEM_ERRO));
 		}
 
 	}
@@ -176,7 +192,7 @@ public class EmpreendimentoBean implements Serializable {
 
 	}
 
-	public void excluir(ActionEvent actionEvent) {
+	public void excluir(ActionEvent actionEvent) throws Exception {
 
 		try {
 
@@ -188,15 +204,17 @@ public class EmpreendimentoBean implements Serializable {
 
 		} catch (Exception e) {
 
-			Utils.addMessageException(Utils.getMensagem("page.cadastro.excluir.erro"));
+			Utils.addMessageException(Utils.getMensagem(MSG_EXCLUIDO_ERRO));
+			log.error(e.getMessage());
+			enviarEmailErro(e.getMessage());
 
 		}
 	}
 
 	public void onTransfer(TransferEvent event) {
-		
+
 		hidrometrosSelecionados = hidrometros.getTarget();
-		
+
 		empreendimento.setLstHidrometros(hidrometrosSelecionados);
 	}
 

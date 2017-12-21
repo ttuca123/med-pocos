@@ -54,7 +54,7 @@ public class Responsavel implements Serializable {
 	@Column(name = "cpf", length=11, nullable=false, unique = true )
 	private String cpf;
 
-	@Column(name = "email", length=36, nullable = true, unique=true)
+	@Column(name = "email", length=36, nullable = false, unique=true)
 	private String email;
 	
 	@Column(name = "celular", length=12, nullable=false)

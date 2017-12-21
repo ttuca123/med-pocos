@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum EnumPermissao {
 
-	ADMIN(1, "Administrador"), RESPONSAVEL(2, "Responsável");
+	ADMIN(1, "Administrador"), RESPONSAVEL(2, "Responsável"), SUPORTE(3, "Suporte");
 
 	private Integer codigo;
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -30,11 +31,9 @@ import br.com.med.pocos.enu.EnumTipoEmpreendimento;
  */
 
 @NamedQueries(value = {
-		@NamedQuery(name = "Empreendimento.buscaAllEmpreendimentos", query = "select e from Empreendimento e ORDER BY e.nomeFantasia asc "),
-		// @NamedQuery(name = "Empreendimento.buscaAllHidrometrosByEmpreendimento",
-		// query = "select e from Empreendimento e inner join fetch e.lstHidrometros
-		// where e.seqEmpreendimento = :seqEmpreendimento")
+		@NamedQuery(name = "Empreendimento.buscaAllEmpreendimentos", query = "select e from Empreendimento e ORDER BY e.nomeFantasia asc ")		
 })
+@Cacheable
 @Entity
 @Table(name = "empreendimento")
 public class Empreendimento implements Serializable {

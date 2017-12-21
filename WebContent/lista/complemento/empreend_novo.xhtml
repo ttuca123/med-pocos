@@ -26,13 +26,13 @@
 
 	<h:form id="formNovo">
 
-		<p:dialog header="Novo Emprendimento" height="500px"
-			widgetVar="empreendimentoDialogNovo" modal="true"
-			hideEffect="explode" showEffect="bounce" closeOnEscape="true"
-			maximizable="true" id="dialogCadastrar" resizable="true">
+		<p:dialog header="Novo Emprendimento" widgetVar="empreendimentoDialogNovo" modal="true"
+			hideEffect="explode" showEffect="bounce" closeOnEscape="true"  responsive="true"
+			maximizable="true" id="dialogCadastrar" resizable="true" width="70%"
+			height="500px">
 
 			<p:outputPanel id="empreendimentoCpfCnpj"
-				style="text-align:center; width:700px; ">
+				style="text-align:center;">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Escolha</label>
@@ -72,13 +72,14 @@
 			</p:outputPanel>
 			
 			<p:outputPanel id="empreendimentoNovo"
-				style="text-align:center; width:700px;">
+				style="text-align:center;" width="70%"
+			height="50%"> 
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Responsável</label>
 					<div class="col-10">
 						<h:selectOneMenu id="lstResponsaveis"
-							value="#{empreendimentoBean.empreendimento.responsavel}"
+							value="#{empreendimentoBean.empreendimento.responsavel}" required="true" requiredMessage="Por favor, selecione um responsável"
 							class="form-control" converter="converter.ResponsavelConverter"
 							style="font-family: 'Montserrat', 'sans-serif'" immediate="true">
 
@@ -177,7 +178,8 @@
 					</div>
 				</div>
 
-				<p:outputPanel rendered="true">
+				<p:outputPanel  width="70%"
+					height="50%">
 
 					<div class="form-group row">
 						<label for="example-text-input" class="col-2 col-form-label">Logradouro</label>
@@ -228,7 +230,7 @@
 					update="messages2, formExibir" icon="ui-icon-disk" />
 
 				<p:growl id="messages2" />
-			</p:outputPanel>
+			</p:outputPanel>		
 
 		</p:dialog>
 

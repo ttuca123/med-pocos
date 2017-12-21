@@ -7,13 +7,11 @@ import javax.ejb.Remote;
 import br.com.med.pocos.model.Responsavel;
 
 @Remote
-public interface ResponsavelService extends GenericService {
-
-	public boolean verificarPropriedadeResponsavel(Responsavel responsavel, String nomeEmpreedimento);
+public interface ResponsavelService extends GenericService {	
 	
 	public List<Responsavel> listar();
 	
-	public List<Responsavel> listar(Object object);
-	
+	public List<Responsavel> listar(Object object);	
+
 	public List<Responsavel> listarResponsaveisAtivos();
 }

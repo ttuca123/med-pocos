@@ -24,11 +24,12 @@
 
 		<p:dialog header="Editar Usuário" widgetVar="usuarioDetail" modal="true"
 			hideEffect="explode" showEffect="bounce" closeOnEscape="true"
-			maximizable="true" id="dialogEditar" resizable="true">
+			maximizable="true" id="dialogEditar" resizable="true" width="50%"
+			height="70%">
 
 
 			<p:outputPanel id="usuarioEditar"
-				style="text-align:center; width:600px;">
+				style="text-align:center;">
 
 				<div class="form-group row">
 					<label for="example-text-input" class="col-2 col-form-label">Nome</label>
@@ -133,10 +134,11 @@
 	
 		<p:dialog header="Editar Permissões" widgetVar="permissoesDetail" modal="true"
 				hideEffect="explode" showEffect="bounce" closeOnEscape="true"
-				maximizable="true" id="dialogPermissoes" resizable="true">
+				maximizable="true" id="dialogPermissoes" resizable="true" width="50%"
+			height="90%">
 	
 				<p:outputPanel id="permissaoEditar"
-					style="text-align:center; width:600px;">
+					style="text-align:center;" >
 					
 					<div class="form-group row">
 						<label for="phone" class="col-2 col-form-label">Permissões</label>
@@ -145,6 +147,7 @@
 								value="#{usuarioBean.permissoes}" >
 								<f:selectItem itemLabel="Administrador" itemValue="1" />
 								<f:selectItem itemLabel="Responsável" itemValue="2" />
+								<f:selectItem itemLabel="Suporte" itemValue="3" />
 							</p:selectManyCheckbox>
 						</div>
 					</div>
@@ -152,7 +155,7 @@
 					<p:separator />
 	
 					<p:commandLink class="btn btn-success btn-lg btn-block" value="Salvar Permissões"
-						action="#{usuarioBean.salvarPermissoes}" update="messages3, form:usuarioEditar"
+						action="#{usuarioBean.alterarPermissoes}" update="messages3, form:usuarioEditar"
 						onclick="PF('permissoesDetail').hide()"	immediate="false" 
 						icon="ui-icon-disk" />
 					
