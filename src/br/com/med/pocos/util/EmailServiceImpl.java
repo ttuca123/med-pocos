@@ -16,8 +16,12 @@ import com.sendgrid.SendGrid;
 @Stateless(name = "EmailService")
 public class EmailServiceImpl implements EmailService {
 
+
 	final String EMAIL_INSTITUCIONAL = "medicao.outorga@medpocos.com.br";
 	final String API_KEY = "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";
+
+	
+	
 
 	private Email remetente;
 
