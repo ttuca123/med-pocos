@@ -40,6 +40,7 @@ br\com\med\pocos\bean\LoginBean.class
 br\com\med\pocos\exception\RegistroDuplicadoException.class
 br\com\med\pocos\converter\CnpjConverter.class
 br\com\med\pocos\services\UsuarioService.class
+br\com\med\pocos\bean\GenericBean.class
 br\com\med\pocos\services\GenericService.class
 br\com\med\pocos\converter\CepConverter.class
 br\com\med\pocos\model\Empresa_.class

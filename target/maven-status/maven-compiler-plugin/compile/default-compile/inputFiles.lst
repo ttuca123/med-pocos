@@ -60,6 +60,7 @@ D:\workspace-web\med-pocos\src\br\com\med\pocos\enu\EnumTipoHidrometro.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\services\ResponsavelServiceImpl.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\util\DataUtils.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\GrausConverter.java
+D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\GenericBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\bean\EmpreendimentoBean.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\converter\CepConverter.java
 D:\workspace-web\med-pocos\src\br\com\med\pocos\model\Permissao.java
