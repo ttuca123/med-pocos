@@ -1,4 +1,4 @@
-package br.com.med.pocos.util;
+package br.com.med.pocos.services;
 
 import java.io.IOException;
 import java.util.List;

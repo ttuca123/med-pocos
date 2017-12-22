@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import br.com.med.pocos.exception.RegistroDuplicadoException;
 import br.com.med.pocos.model.Permissao;
 import br.com.med.pocos.model.Regra;
-import br.com.med.pocos.util.EmailService;
 
 /**
  * Class responsável pelo gerenciamento de usuários do sistema

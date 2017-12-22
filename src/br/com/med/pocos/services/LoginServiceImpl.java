@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import br.com.med.pocos.exception.UsuarioNaoEncontradoException;
 import br.com.med.pocos.model.Usuario;
-import br.com.med.pocos.util.EmailService;
 import br.com.med.pocos.util.Utils;
 
 /**

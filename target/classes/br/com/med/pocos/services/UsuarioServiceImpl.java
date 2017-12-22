@@ -14,7 +14,6 @@ import br.com.med.pocos.model.Permissao;
 import br.com.med.pocos.model.Regra;
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.util.DataUtils;
-import br.com.med.pocos.util.EmailService;
 import br.com.med.pocos.util.Utils;
 
 /**

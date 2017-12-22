@@ -10,8 +10,8 @@ import javax.ejb.EJB;
 import org.apache.commons.logging.impl.Log4JLogger;
 
 import br.com.med.pocos.enu.EnumPermissao;
+import br.com.med.pocos.services.EmailService;
 import br.com.med.pocos.services.UsuarioService;
-import br.com.med.pocos.util.EmailService;
 
 public class GenericBean {
 	
