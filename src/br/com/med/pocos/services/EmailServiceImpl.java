@@ -3,6 +3,7 @@ package br.com.med.pocos.services;
 import java.io.IOException;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.sendgrid.Content;
@@ -13,17 +14,15 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 
+import br.com.med.pocos.model.ParametroGeral;
+
 @Stateless(name = "EmailService")
 public class EmailServiceImpl implements EmailService {
-
-
-	final String EMAIL_INSTITUCIONAL = "medicao.outorga@medpocos.com.br";
-	final String API_KEY = "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";
-
 	
+	@EJB
+	public EntityManagerService emService;
 	
-
-	private Email remetente;
+	private Email remetenteMail;
 
 	private Email destinatario;
 
@@ -33,13 +32,19 @@ public class EmailServiceImpl implements EmailService {
 
 	private Content conteudo;
 
-	Mail mail;
+	private Mail emailFinal;
 
 	public void preparar() throws IOException {
+		
+		ParametroGeral remetente = (ParametroGeral) emService.getEntityManager().createQuery("SELECT P  FROM ParametroGeral P WHERE chave = :chave")
+				.setParameter("chave", "email_institucional").getSingleResult();
+		
+		ParametroGeral api_key = (ParametroGeral) emService.getEntityManager().createQuery("SELECT P  FROM ParametroGeral P WHERE chave = :chave")
+				.setParameter("chave", "token_email").getSingleResult();
+		
+		remetenteMail = new Email(remetente.getValor());
 
-		remetente = new Email(EMAIL_INSTITUCIONAL);
-
-		sg = new SendGrid(API_KEY);
+		sg = new SendGrid(api_key.getValor());
 	}
 
 	@Override
@@ -54,16 +59,13 @@ public class EmailServiceImpl implements EmailService {
 
 			conteudo = new Content("text/plain", msgEmail);
 
-			mail = new Mail(remetente, titulo, destinatario, conteudo);			
+			emailFinal = new Mail(remetenteMail, titulo, destinatario, conteudo);			
 			
 			try {
 				request.setMethod(Method.POST);
 				request.setEndpoint("mail/send");
-				request.setBody(mail.build());
-				Response response = sg.api(request);
-				System.out.println(response.getStatusCode());
-				System.out.println(response.getBody());
-				System.out.println(response.getHeaders());
+				request.setBody(emailFinal.build());
+				sg.api(request);				
 			} catch (IOException ex) {
 				throw ex;
 			}

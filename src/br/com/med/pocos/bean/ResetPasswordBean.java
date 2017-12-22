@@ -16,7 +16,7 @@ import br.com.med.pocos.util.Utils;
 
 @ManagedBean(name = "resetPasswordBean")
 @ViewScoped
-public class ResetPasswordBean implements Serializable {
+public class ResetPasswordBean extends GenericBean implements Serializable {
 
 	private static final long serialVersionUID = 2813099750794133367L;
 
