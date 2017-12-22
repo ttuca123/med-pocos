@@ -36,7 +36,7 @@ public class PermissaoServiceImpl implements PermissaoService {
 	}
 
 	@Override
-	public Object getObject(Long seqId) {
+	public Permissao getObject(Long seqId) {
 		// TODO Auto-generated method stub
 		return emService.getEntityManager().find(Permissao.class, seqId);
 	}

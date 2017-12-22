@@ -65,7 +65,7 @@ public class EmpreendimentoServiceImpl implements EmpreendimentoService {
 	}
 
 	@Override
-	public Object getObject(Long seqId) {
+	public Empreendimento getObject(Long seqId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

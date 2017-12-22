@@ -51,7 +51,7 @@ public class PocoServiceImpl implements PocoService {
 	}
 
 	@Override
-	public Object getObject(Long seqId) {
+	public Poco getObject(Long seqId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

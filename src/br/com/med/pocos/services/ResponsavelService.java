@@ -14,4 +14,6 @@ public interface ResponsavelService extends GenericService {
 	public List<Responsavel> listar(Object object);	
 
 	public List<Responsavel> listarResponsaveisAtivos();
+	
+	public Responsavel getObject(Long seqId);
 }

@@ -57,7 +57,7 @@ public class ResponsavelServiceImpl implements ResponsavelService {
 	}	
 
 	@Override
-	public Object getObject(Long seqId) {
+	public Responsavel getObject(Long seqId) {
 
 		Responsavel responsavel = null;
 		

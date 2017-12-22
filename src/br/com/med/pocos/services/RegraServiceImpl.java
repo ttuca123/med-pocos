@@ -78,7 +78,7 @@ public class RegraServiceImpl implements RegraService {
 	}
 
 	@Override
-	public Object getObject(Long seqId) {
+	public Regra getObject(Long seqId) {
 		// TODO Auto-generated method stub
 		return emService.getEntityManager().getReference(Regra.class, seqId);
 	}

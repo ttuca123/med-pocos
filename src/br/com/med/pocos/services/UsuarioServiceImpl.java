@@ -76,7 +76,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Object getObject(Long seqId) {
+	public Usuario getObject(Long seqId) {
 
 		return emService.getEntityManager().getReference(Usuario.class, seqId);
 

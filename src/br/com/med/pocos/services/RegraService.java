@@ -10,4 +10,6 @@ public interface RegraService extends GenericService{
 	public void atribuirRegra(Regra regra);
 
 	public void excluirRegra(Regra regra);
+	
+	public Regra getObject(Long seqId);
 }

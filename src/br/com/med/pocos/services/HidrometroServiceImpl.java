@@ -63,7 +63,7 @@ public class HidrometroServiceImpl implements HidrometroService {
 	
 
 	@Override
-	public Object getObject(Long seqId) {
+	public Hidrometro getObject(Long seqId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

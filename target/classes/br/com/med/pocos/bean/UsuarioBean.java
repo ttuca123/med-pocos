@@ -19,6 +19,7 @@ import br.com.med.pocos.model.Regra;
 import br.com.med.pocos.model.Usuario;
 import br.com.med.pocos.services.LoginService;
 import br.com.med.pocos.services.PermissaoService;
+import br.com.med.pocos.services.UsuarioService;
 import br.com.med.pocos.util.Utils;
 
 /**
@@ -71,16 +72,26 @@ public class UsuarioBean extends GenericBean implements Serializable {
 
 		salvar();
 	}
+	
+	
+	public String salvarUsuario(UsuarioService usuarioService) throws Exception {
+		
+		usuarioService.salvar(usuario);
 
+		return Utils.getMensagem(MSG_SAVE_SUCESSO);
+		
+			
+	}
+	
 	public void salvar() throws Exception {
 
 		try {
+			
+			String msgSucesso = salvarUsuario(usuarioService);
 
-			usuarioService.salvar(usuario);
-
-			Utils.addMessage(Utils.getMensagem(MSG_SAVE_SUCESSO));
-
-			enviarEmailNovoCadastro();
+			Utils.addMessage(msgSucesso);	
+			
+			enviarEmailNovoCadastro(loginService);
 
 			getListarTodos();
 
@@ -128,27 +139,29 @@ public class UsuarioBean extends GenericBean implements Serializable {
 
 		usuario.getRegras().clear();
 
-		atribuirPermissao();
+		usuario.setRegras(atribuirPermissao(this.permissaoService));
 
 	}
 
-	public void atribuirPermissao() {
+	public List<Regra> atribuirPermissao(PermissaoService permissaoService) {
 
 		List<Regra> regras = new ArrayList<Regra>();
 
-		for (String permissao : permissoes) {
+		for (String permissao : this.getPermissoes()) {
 
-			Permissao novaPermissao = (Permissao) permissaoService.getObject(Long.parseLong(permissao));
-
-			regras.add(new Regra(usuario, novaPermissao));
-
+			Long seqPermissao = Long.parseLong(permissao);
+			
+			Permissao novaPermissao = permissaoService.getObject(seqPermissao);
+			
+			regras.add(new Regra(getUsuario(), novaPermissao));
 		}
-
-		usuario.setRegras(regras);
+		
+		return regras;
+		
 
 	}
 
-	public void enviarEmailNovoCadastro() throws UsuarioNaoEncontradoException, IOException {
+	public void enviarEmailNovoCadastro(LoginService loginService) throws UsuarioNaoEncontradoException, IOException {
 
 		if (usuario.getSeqUsuario() == null) {
 
@@ -194,7 +207,7 @@ public class UsuarioBean extends GenericBean implements Serializable {
 
 			log.error(erro);
 			
-			enviarEmailErro(e.getMessage());
+			enviarEmailErro(erro);
 
 		}
 

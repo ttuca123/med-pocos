@@ -17,5 +17,6 @@ public interface HidrometroService extends GenericService{
 	public List<Hidrometro> listar(Hidrometro hidrometro);
 	
 	public List<Hidrometro> listarSemEmpreendimentoAssociado();
-
+	
+	public Hidrometro getObject(Long seqId);
 }

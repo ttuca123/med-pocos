@@ -15,5 +15,7 @@ public interface PocoService extends GenericService {
 	public List<Poco> listarAtivos();
 
 	public List<Poco> listar(Empreendimento empreenfimento, Poco poco);
+	
+	public Poco getObject(Long seqId);
 
 }

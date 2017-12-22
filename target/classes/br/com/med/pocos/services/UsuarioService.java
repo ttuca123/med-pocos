@@ -23,4 +23,6 @@ public interface UsuarioService extends GenericService {
 	
 	public List<String> buscarEmailsByTipo(EnumPermissao tipoPermissao);
 	
+	public Usuario getObject(Long seqId);
+	
 }

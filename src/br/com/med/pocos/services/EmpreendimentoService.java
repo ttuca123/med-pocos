@@ -17,5 +17,7 @@ public interface EmpreendimentoService extends GenericService{
 	
 	public List<Hidrometro> listarHidrometrosByEmpreendimento (Empreendimento Empreendimento);
 	
+	public Empreendimento getObject(Long seqId);
+	
 
 }
