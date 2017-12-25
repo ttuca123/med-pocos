@@ -10,7 +10,6 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		 <jta-data-source>java:/med-pocos</jta-data-source> 
 		 
-
 		<properties>
 			
 			<property name="hibernate.default_schema" value="desenvolvimento" />		
@@ -19,7 +18,7 @@
 
 			<property name="hibernate.show_sql" value="true" />
 
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="none" />
 			
 			<property name="shared-cache-mode" value="ENABLE_SELECTIVE" />			 
 

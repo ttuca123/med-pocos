@@ -65,9 +65,7 @@ public class LoginServiceImpl implements LoginService {
 	private void enviarResetSenha(Usuario usuario, String token) throws UsuarioNaoEncontradoException, IOException {
 
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
-
-		String servidorRemoto = req.getLocalName();
+				.getRequest();	
 
 		String aplicacao = req.getContextPath();
 
@@ -75,11 +73,13 @@ public class LoginServiceImpl implements LoginService {
 
 		parametrosTitulo[0] = usuario.getNome();
 
-		String parametrosBody[] = new String[2];		
+		String parametrosBody[] = new String[3];		
 
-		parametrosBody[0] = aplicacao;
+		parametrosBody[0] =Utils.TipoAmbiente.getDescricao();
+		
+		parametrosBody[1] = aplicacao;
 
-		parametrosBody[1] = token;
+		parametrosBody[2] = token;
 
 		String titulo = Utils.getMensagem("page.cadastro.email.salvar.titulo.sucesso", parametrosTitulo);
 

@@ -74,7 +74,7 @@ public class UsuarioBean extends GenericBean implements Serializable {
 	}
 	
 	
-	public String salvarUsuario(UsuarioService usuarioService) throws Exception {
+	public String salvar(UsuarioService usuarioService) throws Exception {
 		
 		usuarioService.salvar(usuario);
 
@@ -87,7 +87,7 @@ public class UsuarioBean extends GenericBean implements Serializable {
 
 		try {
 			
-			String msgSucesso = salvarUsuario(usuarioService);
+			String msgSucesso = salvar(usuarioService);
 
 			Utils.addMessage(msgSucesso);	
 			
@@ -175,10 +175,8 @@ public class UsuarioBean extends GenericBean implements Serializable {
 	public void excluir(ActionEvent actionEvent) throws Exception {
 
 		try {
-
-			usuarioService.deletar(usuario);
-
-			Utils.addMessage(Utils.getMensagem(MSG_EXCLUIDO_SUCESSO));
+			
+			excluir(usuarioService);
 
 			getListarTodos();
 
@@ -191,6 +189,15 @@ public class UsuarioBean extends GenericBean implements Serializable {
 
 			enviarEmailErro(erro);
 		}
+	}
+	
+	
+	public void excluir(UsuarioService usuarioService) {
+		
+		usuarioService.deletar(usuario);
+
+		Utils.addMessage(Utils.getMensagem(MSG_EXCLUIDO_SUCESSO));
+		
 	}
 
 	public void getListarTodos() throws Exception {

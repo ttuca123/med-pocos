@@ -34,12 +34,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void salvar(Object object) throws Exception {
 
-		Usuario usuario = (Usuario) object;
-
-		usuario.setIsAtivo(true);
+		Usuario usuario = (Usuario) object;		
 
 		if (usuario != null) {
-
+			
+			usuario.setIsAtivo(true);
+			
 			if (usuario.getSeqUsuario() == null) {	
 								
 				int qtdRegistro  = getRegistrosDuplicados(usuario.getEmail());				

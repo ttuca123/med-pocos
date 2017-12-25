@@ -13,18 +13,20 @@ import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+
+import br.com.med.pocos.enu.EnumAmbiente;
 
 public class Utils {
 
+	public static final EnumAmbiente TipoAmbiente  = EnumAmbiente.TESTE;
+	
+	
+	
 	public static void addMessage(String summary) {
 
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);

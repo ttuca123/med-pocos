@@ -11,17 +11,16 @@ import com.sendgrid.Email;
 import com.sendgrid.Mail;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
-import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 
 import br.com.med.pocos.model.ParametroGeral;
 
 @Stateless(name = "EmailService")
 public class EmailServiceImpl implements EmailService {
-	
+
 	@EJB
 	public EntityManagerService emService;
-	
+
 	private Email remetenteMail;
 
 	private Email destinatario;
@@ -35,13 +34,15 @@ public class EmailServiceImpl implements EmailService {
 	private Mail emailFinal;
 
 	public void preparar() throws IOException {
-		
-		ParametroGeral remetente = (ParametroGeral) emService.getEntityManager().createQuery("SELECT P  FROM ParametroGeral P WHERE chave = :chave")
+
+		ParametroGeral remetente = (ParametroGeral) emService.getEntityManager()
+				.createQuery("SELECT P  FROM ParametroGeral P WHERE chave = :chave")
 				.setParameter("chave", "email_institucional").getSingleResult();
-		
-		ParametroGeral api_key = (ParametroGeral) emService.getEntityManager().createQuery("SELECT P  FROM ParametroGeral P WHERE chave = :chave")
+
+		ParametroGeral api_key = (ParametroGeral) emService.getEntityManager()
+				.createQuery("SELECT P  FROM ParametroGeral P WHERE chave = :chave")
 				.setParameter("chave", "token_email").getSingleResult();
-		
+
 		remetenteMail = new Email(remetente.getValor());
 
 		sg = new SendGrid(api_key.getValor());
@@ -50,8 +51,8 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public void enviarEmail(String titulo, String msgEmail, List<String> lstEmail) throws IOException {
 
-		preparar();				
-		
+		preparar();
+
 		for (String email : lstEmail) {
 			request = new Request();
 
@@ -59,16 +60,14 @@ public class EmailServiceImpl implements EmailService {
 
 			conteudo = new Content("text/plain", msgEmail);
 
-			emailFinal = new Mail(remetenteMail, titulo, destinatario, conteudo);			
+			emailFinal = new Mail(remetenteMail, titulo, destinatario, conteudo);
+
 			
-			try {
 				request.setMethod(Method.POST);
 				request.setEndpoint("mail/send");
 				request.setBody(emailFinal.build());
-				sg.api(request);				
-			} catch (IOException ex) {
-				throw ex;
-			}
+				sg.api(request);
+			
 		}
 
 	}

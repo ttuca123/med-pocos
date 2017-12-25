@@ -23,7 +23,7 @@ import br.com.med.pocos.services.PermissaoService;
 import br.com.med.pocos.services.UsuarioService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UsuarioTest {
+public class UsuarioBeanTest {
 
 	@Mock
 	private PermissaoService permissaoService;
@@ -138,7 +138,7 @@ public class UsuarioTest {
 
 			UsuarioBean usuarioBean = new UsuarioBean();
 
-			usuarioBean.salvarUsuario(usuarioService);
+			usuarioBean.salvar(usuarioService);
 		} catch (Exception e) {
 
 			condicaoExcecao = true;
@@ -147,6 +147,29 @@ public class UsuarioTest {
 		Assert.assertTrue(condicaoExcecao);
 	}
 
+	@Test
+	public void testExcluirUsuarioNulo() {
+
+		Usuario usuario = null;
+
+		boolean condicaoExcecao = false;
+
+		try {
+
+			Mockito.doThrow(new Exception()).when(usuarioService).deletar(usuario);
+
+			UsuarioBean usuarioBean = new UsuarioBean();
+
+			usuarioBean.salvar(usuarioService);
+		} catch (Exception e) {
+
+			condicaoExcecao = true;
+		}
+
+		Assert.assertTrue(condicaoExcecao);
+	}
+	
+	
 	@Test
 	public void testEnviarEmailNovoUsuarioNulo() throws UsuarioNaoEncontradoException, IOException {
 
@@ -182,5 +205,8 @@ public class UsuarioTest {
 		;
 
 	}
+	
+	
+	
 
 }
