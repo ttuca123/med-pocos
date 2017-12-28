@@ -185,10 +185,10 @@
 				<configuration>
 					<skip>false</skip>
 					<force>true</force>
-					<hostname>35.192.42.68</hostname>
-					<port>9990</port>
-					<username>manager</username>
-					<password>EFd57mC6ZJ5U</password>
+					<hostname></hostname>
+					<port></port>
+					<username></username>
+					<password></password>
 				</configuration>
 			</plugin>
 
